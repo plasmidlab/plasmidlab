@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PlasmidLab</title>
+<meta name="description" content="PlasmidLab: a plasmid map and sequence editor for Mac and Windows. Describe the construct, get the cloning plan.">
+<style>
+  body { font: 17px/1.5 system-ui, sans-serif; max-width: 640px; margin: 10vh auto; padding: 0 16px; color: #1a1a1a; background: #fff; }
+  h1 { font-size: 2.4rem; margin: 0 0 .25em; }
+  .btn { display: inline-block; padding: .8em 1.6em; border-radius: 10px; background: #1a1a1a; color: #fff; text-decoration: none; font-weight: 600; margin: 1em 0 .5em; }
+  small, .alt { color: #666; }
+  @media (prefers-color-scheme: dark) { body { color: #eee; background: #111; } .btn { background: #eee; color: #111; } }
+</style>
+</head>
+<body>
+<h1>PlasmidLab</h1>
+<p>A plasmid map and sequence editor for Mac and Windows. Describe the construct, get the cloning plan.</p>
+<p id="dl"><a class="btn" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download</a></p>
+<p class="alt" id="alt"></p>
+<script>
+// shortcut: reads the latest GitHub Release at page load; move to build time if the API rate limit ever bites.
+(async () => {
+  try {
+    const r = await fetch('https://api.github.com/repos/plasmidlab/plasmidlab/releases/latest');
+    if (!r.ok) return;
+    const rel = await r.json();
+    const dmg = rel.assets.find(a => a.name.endsWith('.dmg'));
+    const exe = rel.assets.find(a => a.name.endsWith('.exe'));
+    const mac = /Mac/.test(navigator.platform) || /Mac OS/.test(navigator.userAgent);
+    const [main, other] = mac ? [dmg, exe] : [exe, dmg];
+    if (main) document.getElementById('dl').innerHTML =
+      `<a class="btn" href="${main.browser_download_url}">Download for ${mac ? 'Mac' : 'Windows'}</a><br><small>${rel.tag_name}</small>`;
+    if (other) document.getElementById('alt').innerHTML =
+      `Also for <a href="${other.browser_download_url}">${mac ? 'Windows' : 'Mac'}</a>`;
+  } catch {}
+})();
+</script>
+</body>
+</html>
