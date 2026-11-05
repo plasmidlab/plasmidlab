@@ -2,4 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://plasmidlab.com/</loc></url>
   <url><loc>https://plasmidlab.com/privacy/</loc></url>
+  <url><loc>https://plasmidlab.com/guides/open-dna-genbank/</loc></url>
+  <url><loc>https://plasmidlab.com/guides/plasmid-map/</loc></url>
+  <url><loc>https://plasmidlab.com/guides/gibson-assembly/</loc></url>
 </urlset>
