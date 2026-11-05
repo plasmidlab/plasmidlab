@@ -1,0 +1,122 @@
+{
+  "generated": "2026-11-05T08:25:03.486Z",
+  "ai_run": "real",
+  "files": {
+    "ai-design-poster.png": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 471672,
+      "what": "Frame from the middle of the real run: the AI panel listing tool results (Finding where enzymes cut, Cutting with enzymes, Translating, Checking its own design) beside the pUC19-GFPmut3b map."
+    },
+    "ai-design.mp4": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 1759883,
+      "what": "A real agent run, sped up: the Try a Cloning Design window opens, the first exercise's two files open as tabs with its brief in the AI panel, Send, then the agent's tool calls stream in (reading sequences, finding cut sites, cutting and pasting, translating, checking its own design) and the product tab appears; the last 15 seconds run at natural speed and show the agent's written answer and the walkthrough it drew for the design it made.",
+      "duration_s": 37.5
+    },
+    "ai-panel.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 506804,
+      "what": "AI panel open on the right beside the circular map of pcDNA-DEST53, three files from the Gateway walkthrough in the sidebar; the panel's provider row (Claude Code, model, effort) at the top and the walkthrough's brief loaded in the ask box, ready to send."
+    },
+    "app-window.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 560583,
+      "what": "Hero shot: three Gateway walkthrough files open as tabs, the window split with the circular map of pcDNA-DEST53 above and the sequence view below (Cycle 3 GFP selected, translation showing), and the AI panel on the right with the walkthrough's brief typed in."
+    },
+    "enzymes.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 355265,
+      "what": "Choose Enzymes for pcDNA-DEST53: the whole commercial enzyme list on the left (cutters in bold), the 37 chosen Unique 6+ Cutters on the right, with the filter panel for cut-site count, recognition sequence and overhang underneath."
+    },
+    "gel.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 500646,
+      "what": "Simulated agarose gel of pcDNA-DEST53: six lanes (ladder, uncut supercoiled, EcoRI, HindIII+EcoRI, HindIII+EcoRI+PvuI, SpeI+NotI+AgeI+PciI) with the band list and fragment sizes on the left and the selected lane's enzymes and map on the right."
+    },
+    "icon.png": {
+      "w": 1024,
+      "h": 1024,
+      "bytes": 71197,
+      "what": "The app icon, 1024 px: a cream letter p whose bowl is a plasmid ring with one orange segment, on a dark green rounded square."
+    },
+    "icon.svg": {
+      "w": 1024,
+      "h": 1024,
+      "bytes": 26873,
+      "what": "The same icon as vector artwork (paths, no text)."
+    },
+    "map-circular.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 446692,
+      "what": "Circular map of pcDNA-DEST53 (7,767 bp) filling the window: coloured feature arrows (CMV promoter, Cycle 3 GFP, CmR, ccdB, attR1/attR2, NeoR/KanR, AmpR, ori) with the Unique 6+ Cutters enzyme set labelled around the ring; left sidebar with the open file, top toolbar, view tabs."
+    },
+    "map-linear.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 377055,
+      "what": "The same plasmid drawn as a linear map: enzyme sites with coordinates stacked above the ruler, named feature arrows below it, plasmid name and length underneath. Larger font than the other shots so the labels read at a glance."
+    },
+    "primers.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 525579,
+      "what": "The PCR window with two real primers typed in (22-mers, Tm 60/58 degC): the amplified region is highlighted on the circular map, the primers are drawn at 905..926 and 1600..1621, and the status panel reads \"Ready for PCR / Product: 717 bp\" -- the Cycle 3 GFP CDS of pcDNA-DEST53."
+    },
+    "sequence.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 242698,
+      "what": "Sequence view of pPS-T7-His-GFP with the GFPmut3b CDS selected (2001..2720, 720 bp): both strands, numbering, enzyme sites (XbaI, NheI, BamHI, MscI, NdeI), the amino-acid translation under the codons, and the RBS / ATG / 6xHis / GFPmut3b feature bars."
+    },
+    "walkthrough-poster.png": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 339577,
+      "what": "First clean frame of walkthrough.mp4: the Tutorials window on the first Golden Gate step (Promoter / CDS / Terminator / Backbone parts)."
+    },
+    "walkthrough.mp4": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 414212,
+      "what": "The Golden Gate Assembly walkthrough playing straight through in the Tutorials window: parts and backbone, the Type IIS digest, the four fragments with their overhangs, the assembly, and the finished circular product.",
+      "duration_s": 10.5
+    },
+    "walkthrough.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 406669,
+      "what": "The bench walkthrough player (Tutorials window) part way through Cut and Paste Cloning: the vector ring cut open at EcoRI and BamHI with the insert above it and the AATT / GATC overhangs lit, caption and menu path below, over the plasmid map."
+    },
+    "zoom-poster.png": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 370377,
+      "what": "First clean frame of zoom.mp4: pcDNA-DEST53's circular map at fit."
+    },
+    "zoom.mp4": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 848889,
+      "what": "A circular map zooming in on cmd-scroll from the whole plasmid to about 300%, where the feature arrows and enzyme labels are large, panning along the ring and back, then zooming out to fit. pcDNA-DEST53.",
+      "duration_s": 9
+    }
+  },
+  "notes": [
+    "Plasmids shown: pcDNA-DEST53 (7,767 bp, Gateway destination vector) in most shots; pPS-T7-His-GFP (5,872 bp) in sequence.png; pUC19-GFPmut3b + a T7 expression vector in ai-design.mp4. All ship with the app under app/public/tutorials.",
+    "ai_run is \"real\": ai-design.mp4 is an actual Claude Code run through the app's agent bridge (22 tool steps, ~$1.06, 3m20s wall clock), sped up ~8x for the first 184 s and left at natural speed for the last 15 s. Nothing in it is staged.",
+    "The brief sent in ai-design.mp4 is the walkthrough's own text plus the sentence \"Write your answer in English.\" -- this machine's agent otherwise answers in Korean. That sentence is visible in the brief bubble and in ai-design-poster.png; crop it out if it reads oddly.",
+    "No dark mode: the app has no prefers-color-scheme styles at all, so there are no -dark variants. Everything is the light appearance.",
+    "Viewport 1440x900 throughout. PNGs are 2880x1800 (deviceScaleFactor 2) except the three video posters, which are 1440x900 frames of their mp4.",
+    "ai-panel.png shows the brief before sending (chat empty but for the panel's hint). For a panel full of tool results and an answer, use ai-design-poster.png or a frame of ai-design.mp4.",
+    "map-linear.png has empty space to the left of the drawing and the font is two steps larger than the other shots; crop freely.",
+    "A zoomed circular map leaves part of the canvas empty by design (the ring grows past the window), so frames in the middle of zoom.mp4 show white on one side.",
+    "Checked: no competitor product name (SnapGene, Benchling, Geneious, ApE) appears in any captured frame, and no 'PlasmidStudio' -- the rename landed in commit 455cc14 before the final pass. No Vite overlay or focus rings; scripted focus outlines were suppressed by stylesheet."
+  ]
+}

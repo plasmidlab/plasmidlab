@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PlasmidLab</title>
+<meta name="description" content="PlasmidLab is a desktop plasmid map and sequence editor for Mac and Windows, with an AI agent that designs your cloning and plays an animated bench walkthrough of the design.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PlasmidLab">
+<meta property="og:description" content="Know every fragment before you go to the bench. A plasmid editor with an AI agent that designs the cloning and draws the walkthrough.">
+<meta property="og:url" content="https://plasmidlab.com/drafts/e2/">
+<meta property="og:image" content="https://plasmidlab.com/assets/app-window.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F3F5F7">
+<link rel="icon" href="../../assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* palette: cool neutral paper, one slate blue taken from the map */
+  --bg:#F3F5F7; --panel:#E9EDF1; --ink:#14181D; --muted:#566170; --rule:#D3D9E0;
+  --accent:#2C6A8A; --accent-hover:#235872; --sage:#6E9A86; --sand:#B79B63;
+  /* spacing scale */
+  --s25:2px; --s50:4px; --s75:8px; --s100:12px; --s200:16px; --s300:24px; --s400:32px; --s500:40px; --s600:48px; --s700:64px; --s800:80px; --s900:96px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --gutter:var(--s300);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Geist",system-ui,sans-serif;font-size:16px;line-height:24px;font-weight:400;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+img,video,svg{display:block;max-width:100%}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent-hover)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:var(--s50);border-radius:var(--s50)}
+section[id]{scroll-margin-top:var(--s800)}
+
+/* named text styles, all on the Tailwind scale */
+.h1{font-size:60px;line-height:60px;font-weight:600;letter-spacing:-.025em;text-wrap:balance}
+.h2{font-size:48px;line-height:48px;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.h3{font-size:36px;line-height:40px;font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+.h4{font-size:30px;line-height:36px;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+.h5{font-size:24px;line-height:32px;font-weight:600;text-wrap:balance}
+.h6{font-size:20px;line-height:28px;font-weight:600}
+.title-2{font-size:18px;line-height:28px;font-weight:500}
+.title-3{font-size:16px;line-height:24px;font-weight:500}
+.title-4{font-size:14px;line-height:20px;font-weight:500}
+.lead{font-size:18px;line-height:28px;font-weight:400}
+.body-3{font-size:16px;line-height:24px;font-weight:400}
+.body-5{font-size:14px;line-height:20px;font-weight:500}
+.body-6{font-size:14px;line-height:20px;font-weight:400}
+.button-md{font-size:16px;line-height:24px;font-weight:600}
+.button-sm{font-size:14px;line-height:20px;font-weight:600}
+.caption-2{font-size:14px;line-height:20px;font-weight:400}
+.caption-5{font-size:12px;line-height:16px;font-weight:400}
+.muted{color:var(--muted)}
+/* small caps section label */
+.label{font-size:16px;line-height:24px;font-weight:500;font-variant-caps:all-small-caps;letter-spacing:.08em;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+
+/* layout */
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--gutter)}
+.cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s300);row-gap:var(--s500)}
+.txt{grid-column:1/6;grid-row:1}
+.fig{grid-column:7/13;grid-row:1}
+.swap .txt{grid-column:8/13}
+.swap .fig{grid-column:1/8}
+.sec{border-top:1px solid var(--rule);padding:var(--s800) 0}
+.stack>*+*{margin-top:var(--s200)}
+.sticky{position:sticky;top:var(--s800);align-self:start}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:var(--s75);padding:var(--s75) var(--s100);border-radius:6px;border:1px solid transparent;text-decoration:none;cursor:pointer;font-family:inherit;transition:background-color .3s var(--ease),transform .5s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn-ghost:hover{background:var(--panel);color:var(--ink)}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* nav: floating, translucent */
+.nav{position:fixed;z-index:20;top:var(--s200);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:var(--s300);padding:var(--s75) var(--s75) var(--s75) var(--s100);background:rgba(243,245,247,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--rule);border-radius:12px;max-width:calc(100% - 2*var(--s200));width:max-content}
+.brand{display:flex;align-items:center;gap:var(--s75);color:var(--ink);text-decoration:none}
+.brand img{width:24px;height:24px;border-radius:6px}
+.nav ul{display:flex;gap:var(--s200);list-style:none;padding:0}
+.nav ul a{color:var(--muted);text-decoration:none;transition:color .3s var(--ease)}
+.nav ul a:hover,.nav ul a[aria-current="true"]{color:var(--ink)}
+.burger{display:none;width:40px;height:40px;border:0;background:none;cursor:pointer;position:relative;border-radius:6px}
+.burger i{position:absolute;left:12px;right:12px;height:2px;background:var(--ink);transition:transform .5s var(--ease)}
+.burger i:nth-child(1){top:15px}.burger i:nth-child(2){top:23px}
+.burger[aria-expanded="true"] i:nth-child(1){transform:translateY(4px) rotate(45deg)}
+.burger[aria-expanded="true"] i:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:15;background:rgba(243,245,247,.96);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);padding:var(--s900) var(--s200) var(--s400);display:flex;flex-direction:column;gap:var(--s200);visibility:hidden;opacity:0;transition:opacity .5s var(--ease),visibility 0s .5s}
+.menu.open{visibility:visible;opacity:1;transition:opacity .5s var(--ease)}
+.menu a{color:var(--ink);text-decoration:none;opacity:0;transform:translateY(24px);transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.menu.open a{opacity:1;transform:none;transition-delay:calc(var(--i)*60ms)}
+
+/* hero */
+.hero{padding:var(--s900) 0 var(--s700)}
+.hero .cols{align-items:start}
+.hero .txt{grid-column:1/8}
+.hero .fig{grid-column:8/13}
+.hero h1{max-width:680px;padding-bottom:var(--s50);background:linear-gradient(90deg,#000,#666);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .ln{display:block}
+.hero .lead{max-width:680px;color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s200) var(--s300)}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:var(--s300) var(--s600);padding-top:var(--s300);margin-top:var(--s500)!important;border-top:1px solid var(--rule)}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0}
+
+/* figures */
+figure{margin:0}
+figcaption{margin-top:var(--s100);color:var(--muted)}
+figcaption b{font-weight:600;color:var(--ink)}
+.shot{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+.shot img,.shot video{width:100%;height:auto;aspect-ratio:8/5;object-fit:cover;background:var(--panel)}
+.figs{display:grid;gap:var(--s400)}
+.fig3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s300)}
+
+/* plasmid map */
+.plasmid{width:100%;height:auto;overflow:visible}
+.plasmid .tick{stroke:var(--muted);stroke-width:1}
+.plasmid .tl{font-size:11px;fill:var(--muted);font-family:inherit}
+.plasmid .bb{fill:none;stroke:var(--ink);stroke-width:1.25}
+.plasmid .fa{fill:none}
+.plasmid .fh{stroke:none}
+.f-lac .fa{stroke:var(--sage)}.f-lac .fh{fill:var(--sage)}
+.f-ori .fa{stroke:var(--sand)}.f-ori .fh{fill:var(--sand)}
+.f-bla .fa{stroke:var(--accent)}.f-bla .fh{fill:var(--accent)}
+.f-mcs .fa{stroke:var(--ink)}
+.plasmid .lead{fill:none;stroke:var(--muted);stroke-width:1}
+.plasmid .ln{font-size:14px;font-weight:600;fill:var(--ink);font-family:inherit}
+.plasmid .ls{font-size:12px;fill:var(--muted);font-family:inherit;font-variant-numeric:tabular-nums}
+.plasmid .cn{font-size:24px;font-weight:600;fill:var(--ink);font-family:inherit}
+.plasmid .cs{font-size:14px;fill:var(--muted);font-family:inherit}
+.plasmid .trace{stroke-dasharray:1;stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){
+  .plasmid .bb.trace{stroke-dashoffset:1;animation:draw 2s var(--ease) .1s forwards}
+  .plasmid .fa.trace{stroke-dashoffset:1;animation:draw 1.2s var(--ease) var(--d) forwards}
+  .plasmid .fh,.plasmid .lab{opacity:0;animation:fadein .6s var(--ease) calc(var(--d) + .9s) forwards}
+  .plasmid .f-mcs .fa.trace{animation-duration:.6s}
+  .plasmid .lab{animation-delay:var(--d)}
+  .plasmid .tick,.plasmid .tl,.plasmid .cn,.plasmid .cs{opacity:0;animation:fadein .8s var(--ease) 1s forwards}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+
+/* spec tables and lists */
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:500;color:var(--muted)}
+th,td{padding:var(--s75) var(--s100) var(--s75) 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.r,th.r{text-align:right;padding-right:0}
+.legend{margin-top:var(--s200)}
+.legend thead th{border-bottom-color:var(--ink)}
+.sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:var(--s75)}
+.spec{display:grid;grid-template-columns:minmax(0,120px) 1fr;margin:0}
+.spec dt,.spec dd{padding:var(--s100) 0;border-top:1px solid var(--rule)}
+.spec dt{font-weight:500}
+.spec dd{margin:0;color:var(--muted)}
+.spec:last-child dd:last-child,.spec:last-child dt:last-of-type{border-bottom:0}
+
+/* tagline reveal */
+.tag{padding:var(--s900) 0}
+.tag p{max-width:880px}
+.tag .w{opacity:.3;transition:opacity .5s var(--ease)}
+.tag .w.on{opacity:1}
+
+/* steps */
+.steps{list-style:none;padding:0;display:grid}
+.steps li{display:grid;grid-template-columns:var(--s600) 1fr;gap:var(--s200);padding:var(--s300) 0;border-top:1px solid var(--rule)}
+.steps li:last-child{border-bottom:1px solid var(--rule)}
+.steps .n{font-size:30px;line-height:36px;font-weight:600;color:var(--accent)}
+.steps p{color:var(--muted);margin-top:var(--s50)}
+.note{border:1px solid var(--rule);border-radius:8px;padding:var(--s200)}
+
+/* toolbox */
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s300);margin:0;padding:0;list-style:none}
+.tools li{padding:var(--s200) 0;border-top:1px solid var(--rule)}
+.tools p{color:var(--muted);margin-top:var(--s50)}
+
+/* exercises */
+.ex td,.ex th{padding:var(--s200) var(--s200) var(--s200) 0}
+.ex td.r,.ex th.r{padding-right:0}
+.ex thead th{border-bottom-color:var(--ink);padding-top:0}
+.ex td:first-child{color:var(--muted);width:var(--s600)}
+.ex .brief{color:var(--muted);margin-top:var(--s50);max-width:560px}
+
+/* install tabs */
+.tabs{display:flex;gap:var(--s75);margin-bottom:var(--s300)}
+.tab{font:inherit;font-weight:500;padding:var(--s75) var(--s100);border:1px solid var(--rule);border-radius:6px;background:none;color:var(--muted);cursor:pointer;transition:background-color .3s var(--ease),color .3s var(--ease)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab:not([aria-selected="true"]):hover{background:var(--panel);color:var(--ink)}
+.panel[hidden]{display:none}
+.panel ol{padding-left:var(--s300);display:grid;gap:var(--s100);margin-bottom:var(--s300)}
+
+/* faq */
+details{border-top:1px solid var(--rule)}
+details:last-child{border-bottom:1px solid var(--rule)}
+summary{list-style:none;cursor:pointer;padding:var(--s200) var(--s600) var(--s200) 0;position:relative;font-weight:500}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:var(--s75);top:22px;width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .5s var(--ease)}
+details[open] summary::after{transform:rotate(225deg)}
+details p{padding:0 var(--s600) var(--s200) 0;color:var(--muted)}
+
+/* final + footer */
+.final{padding:var(--s900) 0}
+.final h2{max-width:680px}
+.final .cta-row{margin-top:var(--s200)}
+footer{border-top:1px solid var(--rule);padding:var(--s400) 0 var(--s500);color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s200)}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+.skip{position:absolute;left:var(--s200);top:-64px;background:var(--ink);color:#fff;padding:var(--s75) var(--s100);border-radius:6px;z-index:30}
+.skip:focus{top:var(--s200);color:#fff}
+
+@media (max-width:1023px){
+  .txt,.swap .txt,.hero .txt,.fig,.swap .fig,.hero .fig{grid-column:1/-1;grid-row:auto}
+  .swap .fig{order:2}
+  .sticky{position:static}
+  .tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav ul{display:none}.burger{display:block}
+}
+@media (max-width:640px){
+  :root{--gutter:var(--s200)}
+  .h1{font-size:36px;line-height:40px}
+  .h2{font-size:30px;line-height:36px}
+  .h3{font-size:24px;line-height:32px}
+  .h4{font-size:20px;line-height:28px}
+  .sec{padding:var(--s700) 0}
+  .hero{padding-top:var(--s800)}
+  .facts{grid-template-columns:1fr}
+  .tools,.fig3{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr}
+  .spec dt{border-bottom:0;padding-bottom:0}.spec dd{border-top:0;padding-top:var(--s50)}
+  .ex thead{display:none}
+  .ex tr{display:grid;grid-template-columns:var(--s500) 1fr;border-bottom:1px solid var(--rule);padding:var(--s200) 0}
+  .ex td{border:0;padding:0}
+  .ex td.r{text-align:left;grid-column:2}
+  .ex td:first-child{width:auto}
+  .nav .btn-primary{display:none}.nav{gap:var(--s100)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tag .w{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip button-sm" href="#main">Skip to content</a>
+<header class="nav" id="top">
+  <a class="brand title-4" href="#top"><img src="../../assets/icon.svg" alt="" width="24" height="24">PlasmidLab</a>
+  <ul class="body-5">
+    <li><a href="#editor">Editor</a></li><li><a href="#agent">Agent</a></li><li><a href="#toolbox">Toolbox</a></li><li><a href="#exercises">Exercises</a></li><li><a href="#install">Install</a></li><li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a class="btn btn-primary button-sm dl-primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download</a>
+  <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+</header>
+<nav class="menu" id="menu" aria-label="Menu">
+  <a class="h5" style="--i:0" href="#editor">Editor</a><a class="h5" style="--i:1" href="#agent">Agent</a><a class="h5" style="--i:2" href="#toolbox">Toolbox</a><a class="h5" style="--i:3" href="#exercises">Exercises</a><a class="h5" style="--i:4" href="#install">Install</a><a class="h5" style="--i:5" href="#faq">FAQ</a><a class="h5" style="--i:6" href="#contact">Contact</a>
+</nav>
+
+<main id="main">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt stack">
+        <p class="label">Plasmid map and sequence editor</p>
+        <h1 class="h1" id="h1"><span class="ln">Know every fragment</span> <span class="ln">before you go</span> <span class="ln">to the bench.</span></h1>
+        <p class="lead">Describe the construct you want. The agent designs the cloning on your own sequences, then plays the bench walkthrough step by step, with the real enzymes, sizes and overhangs.</p>
+        <div class="cta-row" style="margin-top:var(--s400)">
+          <a class="btn btn-primary button-md dl-primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg><span class="dl-label">Download for Mac</span></a>
+          <a class="dl-other body-5" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Windows</a>
+        </div>
+        <p class="caption-2 muted"><span class="ver"></span> Mac on Apple silicon or Intel, signed and notarized by Apple.</p>
+        <dl class="facts caption-2">
+          <div><dt>Opens</dt><dd class="body-5">.dna, GenBank, FASTA</dd></div>
+          <div><dt>Runs on</dt><dd class="body-5">Mac and Windows</dd></div>
+          <div><dt>Agent via</dt><dd class="body-5">Claude Code, Codex, Grok CLI</dd></div>
+        </dl>
+      </div>
+      <figure class="fig">
+        <svg class="plasmid" viewBox="0 0 520 520" role="img" aria-labelledby="mapT mapD" xmlns="http://www.w3.org/2000/svg">
+<title id="mapT">pUC19 circular map</title><desc id="mapD">pUC19, 2,686 base pairs, with lacZ alpha at 146 to 469, the multiple cloning site at 396 to 452, the origin of replication at 867 to 1455 and the bla gene at 1626 to 2486, all on the complement strand except the cloning site.</desc>
+<line class="tick" x1="260.0" y1="124.0" x2="260.0" y2="130.0"/>
+<text class="tl" x="260.0" y="148.0" text-anchor="middle">0</text>
+<line class="tick" x1="335.1" y1="146.6" x2="331.8" y2="151.6"/>
+<line class="tick" x1="385.2" y1="206.9" x2="379.7" y2="209.2"/>
+<text class="tl" x="366.8" y="218.7" text-anchor="middle">500</text>
+<line class="tick" x1="393.7" y1="284.8" x2="387.8" y2="283.7"/>
+<line class="tick" x1="357.8" y1="354.5" x2="353.5" y2="350.4"/>
+<text class="tl" x="343.4" y="344.6" text-anchor="middle">1000</text>
+<line class="tick" x1="289.4" y1="392.8" x2="288.1" y2="386.9"/>
+<line class="tick" x1="211.2" y1="386.9" x2="213.3" y2="381.3"/>
+<text class="tl" x="218.3" y="372.3" text-anchor="middle">1500</text>
+<line class="tick" x1="149.2" y1="338.9" x2="154.1" y2="335.4"/>
+<line class="tick" x1="124.1" y1="264.6" x2="130.1" y2="264.4"/>
+<text class="tl" x="144.1" y="267.9" text-anchor="middle">2000</text>
+<line class="tick" x1="144.1" y1="188.8" x2="149.2" y2="192.0"/>
+<line class="tick" x1="202.7" y1="136.7" x2="205.2" y2="142.1"/>
+<text class="tl" x="211.1" y="158.8" text-anchor="middle">2500</text>
+<circle class="bb trace" cx="260" cy="260" r="150" pathLength="1" transform="rotate(-90 260 260)"/>
+<g class="f f-lac" style="--d:0.5s">
+<path class="fa trace" d="M325.00 124.82A150 150 0 0 1 393.48 191.57" pathLength="1" stroke-width="14"/>
+<polygon class="fh" points="329.10,116.30 310.58,117.88 320.91,133.33"/>
+</g>
+<g class="f f-ori" style="--d:0.75s">
+<path class="fa trace" d="M386.77 340.18A150 150 0 0 1 221.15 404.88" pathLength="1" stroke-width="14"/>
+<polygon class="fh" points="394.76,345.24 395.32,326.66 378.78,335.13"/>
+</g>
+<g class="f f-bla" style="--d:1.0s">
+<path class="fa trace" d="M155.72 367.83A150 150 0 0 1 192.36 126.12" pathLength="1" stroke-width="14"/>
+<polygon class="fh" points="149.15,374.62 167.22,378.95 162.29,361.03"/>
+</g>
+<g class="f f-mcs" style="--d:1.3s"><path class="fa trace" d="M395.90 157.87A170 170 0 0 1 408.08 176.50" pathLength="1" stroke-width="6"/></g>
+<g class="lab" style="--d:1.7s"><polyline class="lead" points="364.6,140.3 385.0,116.9 385.0,116.9"/><text class="ln" x="389.0" y="106.9" text-anchor="start">lacZα</text><text class="ls" x="389.0" y="120.9" text-anchor="start">146..469</text></g>
+<g class="lab" style="--d:1.7s"><polyline class="lead" points="404.8,165.3 429.1,149.5 459.1,127.5"/><text class="ln" x="463.1" y="117.5" text-anchor="start">MCS</text><text class="ls" x="463.1" y="131.5" text-anchor="start">396..452</text></g>
+<g class="lab" style="--d:1.7s"><polyline class="lead" points="325.7,404.8 338.5,433.0 338.5,433.0"/><text class="ln" x="342.5" y="423.0" text-anchor="start">ori</text><text class="ls" x="342.5" y="437.0" text-anchor="start">867..1455</text></g>
+<g class="lab" style="--d:1.7s"><polyline class="lead" points="101.7,244.6 70.9,241.6 70.9,241.6"/><text class="ln" x="66.9" y="231.6" text-anchor="end">bla</text><text class="ls" x="66.9" y="245.6" text-anchor="end">1626..2486</text></g>
+<text class="cn" x="260" y="258" text-anchor="middle">pUC19</text><text class="cs" x="260" y="280" text-anchor="middle">2,686 bp</text>
+</svg>
+
+        <table class="legend caption-2">
+          <thead><tr><th>Feature</th><th>Position</th><th class="r">Length</th></tr></thead>
+          <tbody>
+            <tr><td><i class="sw" style="background:var(--sage)"></i>lacZα</td><td>complement(146..469)</td><td class="r">324 bp</td></tr>
+            <tr><td><i class="sw" style="background:var(--ink)"></i>MCS</td><td>396..452</td><td class="r">57 bp</td></tr>
+            <tr><td><i class="sw" style="background:var(--sand)"></i>ori</td><td>complement(867..1455)</td><td class="r">589 bp</td></tr>
+            <tr><td><i class="sw" style="background:var(--accent)"></i>bla</td><td>complement(1626..2486)</td><td class="r">861 bp</td></tr>
+          </tbody>
+        </table>
+        <figcaption class="caption-2"><b>Figure 1.</b> pUC19 at its real feature positions. Arrowheads mark features on the complement strand.</figcaption>
+      </figure>
+    </div>
+    <figure style="margin-top:var(--s700)">
+      <div class="shot"><img src="../../assets/app-window.png" width="2880" height="1800" alt="The PlasmidLab window with three plasmids open as tabs, a circular map above the sequence view, and the AI panel on the right with a cloning brief typed in."></div>
+      <figcaption class="caption-2"><b>Figure 2.</b> The whole editor in one window: map, sequence and the agent panel.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="editor" aria-labelledby="editor-h">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt stack sticky">
+        <p class="label">The editor</p>
+        <h2 class="h3" id="editor-h">A plasmid editor that behaves like a normal program.</h2>
+        <p class="muted">Open a file with File &gt; Open or drop it on the window. PlasmidLab reads and writes .dna, GenBank and FASTA, so the plasmids you already have open as they are.</p>
+        <dl class="spec body-6" style="margin-top:var(--s300)">
+          <dt>Maps</dt><dd>Circular and linear, with features and restriction sites.</dd>
+          <dt>Sequence</dt><dd>Translations and features along the bases.</dd>
+          <dt>Enzymes</dt><dd>Restriction enzymes and enzyme sets.</dd>
+          <dt>Primers</dt><dd>A primer database, and PCR on the open sequence.</dd>
+          <dt>Gels and traces</dt><dd>Simulated gels, alignments, and .ab1 and .scf sequencing traces.</dd>
+          <dt>Analysis</dt><dd>Codon usage tables, a CRISPR guide window, feature detection, secondary structure.</dd>
+        </dl>
+      </div>
+      <div class="fig figs">
+        <figure>
+          <div class="shot"><img src="../../assets/map-circular.png" loading="lazy" width="2880" height="1800" alt="Circular map of pcDNA-DEST53, 7,767 base pairs, with coloured feature arrows and restriction enzyme sites labelled around the ring."></div>
+          <figcaption class="caption-2"><b>Figure 3.</b> Circular map of pcDNA-DEST53, 7,767 bp, with a Unique 6+ Cutters set labelled around the ring.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="../../assets/sequence.png" loading="lazy" width="2880" height="1800" alt="Sequence view with both strands, enzyme sites, amino acid translation under the codons and feature bars for RBS, ATG, His tag and GFPmut3b."></div>
+          <figcaption class="caption-2"><b>Figure 4.</b> Sequence view of pPS-T7-His-GFP with the GFPmut3b coding sequence selected, 2001..2720, 720 bp.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tag" id="why" aria-label="What the agent does differently">
+  <div class="wrap">
+    <p class="h3" id="tagline">A cloning plan is only as good as the sequences it was run on. The agent runs every digest, PCR and assembly on yours, and shows you each fragment, size and overhang before anything touches the bench.</p>
+  </div>
+</section>
+<section class="sec" id="agent" aria-labelledby="agent-h">
+  <div class="wrap">
+    <div class="cols swap">
+      <div class="txt stack">
+        <p class="label">How it works</p>
+        <h2 class="h3" id="agent-h">Describe the construct. The agent works out the cloning.</h2>
+        <ol class="steps" style="margin-top:var(--s300)">
+          <li><span class="n num" aria-hidden="true">1</span><div><h3 class="title-2">Describe it</h3><p>Type what you want in the panel, for example “Move the GFP from the pUC19 plasmid into the expression vector.” Work on your own plasmids, or start from one of six exercises.</p></div></li>
+          <li><span class="n num" aria-hidden="true">2</span><div><h3 class="title-2">The agent designs it with the app’s own tools</h3><p>It runs real digests, PCRs and assemblies on your actual sequences, not a generic recipe, and writes the plan in the chat.</p></div></li>
+          <li><span class="n num" aria-hidden="true">3</span><div><h3 class="title-2">The walkthrough plays</h3><p>An animated bench walkthrough of that specific design draws itself inside the app: digest, fragments, assembly, product, with the real enzyme names, sizes and overhangs.</p></div></li>
+        </ol>
+        <p class="note caption-2 muted" style="margin-top:var(--s300)">Works with the Claude Code, Codex or Grok CLIs you already have, or an API key of your own. The editor and every cloning tool work without any of them.</p>
+      </div>
+      <figure class="fig sticky">
+        <div class="shot"><video autoplay muted loop playsinline preload="none" poster="../../assets/ai-design-poster.png" data-src="../../assets/ai-design.mp4" aria-label="Screen recording of the agent designing a cloning in the PlasmidLab panel"></video></div>
+        <figcaption class="caption-2"><b>Figure 5.</b> A real agent run, sped up: its tool calls stream in, then the written answer and the walkthrough it drew.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="walkthrough" aria-labelledby="wt-h">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt stack">
+        <p class="label">The walkthrough</p>
+        <h2 class="h3" id="wt-h">See the bench steps for your design, not for a textbook one.</h2>
+        <p class="muted">When the plan is written, the agent draws an animated walkthrough of it and plays it inside PlasmidLab. Each step uses the names, sizes and overhangs from your sequences.</p>
+        <dl class="spec body-6" style="margin-top:var(--s300)">
+          <dt>Digest</dt><dd>Which enzymes cut, and where.</dd>
+          <dt>Fragments</dt><dd>The pieces that result, with their sizes in bp.</dd>
+          <dt>Assembly</dt><dd>How the ends join, overhang by overhang.</dd>
+          <dt>Product</dt><dd>The finished plasmid, ready to open in the editor.</dd>
+        </dl>
+      </div>
+      <figure class="fig">
+        <div class="shot"><video autoplay muted loop playsinline preload="none" poster="../../assets/walkthrough-poster.png" data-src="../../assets/walkthrough.mp4" aria-label="Screen recording of a Golden Gate assembly walkthrough playing in PlasmidLab"></video></div>
+        <figcaption class="caption-2"><b>Figure 6.</b> A Golden Gate walkthrough playing in the app: parts, digest, four fragments with their overhangs, assembly, product.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="toolbox" aria-labelledby="tb-h">
+  <div class="wrap stack" style="--gap:var(--s500)">
+    <div class="cols">
+      <div class="txt stack" style="grid-column:1/8">
+        <p class="label">Cloning toolbox</p>
+        <h2 class="h3" id="tb-h">Every method is a tool you can run yourself.</h2>
+        <p class="muted" style="max-width:560px">The agent uses the same tools you do. Open any of them from the editor and work by hand, with no AI involved.</p>
+      </div>
+    </div>
+    <ul class="tools" style="margin-top:var(--s500)">
+      <li><h3 class="title-3">Restriction cut and paste</h3><p class="body-6">Move an insert with a digest and a ligation.</p></li>
+      <li><h3 class="title-3">Gibson two piece assembly</h3><p class="body-6">Join pieces by homology, with no scar.</p></li>
+      <li><h3 class="title-3">Golden Gate</h3><p class="body-6">Put a part into an acceptor in one reaction.</p></li>
+      <li><h3 class="title-3">Gateway BP and LR</h3><p class="body-6">An entry clone first, then an expression clone.</p></li>
+      <li><h3 class="title-3">TA and TOPO cloning</h3><p class="body-6">Take a PCR product into a vector.</p></li>
+      <li><h3 class="title-3">Inverse PCR</h3><p class="body-6">Amplify around the plasmid to delete or change it.</p></li>
+      <li><h3 class="title-3">Overlap PCR</h3><p class="body-6">Fuse fragments through overlapping primers.</p></li>
+      <li><h3 class="title-3">Q5 site directed mutagenesis</h3><p class="body-6">Change bases with designed primers.</p></li>
+      <li><h3 class="title-3">Silent mutations</h3><p class="body-6">Remove a site without changing an amino acid.</p></li>
+      <li><h3 class="title-3">Ligating fragments</h3><p class="body-6">Join digested pieces into one molecule.</p></li>
+      <li><h3 class="title-3">Inserting fragments and features</h3><p class="body-6">Place a sequence or an annotation at a position.</p></li>
+      <li><h3 class="title-3">Alignments and traces</h3><p class="body-6">Check a clone against its design and its .ab1 or .scf trace.</p></li>
+    </ul>
+    <div class="fig3" style="margin-top:var(--s500)">
+      <figure><div class="shot"><img src="../../assets/enzymes.png" loading="lazy" width="2880" height="1800" alt="The Choose Enzymes window with the enzyme list on the left, the chosen enzyme set on the right and cut site filters below."></div><figcaption class="caption-2"><b>Figure 7.</b> Choose Enzymes: the commercial list, and a Unique 6+ Cutters set.</figcaption></figure>
+      <figure><div class="shot"><img src="../../assets/primers.png" loading="lazy" width="2880" height="1800" alt="The PCR window with two primers drawn on the circular map and a status reading Ready for PCR, product 717 bp."></div><figcaption class="caption-2"><b>Figure 8.</b> PCR with two primers: Product 717 bp.</figcaption></figure>
+      <figure><div class="shot"><img src="../../assets/gel.png" loading="lazy" width="2880" height="1800" alt="A simulated agarose gel with six lanes of pcDNA-DEST53, uncut and cut with enzyme combinations, and a band list with fragment sizes."></div><figcaption class="caption-2"><b>Figure 9.</b> Simulated gel of pcDNA-DEST53 digests, with fragment sizes.</figcaption></figure>
+    </div>
+  </div>
+</section>
+<section class="sec" id="exercises" aria-labelledby="ex-h">
+  <div class="wrap">
+    <div class="cols" style="margin-bottom:var(--s500)">
+      <div class="txt stack" style="grid-column:1/8">
+        <p class="label">Six exercises</p>
+        <h2 class="h3" id="ex-h">Try a design before you trust it with your own plasmid.</h2>
+        <p class="muted" style="max-width:560px">Help &gt; Try a Cloning Design opens each exercise with its own sequences and puts the brief in the panel, ready to send.</p>
+      </div>
+    </div>
+    <table class="ex">
+      <caption class="caption-2 muted" style="text-align:left;caption-side:bottom;margin-top:var(--s100)"><b style="color:var(--ink);font-weight:600">Table 1.</b> The exercises under Help &gt; Try a Cloning Design. Bases is the total opened across the sequences.</caption>
+      <thead class="caption-2"><tr><th scope="col">No.</th><th scope="col">Exercise and brief</th><th scope="col">Level</th><th scope="col" class="r">Sequences</th><th scope="col" class="r">Bases</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><div class="title-2">Move an insert between plasmids</div><p class="brief body-6">“Move the GFP from the pUC19 plasmid into the expression vector.”</p></td><td class="body-6">Start here</td><td class="r num body-6">2</td><td class="r num body-6">8,566</td></tr>
+        <tr><td class="num">2</td><td><div class="title-2">Join two pieces with no scar</div><p class="brief body-6">“Get the GFP from the template into the vector, right behind the CMV promoter, without leaving a scar.”</p></td><td class="body-6">Next</td><td class="r num body-6">2</td><td class="r num body-6">8,271</td></tr>
+        <tr><td class="num">3</td><td><div class="title-2">Put a synthesised part into an acceptor</div><p class="brief body-6">“Clone the GFPmut3b part into pPS-GG1 and give me the finished plasmid.”</p></td><td class="body-6">Next</td><td class="r num body-6">2</td><td class="r num body-6">3,206</td></tr>
+        <tr><td class="num">4</td><td><div class="title-2">Take 40 codons out of the middle of a gene</div><p class="brief body-6">“Delete codons 97 to 136 of the GFP in pPS-T7-His-GFP, in frame and without leaving a scar.”</p></td><td class="body-6">The real thing</td><td class="r num body-6">1</td><td class="r num body-6">5,872</td></tr>
+        <tr><td class="num">5</td><td><div class="title-2">Make an entry clone, then an expression clone</div><p class="brief body-6">“Get the GFP from BBa_E0040 into pcDNA-DEST53, by way of an entry clone in pDONR221. Tell me what to plate on at each step.”</p></td><td class="body-6">The real thing</td><td class="r num body-6">3</td><td class="r num body-6">15,403</td></tr>
+        <tr><td class="num">6</td><td><div class="title-2">Put four genes in one reading frame</div><p class="brief body-6">“Put GFP, mCherry, PuroR and HygR behind the CMV promoter as one reading frame, with the 2A linkers between them so all four are made from one transcript.”</p></td><td class="body-6">The real thing</td><td class="r num body-6">6</td><td class="r num body-6">19,311</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="install" aria-labelledby="in-h">
+  <div class="wrap">
+    <div class="cols swap">
+      <div class="txt stack">
+        <p class="label">Install</p>
+        <h2 class="h3" id="in-h">Install it like any other program.</h2>
+        <p class="muted">After install, sequencing traces, .dna, GenBank and FASTA files open with a double click.</p>
+      </div>
+      <div class="fig">
+        <div class="tabs" role="tablist" aria-label="Operating system">
+          <button class="tab body-5" role="tab" id="tab-mac" aria-controls="p-mac" aria-selected="true">Mac</button>
+          <button class="tab body-5" role="tab" id="tab-win" aria-controls="p-win" aria-selected="false" tabindex="-1">Windows</button>
+        </div>
+        <div class="panel" role="tabpanel" id="p-mac" aria-labelledby="tab-mac">
+          <ol class="body-3"><li>Download the .dmg and open it.</li><li>Drag PlasmidLab to Applications.</li><li>Open it. The app is signed and notarized by Apple, and runs on Apple silicon and Intel.</li></ol>
+          <a class="btn btn-primary button-md dl-mac" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a>
+        </div>
+        <div class="panel" role="tabpanel" id="p-win" aria-labelledby="tab-win" hidden>
+          <ol class="body-3"><li>Download the installer.</li><li>Run it and follow the prompts.</li><li>Open PlasmidLab.</li></ol>
+          <a class="btn btn-primary button-md dl-win" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Windows</a>
+        </div>
+        <p class="caption-2 muted" style="margin-top:var(--s200)"><span class="ver"></span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt stack" style="grid-column:1/5">
+        <p class="label">Questions</p>
+        <h2 class="h3" id="faq-h">Before you download.</h2>
+      </div>
+      <div class="fig body-3" style="grid-column:6/13">
+        <details><summary>Do I need an internet connection?</summary><p>No. PlasmidLab runs on your computer. Only the AI agent and imports from NCBI and UniProt need the internet.</p></details>
+        <details><summary>Which AI do I need?</summary><p>The agent works with the Claude Code, Codex or Grok CLIs you already have, or with an API key of your own. The editor and every cloning tool work without any of them.</p></details>
+        <details><summary>Does the agent send my sequences anywhere?</summary><p>Only to the AI provider you chose, and only when you ask it something.</p></details>
+        <details><summary>Can I open my existing .dna files?</summary><p>Yes. PlasmidLab reads and writes .dna files, GenBank and FASTA. Use File &gt; Open or drop a file on the window.</p></details>
+        <details><summary>Intel or Apple silicon?</summary><p>Both. One Mac download runs on either.</p></details>
+        <details><summary>Do I need a GitHub account?</summary><p>No. The download buttons on this page take you straight to the installer.</p></details>
+        <details><summary>Where do I send a bug?</summary><p>Email <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>, or use <a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a>.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contact" aria-labelledby="ct-h">
+  <div class="wrap">
+    <div class="cols swap">
+      <div class="txt stack">
+        <p class="label">Contact</p>
+        <h2 class="h3" id="ct-h">Something broke, or something is missing?</h2>
+      </div>
+      <div class="fig">
+        <dl class="spec body-3" style="grid-template-columns:minmax(0,160px) 1fr">
+          <dt>Email</dt><dd><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a></dd>
+          <dt>Issues</dt><dd><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec final" id="download" aria-labelledby="fin-h">
+  <div class="wrap stack">
+    <h2 class="h2" id="fin-h">Open a plasmid and see every fragment.</h2>
+    <div class="cta-row">
+      <a class="btn btn-primary button-md dl-primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg><span class="dl-label">Download for Mac</span></a>
+      <a class="dl-other body-5" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Windows</a>
+    </div>
+    <p class="caption-2 muted"><span class="ver"></span></p>
+  </div>
+</section>
+</main>
+
+<footer class="caption-2">
+  <div class="wrap">
+    <span>© 2026 PlasmidLab</span>
+    <span><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>&ensp;<a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var FALLBACK="https://github.com/plasmidlab/plasmidlab/releases/latest";
+  var ua=(navigator.userAgent||"")+" "+(navigator.platform||"");
+  var os=/Win/i.test(ua)?"win":"mac";
+  var urls={mac:FALLBACK,win:FALLBACK},tag="";
+  function paint(){
+    var other=os==="mac"?"win":"mac",name={mac:"Mac",win:"Windows"};
+    document.querySelectorAll(".dl-primary").forEach(function(a){a.href=urls[os];var l=a.querySelector(".dl-label");if(l)l.textContent="Download for "+name[os];else a.textContent="Download"});
+    document.querySelectorAll(".dl-other").forEach(function(a){a.href=urls[other];a.textContent="Download for "+name[other]});
+    document.querySelectorAll(".dl-mac").forEach(function(a){a.href=urls.mac});
+    document.querySelectorAll(".dl-win").forEach(function(a){a.href=urls.win});
+    document.querySelectorAll(".ver").forEach(function(e){e.textContent=tag?"Version "+tag+".":""});
+  }
+  paint();
+  try{
+    fetch("https://api.github.com/repos/plasmidlab/plasmidlab/releases/latest").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+      (j.assets||[]).forEach(function(a){
+        if(/\.dmg$/i.test(a.name)&&urls.mac===FALLBACK)urls.mac=a.browser_download_url;
+        if(/\.exe$/i.test(a.name)&&urls.win===FALLBACK)urls.win=a.browser_download_url;
+      });
+      tag=j.tag_name||"";paint();
+    }).catch(function(){});
+  }catch(e){}
+
+  /* install tabs */
+  var tabs=document.querySelectorAll(".tab");
+  function pick(t){tabs.forEach(function(b){var on=b===t;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;document.getElementById(b.getAttribute("aria-controls")).hidden=!on})}
+  tabs.forEach(function(b,i){b.addEventListener("click",function(){pick(b)});b.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="ArrowLeft"){var n=tabs[1-i];pick(n);n.focus()}})});
+  if(os==="win")pick(document.getElementById("tab-win"));
+
+  /* menu */
+  var bg=document.querySelector(".burger"),menu=document.getElementById("menu");
+  function setMenu(o){bg.setAttribute("aria-expanded",o);menu.classList.toggle("open",o);document.body.style.overflow=o?"hidden":""}
+  bg.addEventListener("click",function(){setMenu(bg.getAttribute("aria-expanded")!=="true")});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){setMenu(false)})});
+  addEventListener("keydown",function(e){if(e.key==="Escape")setMenu(false)});
+
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* current section in nav */
+  var links={};document.querySelectorAll(".nav ul a").forEach(function(a){links[a.getAttribute("href").slice(1)]=a});
+  var so=new IntersectionObserver(function(es){es.forEach(function(e){var a=links[e.target.id];if(a)e.isIntersecting?a.setAttribute("aria-current","true"):a.removeAttribute("aria-current")})},{rootMargin:"-40% 0px -55% 0px"});
+  Object.keys(links).forEach(function(id){var s=document.getElementById(id);if(s)so.observe(s)});
+
+  /* videos: load when near the viewport, play only while visible */
+  var vids=document.querySelectorAll("video[data-src]");
+  var vo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+    if(e.isIntersecting){if(!v.src){v.src=v.dataset.src;if(reduce){v.removeAttribute("autoplay");v.controls=true}}if(!reduce)v.play&&v.play().catch(function(){})}
+    else v.pause&&v.pause()})},{rootMargin:"200px"});
+  vids.forEach(function(v){if(reduce)v.removeAttribute("autoplay");vo.observe(v)});
+
+  /* tagline: words go from muted to full as they cross a line 70% down the viewport */
+  var t=document.getElementById("tagline");
+  var words=t.textContent.trim().split(/\s+/);
+  t.setAttribute("aria-label",t.textContent.trim());
+  t.innerHTML=words.map(function(w){return '<span class="w" aria-hidden="true">'+w+'</span>'}).join(" ");
+  var ws=t.querySelectorAll(".w"),tick=false;
+  function upd(){tick=false;var line=innerHeight*.7;ws.forEach(function(w){if(reduce||w.getBoundingClientRect().top<line)w.classList.add("on");else w.classList.remove("on")})}
+  addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+  addEventListener("resize",upd);upd();
+})();
+</script>
+
+
+
+</body>
+</html>

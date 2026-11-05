@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PlasmidLab</title>
+<meta name="description" content="PlasmidLab is a plasmid map and sequence editor for Mac and Windows. Describe a construct and its agent designs the cloning on your own sequences, then walks you through it step by step.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plasmidlab.com/">
+<meta property="og:title" content="PlasmidLab">
+<meta property="og:description" content="A plasmid map and sequence editor for Mac and Windows, with an agent that designs the cloning on your own sequences and walks you through it.">
+<meta property="og:image" content="https://plasmidlab.com/assets/app-window.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://plasmidlab.com/assets/app-window.png">
+<link rel="icon" type="image/svg+xml" href="../../assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Tokens. One accent: the amber the app uses to highlight selected bases. */
+:root {
+  --bg: #F2F3F0;          /* bench grey, cool, not cream */
+  --surface: #FFFFFF;
+  --ink: #000000;
+  --ink-2: #3D3F3B;
+  --ink-3: #5E615B;
+  --line: #D8DAD4;
+  --accent: #E9A23B;
+  --accent-hover: #F0B157;
+  --accent-press: #D99227;
+  --bezel: #000000;
+  --curve: cubic-bezier(.22, 1, .36, 1);
+  --gutter: 24px;
+  --section: 96px;
+  font-family: "Geist", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 720px) { :root { --gutter: 16px; --section: 64px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); overflow-x: hidden; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-color: var(--ink-3); text-underline-offset: 3px; }
+::selection { background: rgba(233, 162, 59, .32); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 8px; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { text-wrap: balance; }
+p, li, dd, figcaption { text-wrap: pretty; }
+
+/* Text styles (landing-page-design B1) */
+.heading-1 { font-size: 60px; line-height: 60px; font-weight: 600; letter-spacing: -.025em; }
+.heading-2 { font-size: 48px; line-height: 48px; font-weight: 600; letter-spacing: -.02em; }
+.heading-3 { font-size: 36px; line-height: 40px; font-weight: 600; letter-spacing: -.015em; }
+.heading-5 { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.01em; }
+.title-2 { font-size: 18px; line-height: 28px; font-weight: 500; }
+.title-3 { font-size: 16px; line-height: 24px; font-weight: 500; }
+.body-2 { font-size: 16px; line-height: 24px; font-weight: 500; }
+.body-3 { font-size: 16px; line-height: 24px; font-weight: 400; }
+.caption-1 { font-size: 14px; line-height: 20px; font-weight: 500; }
+.caption-2 { font-size: 14px; line-height: 20px; font-weight: 400; }
+.button-md { font-size: 16px; line-height: 24px; font-weight: 600; }
+.button-lg { font-size: 18px; line-height: 28px; font-weight: 600; }
+.mono { font-family: "Geist Mono", ui-monospace, monospace; font-weight: 500; }
+@media (max-width: 720px) {
+  .heading-1 { font-size: 36px; line-height: 40px; }
+  .heading-2 { font-size: 30px; line-height: 36px; }
+  .heading-3 { font-size: 30px; line-height: 36px; }
+  .button-lg { font-size: 16px; line-height: 24px; }
+}
+.muted { color: var(--ink-3); }
+.wrap { width: min(100% - 2 * var(--gutter), 1200px); margin-inline: auto; }
+.bleed { width: min(100% - 2 * var(--gutter), 1600px); margin-inline: auto; }
+.d-br { display: inline; }
+@media (max-width: 720px) { .d-br { display: none; } }
+
+.skip { position: absolute; left: 16px; top: -64px; z-index: 50; background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 8px; }
+.skip:focus { top: 16px; }
+
+/* Floating nav */
+.nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 30;
+  display: flex; align-items: center; gap: 24px; padding: 8px 12px 8px 8px;
+  background: rgba(242, 243, 240, .76); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(0, 0, 0, .08); border-radius: 16px; white-space: nowrap;
+}
+.brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.brand img { width: 32px; height: 32px; border-radius: 8px; }
+.nav ul { display: flex; gap: 4px; }
+.nav ul a { display: block; padding: 4px 8px; border-radius: 8px; text-decoration: none; color: var(--ink-2); transition: background-color .3s var(--curve), color .3s var(--curve); }
+.nav ul a:hover { background: rgba(0, 0, 0, .06); color: var(--ink); }
+@media (max-width: 820px) { .nav ul { display: none; } .nav { padding-right: 12px; } }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px;
+  background: var(--accent); color: var(--ink); text-decoration: none; border: 0; cursor: pointer;
+  transition: background-color .3s var(--curve), transform .3s var(--curve);
+}
+.btn:hover { background: var(--accent-hover); }
+.btn:active { transform: scale(.98); background: var(--accent-press); }
+.btn-lg { padding: 12px 24px; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.dl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.dl-meta { display: flex; flex-direction: column; gap: 2px; }
+.dl-ver[data-state="loading"] { display: inline-block; width: 96px; height: 16px; border-radius: 4px; background: currentColor; opacity: .12; }
+
+/* Device frame: thin black bezel, video inside. 16px outer, 8px gap, so 8px inner. */
+.device { background: var(--bezel); border-radius: 16px; padding: 8px; }
+.device video, .device img { width: 100%; border-radius: 8px; background: #1F1F1F; }
+.device video, .device img { aspect-ratio: 16 / 10; object-fit: cover; }
+
+/* Hero: the walkthrough plays full width; the headline sits directly beneath it.
+   The Tutorials window is vertically centred in the recording, so a centred crop keeps all of it. */
+.hero { padding-top: 88px; }
+.hero .device { position: relative; }
+.hero video { height: clamp(360px, calc(100svh - 320px), calc((100vw - 2 * var(--gutter) - 16px) * .625)); aspect-ratio: auto; object-position: 50% 59%; }
+.hero-cap { position: absolute; left: 24px; bottom: 24px; padding: 8px 12px; border-radius: 8px; color: #fff; background: rgba(0, 0, 0, .78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); max-width: calc(100% - 48px); }
+.hero-row { display: grid; grid-template-columns: 7fr 5fr; gap: 24px 48px; align-items: end; padding-top: 32px; }
+.hero-row h1 { background: linear-gradient(90deg, #000000, #666666); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: 4px; }
+.hero-side { display: flex; flex-direction: column; gap: 16px; }
+.hero-side p { color: var(--ink-2); max-width: 680px; }
+.hero-side .dl-meta, .hero-side .dl-meta a { color: var(--ink-3); }
+@media (max-width: 1000px) {
+  .hero-row { grid-template-columns: 1fr; padding-top: 24px; }
+  .hero video { height: auto; aspect-ratio: 16 / 10; }
+  .hero-cap { position: static; display: block; padding: 12px 0 0; color: var(--ink-2); background: none; backdrop-filter: none; -webkit-backdrop-filter: none; max-width: none; }
+  .hero .device { background: none; padding: 0; }
+  .hero .device video { border: 8px solid var(--bezel); border-radius: 16px; }
+}
+@media (max-width: 720px) { .hero video { aspect-ratio: 1 / 1; } }
+
+/* Zoomed crop of a 16:10 screenshot: --l/--t are the crop's left/top and --w its width, as fractions of the image. */
+.crop { position: relative; overflow: hidden; aspect-ratio: var(--ar, 4 / 3); background: var(--surface); }
+.crop img { position: absolute; left: 0; top: 0; max-width: none; width: calc(100% / var(--w)); aspect-ratio: 16 / 10; transform: translate(calc(-100% * var(--l)), calc(-100% * var(--t))); }
+
+/* Sections */
+section { padding-block: var(--section); }
+.sec-head { display: flex; flex-direction: column; gap: 16px; max-width: 760px; margin-bottom: 48px; }
+.sec-head p { max-width: 640px; }
+.moment { display: flex; flex-direction: column; gap: 16px; }
+.moment figcaption { text-align: center; color: var(--ink-2); }
+
+/* Reveal: transform + opacity only, once. Enabled only when motion is allowed. */
+.motion .reveal { opacity: 0; transform: translateY(32px); transition: opacity .4s var(--curve), transform .4s var(--curve); }
+.motion .reveal.in { opacity: 1; transform: none; }
+
+/* AI steps: a real sequence, so numbered */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; counter-reset: step; }
+.steps li { display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 2px solid var(--ink); }
+.steps li::before { counter-increment: step; content: counter(step); font-family: "Geist Mono", monospace; font-size: 14px; line-height: 20px; color: var(--ink-3); }
+.providers { margin-top: 48px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; max-width: 760px; }
+@media (max-width: 820px) { .steps { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Tagline reveal */
+.tagline { padding-block: 160px 96px; }
+.tagline p { max-width: 1040px; }
+.tagline .w { opacity: .3; transition: opacity .4s var(--curve); }
+.tagline .w.on { opacity: 1; }
+@media (max-width: 720px) { .tagline { padding-block: 96px 64px; } }
+
+/* Editor stills */
+.stills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+.stills figure { display: flex; flex-direction: column; gap: 8px; }
+.stills .crop { border-radius: 12px; border: 1px solid var(--line); }
+.capabilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
+.capabilities div { display: flex; flex-direction: column; gap: 8px; }
+.capabilities ul li { padding-block: 4px; color: var(--ink-2); }
+@media (max-width: 1000px) { .stills { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) { .stills { gap: 16px; } .capabilities { grid-template-columns: 1fr; gap: 24px; margin-top: 48px; } }
+
+/* Toolbox */
+.toolbox { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.toolbox > div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.toolbox li { padding-block: 8px; border-bottom: 1px solid var(--line); }
+.toolbox li:last-child { border-bottom: 0; }
+@media (max-width: 900px) { .toolbox { grid-template-columns: 1fr; } }
+
+/* Exercises */
+.exercises { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; align-items: start; }
+.ex-list li { display: flex; gap: 16px; align-items: baseline; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.ex-list li:first-child { border-top: 1px solid var(--line); }
+.ex-list li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 9999px; background: var(--accent); transform: translateY(-2px); }
+.kbd { font-family: "Geist Mono", monospace; font-size: 14px; line-height: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 2px 4px; white-space: nowrap; }
+@media (max-width: 1000px) { .exercises { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Install */
+.install { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.install > div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 12px; }
+.install-foot { margin-top: 24px; max-width: 760px; }
+@media (max-width: 720px) { .install { grid-template-columns: 1fr; } .install > div { padding: 24px; } }
+
+/* FAQ */
+.faq { max-width: 860px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-of-type { border-top: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 24px; border-radius: 8px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq .pm { position: relative; flex: none; width: 16px; height: 16px; }
+.faq .pm::before, .faq .pm::after { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .3s var(--curve); }
+.faq .pm::after { transform: rotate(90deg); }
+.faq details[open] .pm::after { transform: rotate(0deg); }
+.faq dd, .faq .a { padding-bottom: 24px; max-width: 680px; color: var(--ink-2); }
+
+/* Contact + final */
+.final { text-align: center; }
+.final .wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.final .dl { justify-content: center; }
+.final .dl-meta { align-items: center; }
+.final .icon-lg { width: 96px; height: 96px; border-radius: 24px; }
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.contact a.card { display: flex; flex-direction: column; gap: 4px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); text-decoration: none; transition: transform .3s var(--curve), border-color .3s var(--curve); }
+.contact a.card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.contact a.card:active { transform: translateY(1px); }
+@media (max-width: 720px) { .contact { grid-template-columns: 1fr; } }
+
+footer { padding-block: 48px 120px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; align-items: center; }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+/* Sticky download bar: appears once the hero has left the viewport */
+.bar {
+  position: fixed; left: 50%; bottom: 16px; z-index: 30; width: max-content; max-width: calc(100% - 32px);
+  display: flex; align-items: center; gap: 16px; padding: 8px 8px 8px 12px; border-radius: 16px;
+  background: rgba(255, 255, 255, .86); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(0, 0, 0, .1); box-shadow: 0 8px 32px rgba(0, 0, 0, .12);
+  transform: translate(-50%, calc(100% + 32px)); opacity: 0; pointer-events: none;
+  transition: transform .4s var(--curve), opacity .3s var(--curve);
+}
+.bar.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+.bar .brand img { width: 32px; height: 32px; }
+.bar .dl-alt a { color: var(--ink-2); }
+@media (max-width: 520px) { .bar .bar-name { display: none; } .bar { gap: 12px; } }
+@media (prefers-reduced-motion: reduce) {
+  .bar { transform: translate(-50%, 0); transition: opacity .3s linear; }
+}
+</style>
+</head>
+<body>
+<a class="skip button-md" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="#top" aria-label="PlasmidLab home"><img src="../../assets/icon.svg" alt=""><span class="title-3">PlasmidLab</span></a>
+  <ul class="caption-1">
+    <li><a href="#agent">Cloning agent</a></li>
+    <li><a href="#editor">Editor</a></li>
+    <li><a href="#exercises">Exercises</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<header class="hero" id="top">
+  <div class="bleed">
+    <figure class="device">
+      <video data-src="../../assets/walkthrough.mp4" poster="../../assets/walkthrough-poster.png" autoplay muted loop playsinline aria-label="PlasmidLab's bench walkthrough of a Golden Gate assembly: the parts and backbone, the Type IIS digest, four fragments with their overhangs, the assembly and the circular product"></video>
+      <figcaption class="hero-cap caption-1">A Golden Gate walkthrough: parts, Type IIS digest, fragments and their overhangs, product.</figcaption>
+    </figure>
+    <div class="hero-row">
+      <h1 class="heading-1">Plan the whole cloning<br class="d-br"> before you touch a tube.</h1>
+      <div class="hero-side">
+        <p class="body-3">A plasmid map and sequence editor for Mac and Windows. Describe a construct and its agent designs the cloning on your own sequences, then walks you through it step by step.</p>
+        <div class="dl">
+          <a class="btn btn-lg button-lg dl-main" href="https://github.com/plasmidlab/plasmidlab/releases/latest"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M128 40v128M72 112l56 56 56-56M40 208h176" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="dl-label">Download</span></a>
+          <span class="dl-meta caption-2"><span class="mono dl-ver" data-state="loading"></span><span class="dl-alt">Also for Mac and Windows</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="agent" aria-labelledby="agent-h">
+  <div class="wrap"><div class="sec-head reveal">
+    <h2 class="heading-2" id="agent-h">Say what you want to build. The agent works it out on your sequences.</h2>
+    <p class="body-3 muted">It designs with the app's own tools, so every digest, PCR and assembly is run on the plasmids you have open, not taken from a generic recipe. The plan arrives in the chat.</p>
+  </div></div>
+  <figure class="bleed moment reveal">
+    <div class="device"><video data-src="../../assets/ai-design.mp4" poster="../../assets/ai-design-poster.png" autoplay muted loop playsinline preload="none" aria-label="A real agent run, sped up: an exercise opens with its brief, the agent finds cut sites, cuts and pastes, translates and checks its design, writes its answer and plays the walkthrough it drew"></video></div>
+    <figcaption class="caption-1">A real run, sped up: the agent finds the cut sites, cuts and pastes, checks its own design, then draws the walkthrough.</figcaption>
+  </figure>
+  <div class="wrap">
+    <ol class="steps reveal">
+      <li><h3 class="title-2">Describe the construct</h3><p class="body-3 muted">Type what you need in the agent panel, in the words you would use with a labmate.</p></li>
+      <li><h3 class="title-2">The agent designs it</h3><p class="body-3 muted">It runs real digests, PCRs and assemblies on your actual sequences and writes the plan in the chat.</p></li>
+      <li><h3 class="title-2">Watch the walkthrough</h3><p class="body-3 muted">It draws that exact design at the bench: digest, fragments, assembly, product, with the real enzyme names, sizes and overhangs.</p></li>
+    </ol>
+    <div class="providers reveal">
+      <p class="title-3">Use the AI you already have</p>
+      <p class="body-3 muted">The agent works with the Claude Code, Codex or Grok command line tools, or with an API key of your own. The editor and every cloning tool work without any of them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tagline" aria-label="What PlasmidLab does">
+  <div class="wrap">
+    <p class="heading-1" data-words>Open your plasmids, say what you want to make, and see every step before the first digest.</p>
+  </div>
+</section>
+
+<section id="editor" aria-labelledby="editor-h">
+  <div class="wrap"><div class="sec-head reveal">
+    <h2 class="heading-2" id="editor-h">A plasmid editor that works like a normal program.</h2>
+    <p class="body-3 muted">Maps, sequence, enzymes and primers in one window. Open a file with File &gt; Open, or drop it on the window.</p>
+  </div></div>
+  <figure class="bleed moment reveal">
+    <div class="device"><video data-src="../../assets/zoom.mp4" poster="../../assets/zoom-poster.png" autoplay muted loop playsinline preload="none" aria-label="A circular map of pcDNA-DEST53 zooming in from the whole plasmid, panning along the ring and zooming back out"></video></div>
+    <figcaption class="caption-1">Zoom the map from the whole plasmid into its sites and features, then back out.</figcaption>
+  </figure>
+  <div class="wrap">
+    <div class="stills reveal">
+      <figure><div class="crop" style="--l:.293;--t:.23;--w:.6"><img loading="lazy" src="../../assets/map-circular.png" alt="Circular map of pcDNA-DEST53 with feature arrows and unique six cutter sites labelled around the ring"></div><figcaption class="caption-2 muted">Circular map with features and enzyme sites</figcaption></figure>
+      <figure><div class="crop" style="--l:.22;--t:.16;--w:.65"><img loading="lazy" src="../../assets/sequence.png" alt="Sequence view of the GFPmut3b coding sequence: both strands, enzyme sites, the amino acid translation and feature bars"></div><figcaption class="caption-2 muted">Sequence with translation and features</figcaption></figure>
+      <figure><div class="crop" style="--l:.19;--t:.12;--w:.5"><img loading="lazy" src="../../assets/gel.png" alt="Simulated agarose gel of pcDNA-DEST53 digests beside a DNA ladder, with the band sizes listed"></div><figcaption class="caption-2 muted">Simulated gel of your digests</figcaption></figure>
+      <figure><div class="crop" style="--l:.167;--t:.105;--w:.47"><img loading="lazy" src="../../assets/primers.png" alt="PCR window with two primers placed on the circular map and the amplified region highlighted"></div><figcaption class="caption-2 muted">PCR from two primers</figcaption></figure>
+    </div>
+    <div class="capabilities reveal">
+      <div><h3 class="title-2">See it</h3><ul class="body-3"><li>Circular and linear maps</li><li>Sequence view with translations and features</li><li>Feature detection</li><li>Secondary structure</li></ul></div>
+      <div><h3 class="title-2">Check it</h3><ul class="body-3"><li>PCR and simulated gels</li><li>Alignments</li><li>Sequencing traces (.ab1, .scf)</li><li>Codon usage tables</li><li>CRISPR guide window</li></ul></div>
+      <div><h3 class="title-2">Keep it</h3><ul class="body-3"><li>Reads and writes .dna, GenBank and FASTA</li><li>Restriction enzymes and enzyme sets</li><li>Primers and a primer database</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="toolbox" aria-labelledby="toolbox-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="heading-2" id="toolbox-h">The cloning methods you use, already in the menu.</h2>
+      <p class="body-3 muted">Run any of them by hand, or let the agent pick and run them for you.</p>
+    </div>
+    <div class="toolbox reveal">
+      <div><h3 class="heading-5">Cut and join</h3><ul class="body-3"><li>Restriction cloning, cut and paste</li><li>Ligate fragments</li><li>Insert fragments and features</li></ul></div>
+      <div><h3 class="heading-5">Assemble</h3><ul class="body-3"><li>Gibson assembly of two pieces</li><li>Golden Gate</li><li>Gateway BP and LR</li><li>TA cloning</li><li>TOPO cloning</li></ul></div>
+      <div><h3 class="heading-5">Change by PCR</h3><ul class="body-3"><li>Inverse PCR</li><li>Overlap PCR</li><li>Q5 site directed mutagenesis</li><li>Silent mutations</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="exercises" aria-labelledby="ex-h">
+  <div class="wrap exercises">
+    <div class="reveal">
+      <div class="sec-head">
+        <h2 class="heading-2" id="ex-h">Six designs to run the day you install it.</h2>
+        <p class="body-3 muted">Open <span class="kbd">Help &gt; Try a Cloning Design</span>. Each one opens its own sequences and puts the brief in the agent panel.</p>
+      </div>
+      <ul class="ex-list body-2">
+        <li>Move an insert between plasmids</li>
+        <li>Join two pieces with no scar</li>
+        <li>Put a synthesised part into an acceptor</li>
+        <li>Take 40 codons out of the middle of a gene</li>
+        <li>Make an entry clone, then an expression clone</li>
+        <li>Put four genes in one reading frame</li>
+      </ul>
+    </div>
+    <figure class="moment reveal">
+      <div class="device"><div class="crop" style="--l:.236;--t:.237;--w:.526;--ar:16 / 10;border-radius:8px"><img loading="lazy" src="../../assets/walkthrough.png" alt="The bench walkthrough player part way through cut and paste cloning: the vector opened at EcoRI and BamHI, the insert above it and the AATT and GATC overhangs lit"></div></div>
+      <figcaption class="caption-1">The walkthrough player part way through cut and paste: the vector open at EcoRI and BamHI.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="install" aria-labelledby="install-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2 class="heading-2" id="install-h">Installs like any other app.</h2>
+      <p class="body-3 muted">The download starts straight away. You do not need a GitHub account.</p>
+    </div>
+    <div class="install reveal">
+      <div><h3 class="heading-5">Mac</h3><p class="caption-1 muted">Apple silicon and Intel</p><p class="body-3">Open the .dmg and drag PlasmidLab to Applications. The app is signed and notarized by Apple.</p></div>
+      <div><h3 class="heading-5">Windows</h3><p class="caption-1 muted">Installer</p><p class="body-3">Run the installer.</p></div>
+    </div>
+    <p class="install-foot body-3 muted reveal">After install, sequencing traces, .dna, GenBank and FASTA files open with a double click.</p>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="heading-2" id="faq-h">Questions</h2></div>
+    <div class="faq reveal">
+      <details><summary class="title-2">Does it need an internet connection?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">No. The editor and the cloning tools work offline. You need a connection only for the AI agent and for importing from NCBI or UniProt.</p></details>
+      <details><summary class="title-2">Which AI do I need?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">None for the editor or the cloning tools. For the agent, use the Claude Code, Codex or Grok command line tool you already have, or an API key of your own.</p></details>
+      <details><summary class="title-2">Does the agent send my sequences anywhere?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">Only to the AI provider you chose, and only when you ask it something.</p></details>
+      <details><summary class="title-2">Can I open my existing .dna files?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">Yes. PlasmidLab reads and writes .dna, GenBank and FASTA, and opens .ab1 and .scf traces. Use File &gt; Open or drop the file on the window.</p></details>
+      <details><summary class="title-2">Mac with Intel or Apple silicon?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">Both. There is a Windows version too.</p></details>
+      <details><summary class="title-2">Where do I send a bug?<span class="pm" aria-hidden="true"></span></summary><p class="a body-3">Email <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>, or <a href="https://github.com/plasmidlab/plasmidlab/issues">report a problem or suggest a feature</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 class="heading-2" id="contact-h">Tell us what broke, or what you need.</h2></div>
+    <div class="contact reveal">
+      <a class="card" href="mailto:hello@plasmidlab.com"><span class="title-2">hello@plasmidlab.com</span><span class="body-3 muted">Questions, files that will not open, anything else.</span></a>
+      <a class="card" href="https://github.com/plasmidlab/plasmidlab/issues"><span class="title-2">Report a problem or suggest a feature</span><span class="body-3 muted">Opens the public issue list.</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="download" aria-labelledby="final-h">
+  <div class="wrap reveal">
+    <img class="icon-lg" src="../../assets/icon.svg" alt="PlasmidLab app icon">
+    <h2 class="heading-2" id="final-h">Open your next plasmid in PlasmidLab.</h2>
+    <div class="dl">
+      <a class="btn btn-lg button-lg dl-main" href="https://github.com/plasmidlab/plasmidlab/releases/latest"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M128 40v128M72 112l56 56 56-56M40 208h176" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="dl-label">Download</span></a>
+    </div>
+    <p class="dl-meta caption-2 muted"><span class="mono dl-ver" data-state="loading"></span><span class="dl-alt">Also for Mac and Windows</span></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="caption-2 muted">© 2026 PlasmidLab</span>
+    <nav class="caption-1" aria-label="Footer">
+      <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>
+      <a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="bar" id="bar" aria-label="Download PlasmidLab" inert>
+  <span class="brand"><img src="../../assets/icon.svg" alt=""><span class="bar-name title-3">PlasmidLab <span class="mono caption-2 muted dl-ver" data-state="loading"></span></span></span>
+  <span class="caption-1 dl-alt">Also for Mac and Windows</span>
+  <a class="btn button-md dl-main" href="https://github.com/plasmidlab/plasmidlab/releases/latest"><span class="dl-label">Download</span></a>
+</div>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!RM) document.documentElement.classList.add('motion');
+
+  /* Download: pick the visitor's OS, show the other as a secondary link. */
+  const FALLBACK = 'https://github.com/plasmidlab/plasmidlab/releases/latest';
+  const ua = navigator.userAgent, plat = navigator.platform || '';
+  const os = /Win/.test(plat) || /Windows/.test(ua) ? 'win' : /Mac/.test(plat) || /Mac OS X/.test(ua) ? 'mac' : null;
+  const NAME = { mac: 'Mac', win: 'Windows' };
+  const other = os === 'win' ? 'mac' : 'win';
+  const render = (links, tag) => {
+    const main = os || 'mac';
+    document.querySelectorAll('.dl-label').forEach(el => el.textContent = 'Download for ' + NAME[main]);
+    document.querySelectorAll('.dl-main').forEach(a => a.href = links[main] || FALLBACK);
+    document.querySelectorAll('.dl-alt').forEach(el => {
+      const alt = os ? other : 'win';
+      el.textContent = '';
+      el.append('Also for ');
+      const a = document.createElement('a'); a.href = links[alt] || FALLBACK; a.textContent = NAME[alt]; el.append(a);
+    });
+    document.querySelectorAll('.dl-ver').forEach(el => { el.removeAttribute('data-state'); el.textContent = tag || 'Latest release'; });
+  };
+  render({}, '');
+  document.querySelectorAll('.dl-ver').forEach(el => el.setAttribute('data-state', 'loading'));
+  (async () => {
+    try {
+      const r = await fetch('https://api.github.com/repos/plasmidlab/plasmidlab/releases/latest');
+      if (!r.ok) throw new Error(r.status);
+      const rel = await r.json();
+      const find = ext => (rel.assets || []).find(x => x.name.toLowerCase().endsWith(ext));
+      const dmg = find('.dmg'), exe = find('.exe');
+      render({ mac: dmg && dmg.browser_download_url, win: exe && exe.browser_download_url }, rel.tag_name);
+    } catch (e) { render({}, ''); }
+  })();
+
+  /* Videos: load near the viewport, play only while visible. Reduced motion: poster plus controls, no autoplay. */
+  const vids = [...document.querySelectorAll('video[data-src]')];
+  if (RM) {
+    vids.forEach(v => { v.removeAttribute('autoplay'); v.autoplay = false; v.controls = true; v.preload = 'none'; v.src = v.dataset.src; });
+  } else {
+    const vo = new IntersectionObserver(es => es.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting) { if (!v.getAttribute('src')) v.src = v.dataset.src; v.play().catch(() => {}); }
+      else if (v.getAttribute('src')) v.pause();
+    }), { rootMargin: '200px 0px' });
+    vids.forEach(v => vo.observe(v));
+  }
+
+  /* Section reveals, once each. */
+  if (!RM) {
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  }
+
+  /* Tagline: words light up one by one as they cross a line 40% up from the bottom of the viewport. */
+  const tag = document.querySelector('[data-words]');
+  const wrapWords = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType !== 3) return;
+    const frag = document.createDocumentFragment();
+    n.textContent.split(/(\s+)/).forEach(t => {
+      if (!t) return;
+      if (/^\s+$/.test(t)) { frag.append(t); return; }
+      const s = document.createElement('span'); s.className = 'w'; s.textContent = t; frag.append(s);
+    });
+    n.replaceWith(frag);
+  });
+  if (!RM) {
+    wrapWords(tag);
+    const wo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); wo.unobserve(e.target); } }), { rootMargin: '0px 0px -40% 0px' });
+    tag.querySelectorAll('.w').forEach(w => wo.observe(w));
+  }
+
+  /* Sticky download bar: shown after the hero leaves, hidden again at the final download. */
+  const bar = document.getElementById('bar');
+  const seen = new Map();
+  const so = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target, e.isIntersecting));
+    const show = ![...seen.values()].some(Boolean);
+    bar.classList.toggle('show', show);
+    bar.inert = !show;
+  });
+  so.observe(document.getElementById('top'));
+  so.observe(document.getElementById('download'));
+})();
+</script>
+</body>
+</html>
