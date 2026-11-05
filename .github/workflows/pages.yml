@@ -1,15 +1,21 @@
 name: pages
 on:
-  push: { branches: [main] }
+  push:
+    branches: [main]
   workflow_dispatch:
-permissions: { pages: write, id-token: write }
+permissions:
+  pages: write
+  id-token: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: { name: github-pages, url: ${{ steps.d.outputs.page_url }} }
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/upload-pages-artifact@v3
-        with: { path: . }
+        with:
+          path: .
       - id: d
         uses: actions/deploy-pages@v4
