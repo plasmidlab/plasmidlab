@@ -85,30 +85,39 @@ footer{padding:32px 0}
 </nav>
 <main class="doc"><div class="wrap"><div class="measure">
 <h1 class="heading-1">Privacy</h1>
-<p class="date body-3">2026-11-05</p>
+<p class="date body-3">2026-11-06</p>
 
 <h2 class="heading-5">1. The app itself</h2>
-<p>PlasmidLab runs on your computer. Your sequence files stay on your disk. The editor and cloning tools send nothing anywhere. There is no account and no telemetry.</p>
+<p>PlasmidLab runs on your computer. Your sequence files stay on your disk. The editor and cloning tools send nothing anywhere. There is no telemetry.</p>
 
 <h2 class="heading-5">2. The AI agent with your own provider</h2>
 <p>You can connect Claude Code, Codex, Grok or your own API key. Then your prompt and the sequences the agent reads go to that provider, under your own account and their terms. PlasmidLab does not see them.</p>
 
 <h2 class="heading-5">3. The free trial</h2>
-<p>Every install gets a few free agent runs on Claude Haiku 5.5, paid by PlasmidLab. Requests go to PlasmidLab's relay server (api.plasmidlab.com, on Cloudflare) and then to Anthropic's API. The relay keeps a per-install counter and a daily spend total.</p>
-<p>Anthropic's API terms apply to the model call. Anthropic does not train on API traffic by default.</p>
+<p>To use the free trial you sign in with Google. PlasmidLab keeps an account for you:</p>
+<ul>
+<li>your name and your email address</li>
+<li>the affiliation you type in (lab or institution)</li>
+<li>the date you signed up</li>
+<li>how many trial runs you used</li>
+</ul>
+<p>Google gives us only your name, your email and a Google account id. We never see your Google password.</p>
+<p>Purpose of the account: to count the free runs, to stop abuse, and to know who uses the trial (by affiliation, in aggregate).</p>
+<p>Trial runs use Claude Haiku 5.5 through PlasmidLab's relay (api.plasmidlab.com). Anthropic's API terms apply; Anthropic does not train on API traffic by default.</p>
+<p>The relay runs on Cloudflare. It keeps your run count and a daily spend total.</p>
 
 <h2 class="heading-5">4. Data we keep only if you tick the box</h2>
-<p>The trial dialog has a box. If you tick it, we keep:</p>
+<p>The trial dialog has a box. If you tick it, we keep these, tied to your account:</p>
 <ul>
 <li>the prompt, the sequences the agent read, its tool calls and its answer</li>
 <li>the app version and the model</li>
 <li>token counts</li>
 <li>a random install id</li>
 </ul>
-<p>We do not keep your name, your email, or your IP address beyond Cloudflare's standard short-lived logs. We do not keep files you did not send to the agent.</p>
+<p>We do not keep your IP address beyond Cloudflare's standard short-lived logs. We do not keep files you did not send to the agent.</p>
 <p>Purpose: to find where the agent fails and to improve the tools and the walkthroughs.</p>
 <p>Retention: 12 months, then deleted.</p>
-<p>You can turn this off any time in Preferences. To delete past runs, email <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a> with your install id (shown in Preferences).</p>
+<p>You can untick the box any time in Preferences. Signing out keeps the account but stops new runs being logged. To delete the account and its runs, email <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a> from the signed-in address. We delete them within 30 days.</p>
 <p>We do not sell or share these runs. We may publish aggregate numbers, such as success rates by task type.</p>
 
 <h2 class="heading-5">5. Website</h2>
@@ -116,6 +125,9 @@ footer{padding:32px 0}
 
 <h2 class="heading-5">6. Contact</h2>
 <p><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a></p>
+
+<h2 class="heading-5">Changes</h2>
+<p>2026-11-06: the trial now needs a Google sign-in; added the account section.</p>
 </div></div></main>
 <footer><div class="wrap footer-inner caption-2"><p>© 2026 PlasmidLab</p><div class="footer-links"><a href="../">Home</a><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a></div></div></footer>
 </body>
