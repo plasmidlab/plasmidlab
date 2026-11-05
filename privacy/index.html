@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy - PlasmidLab</title>
 <link rel="canonical" href="https://plasmidlab.com/privacy/">
-<meta name="description" content="What PlasmidLab keeps, what it sends, and who sees it.">
+<meta name="description" content="What PlasmidLab keeps, why, for how long, and who else handles it.">
+<link rel="alternate" hreflang="en" href="https://plasmidlab.com/privacy/">
+<link rel="alternate" hreflang="ko" href="https://plasmidlab.com/privacy/ko/">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts/geist.css">
 <style>
 :root{--paper:#fff;--band:#f4f4f5;--line:#dedee2;--ink:#161618;--text:#45454b;--muted:#64646c;--accent:#2b3fb0;--ease:cubic-bezier(.22,1,.36,1);--gutter:48px;--wide:1200px}
 *,*::before,*::after{box-sizing:border-box}
@@ -75,6 +75,12 @@ footer{padding:32px 0}
 .doc li{padding-left:20px;position:relative}
 .doc li+li{margin-top:8px}
 .doc li::before{content:"–";position:absolute;left:0;color:var(--muted)}
+.doc .table-wrap{margin-top:16px;overflow-x:auto}
+.doc table{width:100%;border-collapse:collapse;text-align:left}
+.doc th,.doc td{padding:12px 16px 12px 0;border-top:1px solid var(--line);vertical-align:top}
+.doc th{color:var(--ink);font-weight:500}
+.doc td:first-child{min-width:180px}
+.trademarks{margin-top:8px;max-width:560px}
 @media(max-width:767px){.footer-inner{flex-direction:column}.footer-links{justify-content:start}.doc{padding:112px 0 64px}.doc .date{margin-bottom:40px}.doc h2{margin-top:40px}}
 </style>
 </head>
@@ -86,50 +92,72 @@ footer{padding:32px 0}
 </nav>
 <main class="doc"><div class="wrap"><div class="measure">
 <h1 class="heading-1">Privacy</h1>
-<p class="date body-3">2026-11-06</p>
+<p class="date body-3">Last updated 2026-11-06 · <a href="ko/" hreflang="ko" lang="ko">한국어: 개인정보처리방침</a></p>
 
-<h2 class="heading-5">1. The app itself</h2>
-<p>PlasmidLab runs on your computer. Your sequence files stay on your disk. The editor and cloning tools send nothing anywhere. There is no telemetry.</p>
+<h2 class="heading-5">1. Who runs PlasmidLab</h2>
+<p>PlasmidLab is made by Chanyoung Park, an individual developer in the Republic of Korea. He decides how the data described here is used (the data controller) and is the privacy officer.</p>
+<p>Privacy requests: <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a>. General mail: <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>.</p>
 
-<h2 class="heading-5">2. The AI agent with your own provider</h2>
-<p>You can connect Claude Code, Codex, Grok or your own API key. Then your prompt and the sequences the agent reads go to that provider, under your own account and their terms. PlasmidLab does not see them.</p>
+<h2 class="heading-5">2. The app on your computer</h2>
+<p>PlasmidLab runs on your computer and your sequence files stay on your disk. The editor and cloning tools send nothing anywhere, except NCBI or UniProt imports that you start. There is no telemetry.</p>
 
-<h2 class="heading-5">3. The free trial</h2>
-<p>To use the free trial you sign in with Google. PlasmidLab keeps an account for you:</p>
+<h2 class="heading-5">3. The AI agent with your own provider</h2>
+<p>You can connect Claude Code, Codex, Grok or your own API key. Your prompt and the sequences the agent reads then go to that provider, under your account and their terms. PlasmidLab does not see them.</p>
+
+<h2 class="heading-5">4. The free trial</h2>
+<p>The trial gives 3 AI runs per Google account on Claude Haiku. After that, you connect your own provider. The trial is for people aged 18 or older. It is not offered in countries where Anthropic's API is not available (<a href="https://www.anthropic.com/supported-countries">Anthropic's supported regions</a>).</p>
+<p>You sign in with Google. Google gives us your Google account id, your name and your email address. We never see your Google password. On first sign-in you type your affiliation (lab or institution). The affiliation is required; without it you cannot use the trial.</p>
+<p>Trial runs go through PlasmidLab's relay at api.plasmidlab.com to Anthropic. Each run is sent to Anthropic to be answered, even when transcript storage is off. Anthropic's <a href="https://www.anthropic.com/legal/commercial-terms">Commercial Terms of Service</a> say it may not train models on API inputs and outputs.</p>
+
+<h2 class="heading-5">5. What we keep, why, and for how long</h2>
+<div class="table-wrap"><table class="body-6">
+<thead><tr><th scope="col">What we keep</th><th scope="col">Why</th><th scope="col">How long</th></tr></thead>
+<tbody>
+<tr><td>Account: Google account id, name, email, affiliation, sign-up time</td><td>To count your free runs, stop abuse and see which labs use the trial (in aggregate)</td><td>While the account is in use. Deleted 24 months after your last use, or when you delete the account.</td></tr>
+<tr><td>Sign-ins: the app's install id, app version, sign-in time, last seen</td><td>To keep you signed in, let you sign out and block misuse</td><td>Same as the account</td></tr>
+<tr><td>Each run: timestamps, model, token counts, estimated cost, stop reason</td><td>To count runs, cap daily spend and stop abuse</td><td>Same as the account</td></tr>
+<tr><td>Run transcripts, only if you tick the box: your prompt, the sequences the agent read, its tool calls and its answer</td><td>To find where the agent fails and improve the tools and walkthroughs</td><td>12 months. Deleted sooner if you withdraw consent or delete the account.</td></tr>
+</tbody></table></div>
+<p>The first three rows are kept whether or not you tick the box. The relay does not save your IP address. We do not see files you did not give to the agent.</p>
+
+<h2 class="heading-5">6. The transcript box</h2>
+<p>The box is unticked by default and you can use the trial without it. If you tick it, PlasmidLab keeps the transcript of each trial run (your prompt, the sequences the agent read, its tool calls and its answer) for 12 months to improve the product. You can untick it at any time in the app's Settings. We then stop keeping new transcripts and delete the ones already kept.</p>
+<p>We may publish aggregate numbers, such as success rates by task type. They never include your sequences or anything that identifies you.</p>
+
+<h2 class="heading-5">7. Legal bases</h2>
 <ul>
-<li>your name and your email address</li>
-<li>the affiliation you type in (lab or institution)</li>
-<li>the date you signed up</li>
-<li>how many trial runs you used</li>
+<li>Account and run counting: to provide the trial you signed up for (contract).</li>
+<li>Abuse prevention and spend caps: our legitimate interest in keeping the free trial running.</li>
+<li>Run transcripts: your consent, which you can withdraw at any time.</li>
 </ul>
-<p>Google gives us only your name, your email and a Google account id. We never see your Google password.</p>
-<p>Purpose of the account: to count the free runs, to stop abuse, and to know who uses the trial (by affiliation, in aggregate).</p>
-<p>Trial runs use Claude Haiku 5.5 through PlasmidLab's relay (api.plasmidlab.com). Anthropic's API terms apply; Anthropic does not train on API traffic by default.</p>
-<p>The relay runs on Cloudflare. It keeps your run count and a daily spend total.</p>
 
-<h2 class="heading-5">4. Data we keep only if you tick the box</h2>
-<p>The trial dialog has a box. If you tick it, we keep these, tied to your account:</p>
+<h2 class="heading-5">8. Who else handles the data</h2>
+<p>These companies process data for us as service providers. We do not sell your data or share it for advertising.</p>
 <ul>
-<li>the prompt, the sequences the agent read, its tool calls and its answer</li>
-<li>the app version and the model</li>
-<li>token counts</li>
-<li>a random install id</li>
+<li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> runs the relay (Workers, D1, R2). Data is stored in the US or EU regions Cloudflare picks.</li>
+<li><a href="https://www.anthropic.com/legal/privacy">Anthropic</a> answers each trial run (United States).</li>
+<li><a href="https://policies.google.com/privacy">Google</a> handles sign-in (United States).</li>
+<li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a> hosts this website and the downloads (United States).</li>
 </ul>
-<p>We do not keep your IP address beyond Cloudflare's standard short-lived logs. We do not keep files you did not send to the agent.</p>
-<p>Purpose: to find where the agent fails and to improve the tools and the walkthroughs.</p>
-<p>Retention: 12 months, then deleted.</p>
-<p>You can untick the box any time in Preferences. Signing out keeps the account but stops new runs being logged. To delete the account and its runs, email <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a> from the signed-in address. We delete them within 30 days.</p>
-<p>We do not sell or share these runs. We may publish aggregate numbers, such as success rates by task type.</p>
+<p>Using the trial means your data is sent to these companies outside Korea, over encrypted connections, at the time you sign in or start a run. If you do not want that, use your own provider instead of the trial.</p>
 
-<h2 class="heading-5">5. Website</h2>
-<p>plasmidlab.com is a static site on GitHub Pages. GitHub's standard server logs apply. There are no cookies and no analytics.</p>
+<h2 class="heading-5">9. This website and cookies</h2>
+<p>plasmidlab.com is a static site on GitHub Pages. It has no analytics and sets no cookies. The fonts are served from this site. GitHub keeps its standard server logs. The download buttons ask api.github.com for the latest release, so GitHub sees your IP address and browser details for that request.</p>
+<p>During sign-in the relay sets one cookie, plasmidlab_flow, on api.plasmidlab.com. It links the browser sign-in to your app, lasts 15 minutes and is cleared when sign-in finishes. Google sets its own cookies on Google's sites when you sign in there.</p>
 
-<h2 class="heading-5">6. Contact</h2>
-<p><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a></p>
+<h2 class="heading-5">10. Your rights</h2>
+<p>You can ask to see, correct or delete your data, and you can withdraw consent for transcripts. To delete your account and everything tied to it, use "Delete my account" in the app's Settings, or email <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a> from your signed-in address. Emailed requests are done within 30 days.</p>
+<p>You can also complain to Korea's Personal Information Protection Commission (<a href="https://www.pipc.go.kr">pipc.go.kr</a>) or to the data protection authority where you live.</p>
+
+<h2 class="heading-5">11. Age</h2>
+<p>The trial is for people aged 18 or older. If we learn that an account belongs to someone younger, we delete it.</p>
 
 <h2 class="heading-5">Changes</h2>
-<p>2026-11-06: the trial now needs a Google sign-in; added the account section.</p>
+<ul>
+<li>2026-11-06: named the operator and privacy officer; added the retention table, legal bases, service providers, transfers abroad, cookies, rights and the age rule; deletion requests now go to support@plasmidlab.com.</li>
+<li>2026-11-06: the trial now needs a Google sign-in; added the account section.</li>
+</ul>
 </div></div></main>
-<footer><div class="wrap footer-inner caption-2"><p>© 2026 PlasmidLab</p><div class="footer-links"><a href="../">Home</a><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a></div></div></footer>
+<footer><div class="wrap footer-inner caption-2"><div><p>© 2026 Chanyoung Park</p><p class="trademarks">Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><div class="footer-links"><a href="../">Home</a><a href="./">Privacy</a><a href="ko/" lang="ko">개인정보처리방침</a><a href="../terms/">Terms</a><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a></div></div></footer>
 </body>
 </html>

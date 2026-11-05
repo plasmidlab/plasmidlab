@@ -15,9 +15,7 @@
 <meta name="twitter:image" content="https://plasmidlab.com/assets/app-agent.png">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts/geist.css">
 <style>
 :root{--paper:#fff;--band:#f4f4f5;--line:#dedee2;--ink:#161618;--text:#45454b;--muted:#64646c;--accent:#2b3fb0;--ease:cubic-bezier(.22,1,.36,1);--gutter:48px;--wide:1200px}
 *,*::before,*::after{box-sizing:border-box}
@@ -98,6 +96,8 @@ section{padding:96px 0}
 .download-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 24px}
 .download-note{margin-top:16px;color:var(--muted)}
 .release-tag{display:inline-block}
+.download-note+.download-note{margin-top:4px}
+.trademarks{margin-top:8px;max-width:560px}
 .release-tag:not(:empty)::before{content:" · "}
 figure{min-width:0}
 .plate{position:relative;overflow:hidden;aspect-ratio:16/10;border:1px solid var(--line);border-radius:12px;background:#ededee}
@@ -202,11 +202,12 @@ footer{padding:32px 0}
         <h1 class="heading-1" id="hero-title"><span>A plasmid editor.</span><span>An AI that designs your cloning.</span></h1>
         <p class="intro body-7">Describe your construct. An AI agent designs the cloning on your sequences. Then it plays a walkthrough of each step.</p>
         <div class="download-row"><a class="btn btn-primary button-md" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a><a class="title-4" data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Also for Windows</a></div>
-        <p class="download-note caption-2">The editor works without an AI connection.<span class="release-tag"></span></p>
+        <p class="download-note caption-2">3 free AI runs per Google account, then connect your own Claude, Codex or Grok subscription or API key. The editor works without AI.<span class="release-tag"></span></p>
+        <p class="download-note caption-2">Answers can be wrong. Check every sequence before you use it.</p>
       </div>
       <figure>
         <div class="plate"><img src="assets/app-agent.png" width="2880" height="1800" fetchpriority="high" alt="PlasmidLab window: a circular map of pUC19-GFPmut3b on the left, and on the right the AI panel mid-run, listing the sequences it read, the enzyme sites it found, and the cut-and-paste step in progress"></div>
-        <figcaption class="caption-2"><span><b>Figure 1.</b> The agent at work: it reads both sequences, finds the cut sites, then builds the clone.</span><span>pUC19 with GFPmut3b, 3,382 bp.</span></figcaption>
+        <figcaption class="caption-2"><span><b>Figure 1.</b> The agent at work: it reads both sequences, finds the cut sites, then builds the predicted clone.</span><span>pUC19 with GFPmut3b, 3,382 bp.</span></figcaption>
       </figure>
     </div>
   </section>
@@ -239,7 +240,7 @@ footer{padding:32px 0}
   <section class="agent band" id="agent" aria-labelledby="agent-title">
     <div class="wrap">
       <p class="eyebrow caption-1"><span class="index">02</span> The AI agent</p>
-      <div class="section-head reveal"><h2 class="heading-2" id="agent-title">Describe the construct.<br>The agent designs the cloning.</h2><p class="body-3">The agent uses the editor’s own tools. It runs real digests, PCRs and assemblies on your sequences.</p></div>
+      <div class="section-head reveal"><h2 class="heading-2" id="agent-title">Describe the construct.<br>The agent designs the cloning.</h2><p class="body-3">The agent uses the editor’s own tools. It runs simulated digests, PCRs and assemblies on your sequences.</p></div>
       <div class="agent-design">
         <figure class="reveal"><div class="plate"><video autoplay muted loop playsinline preload="none" poster="assets/ai-design-poster.png" data-src="assets/ai-design.mp4" aria-label="The PlasmidLab agent designing cloning on the open sequences"></video><button class="media-toggle caption-1" type="button" aria-label="Pause agent design video">Pause</button></div><figcaption class="caption-2"><b>Figure 5.</b><span>A real agent run, sped up.</span></figcaption></figure>
         <ol class="steps">
@@ -249,10 +250,10 @@ footer{padding:32px 0}
         </ol>
       </div>
       <div class="walkthrough-row">
-        <div class="walkthrough-copy reveal"><h3 class="heading-5">The plan becomes<br>a bench walkthrough.</h3><p class="body-3">The agent draws an animated walkthrough of its design. It shows the real enzyme names, fragment sizes and overhangs.</p><p class="body-6 muted">The walkthrough plays inside PlasmidLab.</p></div>
+        <div class="walkthrough-copy reveal"><h3 class="heading-5">The plan becomes<br>a bench walkthrough.</h3><p class="body-3">The agent draws an animated walkthrough of its design. It shows the enzyme names, fragment sizes and overhangs from the design.</p><p class="body-6 muted">The walkthrough plays inside PlasmidLab.</p></div>
         <figure class="reveal"><div class="plate walkthrough-plate"><video autoplay muted loop playsinline preload="none" poster="assets/walkthrough-poster.png" data-src="assets/walkthrough.mp4" aria-label="Golden Gate assembly tutorial playing inside PlasmidLab"></video><button class="media-toggle caption-1" type="button" aria-label="Pause cloning walkthrough">Pause</button></div><figcaption class="caption-2"><b>Figure 6.</b><span>Golden Gate walkthrough, playing in the app.</span></figcaption></figure>
       </div>
-      <p class="agent-foot body-6">Use the Claude Code, Codex or Grok CLI you already have, or your own API key. The editor and cloning tools work without an agent.</p>
+      <p class="agent-foot body-6">3 free AI runs per Google account, then connect your own Claude, Codex or Grok subscription or API key. The editor and cloning tools work without an agent.</p>
     </div>
   </section>
   <section id="methods" aria-labelledby="methods-title">
@@ -289,10 +290,10 @@ footer{padding:32px 0}
       <p class="eyebrow caption-1"><span class="index">05</span> Installation</p>
       <h2 class="heading-2" id="install-title">Install on Mac or Windows.</h2>
       <div class="install-grid">
-        <article class="install-platform"><div class="platform-head"><h3 class="heading-5">Mac</h3><a class="title-4" data-download="mac" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a></div><ol class="body-3"><li>Open the downloaded .dmg.</li><li>Drag PlasmidLab to Applications.</li></ol><p class="note body-6">Apple silicon and Intel.<br>Signed and notarized by Apple.</p></article>
+        <article class="install-platform"><div class="platform-head"><h3 class="heading-5">Mac</h3><a class="title-4" data-download="mac" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a></div><ol class="body-3"><li>Open the downloaded .dmg.</li><li>Drag PlasmidLab to Applications.</li></ol><p class="note body-6">Apple silicon and Intel.<br>Signed with an Apple Developer ID and notarized by Apple.</p></article>
         <article class="install-platform"><div class="platform-head"><h3 class="heading-5">Windows</h3><a class="title-4" data-download="windows" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Windows</a></div><ol class="body-3"><li>Run the downloaded installer.</li></ol><p class="note body-6">Then open PlasmidLab.</p></article>
       </div>
-      <p class="install-bottom body-3">After install, double click a .dna, GenBank, FASTA or trace file to open it.</p>
+      <p class="install-bottom body-3">After install, double click a .dna, GenBank, FASTA or trace file to open it. PlasmidLab is for research use only and is licensed under the <a href="terms/">Terms of Use</a>.</p>
       <p class="download-note caption-2" id="download-status" role="status" aria-live="polite">Mac and Windows installers.<span class="release-tag"></span></p>
     </div>
   </section>
@@ -301,10 +302,10 @@ footer{padding:32px 0}
       <div><p class="eyebrow caption-1"><span class="index">06</span> A few details</p><h2 class="heading-2" id="faq-title">Questions<br>before you install.</h2></div>
       <div class="faq-list">
         <details><summary class="title-2">Do I need an internet connection?</summary><p class="body-3">The editor and cloning tools work offline. The agent and NCBI or UniProt imports need internet.</p></details>
-        <details><summary class="title-2">Which AI do I need?</summary><p class="body-3">The Claude Code, Codex or Grok CLI you already have, or your own API key. The editor and cloning tools need none of them.</p></details>
+        <details><summary class="title-2">Which AI do I need?</summary><p class="body-3">The free trial gives 3 AI runs per Google account. After that, connect your own Claude, Codex or Grok subscription or API key. The editor and cloning tools need none of them.</p></details>
         <details><summary class="title-2">Can I open my existing .dna files?</summary><p class="body-3">Yes. PlasmidLab reads and writes .dna, GenBank and FASTA. Use File &gt; Open or drop the file on the window. Traces in .ab1 and .scf open too.</p></details>
         <details><summary class="title-2">Apple silicon or Intel?</summary><p class="body-3">Both. PlasmidLab runs on Apple silicon and Intel Macs, and on Windows.</p></details>
-        <details><summary class="title-2">Does the agent send my sequences anywhere?</summary><p class="body-3">Only to the AI provider you chose. Only when you ask the agent something. The free trial goes through PlasmidLab's relay to Anthropic; see the <a href="privacy/">privacy page</a>.</p></details>
+        <details><summary class="title-2">Does the agent send my sequences anywhere?</summary><p class="body-3">Only to the AI provider you chose. Only when you ask the agent something. The free trial goes through PlasmidLab's relay to Anthropic; see the <a href="privacy/">privacy page</a>. The trial is for people aged 18 or older.</p></details>
         <details><summary class="title-2">Where do I send a bug or a suggestion?</summary><p class="body-3">Email <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a> or <a href="https://github.com/plasmidlab/plasmidlab/issues">open an issue on GitHub</a>. Questions go to <a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a>.</p></details>
       </div>
     </div>
@@ -320,7 +321,7 @@ footer{padding:32px 0}
     <div class="wrap"><p class="eyebrow caption-1">PlasmidLab for Mac and Windows</p><h2 class="heading-1" id="final-title">Your next clone,<br>designed by the agent.</h2><div class="download-row"><a class="btn btn-primary button-md" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a><a class="title-4" data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Also for Windows</a></div><p class="download-note caption-2">Open your sequences. Describe the construct.<span class="release-tag"></span></p></div>
   </section>
 </main>
-<footer><div class="wrap footer-inner caption-2"><p>© 2026 PlasmidLab</p><div class="footer-links"><a href="mailto:hello@plasmidlab.com">hello@plasmidlab.com</a><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a><a href="#guides">Guides</a><a href="privacy/">Privacy</a><a href="#top">Back to top</a></div></div></footer>
+<footer><div class="wrap footer-inner caption-2"><div><p>© 2026 Chanyoung Park</p><p class="trademarks">Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><div class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem or suggest a feature</a><a href="#guides">Guides</a><a href="privacy/">Privacy</a><a href="privacy/ko/" lang="ko">개인정보처리방침</a><a href="terms/">Terms</a><a href="#top">Back to top</a></div></div></footer>
 <script>
 (() => {
   document.documentElement.classList.add('js');
