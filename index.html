@@ -9,9 +9,9 @@
 <meta property="og:url" content="https://plasmidlab.com/">
 <meta property="og:title" content="PlasmidLab: a plasmid editor with an AI that designs your cloning">
 <meta property="og:description" content="A plasmid map and sequence editor for Mac and Windows. An AI agent designs the cloning on your sequences.">
-<meta property="og:image" content="https://plasmidlab.com/assets/app-window.png">
+<meta property="og:image" content="https://plasmidlab.com/assets/app-agent.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://plasmidlab.com/assets/app-window.png">
+<meta name="twitter:image" content="https://plasmidlab.com/assets/app-agent.png">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,6 +92,7 @@ section{padding:96px 0}
 .hero .eyebrow{justify-content:center;margin-bottom:24px}
 .hero h1{background:linear-gradient(100deg,#000,#666);background-clip:text;-webkit-background-clip:text;color:transparent}
 .hero h1 span{display:block}
+.hero h1{padding-bottom:.12em}
 .hero .intro{max-width:600px;margin:24px auto 32px}
 .download-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 24px}
 .download-note{margin-top:16px;color:var(--muted)}
@@ -203,8 +204,8 @@ footer{padding:32px 0}
         <p class="download-note caption-2">The editor works without an AI connection.<span class="release-tag"></span></p>
       </div>
       <figure>
-        <div class="plate"><img src="assets/app-window.png" width="2880" height="1800" fetchpriority="high" alt="PlasmidLab desktop editor showing an annotated circular plasmid map, sequence and cloning tools."></div>
-        <figcaption class="caption-2"><span><b>Figure 1.</b> Map, sequence and agent panel in one window.</span><span>A 7.8 kb expression vector.</span></figcaption>
+        <div class="plate"><img src="assets/app-agent.png" width="1440" height="900" fetchpriority="high" alt="PlasmidLab window: a circular map of pUC19-GFPmut3b on the left, and on the right the AI panel mid-run, listing the sequences it read, the enzyme sites it found, and the cut-and-paste step in progress"></div>
+        <figcaption class="caption-2"><span><b>Figure 1.</b> The agent at work: it reads both sequences, finds the cut sites, then builds the clone.</span><span>pUC19 with GFPmut3b, 3,382 bp.</span></figcaption>
       </figure>
     </div>
   </section>
