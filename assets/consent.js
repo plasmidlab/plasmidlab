@@ -9,6 +9,8 @@
   const write = (name, value, age = YEAR) => { document.cookie = `${name}=${value}; Max-Age=${age}; Path=/; SameSite=Lax; Secure`; };
   const send = (route, body) => navigator.sendBeacon(API + route, JSON.stringify(body));
   let stop = null;
+  // The relay sets this after sign-in so these static pages can say Account. It holds nothing and is not about visits.
+  if (read('plasmidlab_signed_in')) document.querySelectorAll('[data-login]').forEach(link => { link.textContent = ko ? '내 계정' : 'Account'; });
 
   function record() {
     if (stop) return;

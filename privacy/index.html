@@ -87,7 +87,7 @@ footer{padding:32px 0}
 <body id="top">
 <nav class="nav" aria-label="Main navigation">
   <a class="brand title-1" href="../" aria-label="PlasmidLab home">PlasmidLab</a>
-  <div class="nav-links title-4"><a href="../">Home</a><a href="../#editor">Editor</a><a href="../#agent">Agent</a><a href="../#install">Install</a></div>
+  <div class="nav-links title-4"><a href="../">Home</a><a href="../#editor">Editor</a><a href="../#agent">Agent</a><a href="../#install">Install</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a></div>
   <a class="btn btn-primary button-sm" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download</a>
 </nav>
 <main class="doc"><div class="wrap"><div class="measure">
@@ -105,21 +105,22 @@ footer{padding:32px 0}
 <p>You can connect Claude Code, Codex, Grok or your own API key. Your prompt and the sequences the agent reads then go to that provider, under your account and their terms. PlasmidLab does not see them.</p>
 
 <h2 class="heading-5">4. The free trial</h2>
-<p>The trial gives 3 AI runs per Google account on Claude Haiku. After that, you connect your own provider. The trial is for people aged 18 or older. It is not offered in countries where Anthropic's API is not available (<a href="https://www.anthropic.com/supported-countries">Anthropic's supported regions</a>).</p>
-<p>You sign in with Google. Google gives us your Google account id, your name, your email address and, for a Google Workspace account, its domain. We never see your Google password. At each sign-in you check and can edit your name, email, affiliation (lab or institution) and position (for example student, researcher or professor). All four are required; without them you cannot use the trial.</p>
+<p>The trial gives 3 AI runs per account on Claude Haiku. After that, you connect your own provider. The trial is for people aged 18 or older. It is not offered in countries where Anthropic's API is not available (<a href="https://www.anthropic.com/supported-countries">Anthropic's supported regions</a>).</p>
+<p>You sign in on this site or in the app with the same account, in either of two ways. With Google: Google gives us your Google account id, your name, your email address and, for a Google Workspace account, its domain. We never see your Google password. With an email address and password: we email you a link to prove the address, and we store only a salted hash of the password, never the password itself. An account with the same verified address uses both ways. You check and can edit your name, email, affiliation (lab or institution) and position (for example student, researcher or professor) at each sign-in in the app, and on the website the first time. All four are required; without them you cannot use the trial.</p>
 <p>Trial runs go through PlasmidLab's relay at api.plasmidlab.com to Anthropic. Each run is sent to Anthropic to be answered, even when transcript storage is off. Anthropic's <a href="https://www.anthropic.com/legal/commercial-terms">Commercial Terms of Service</a> say it may not train models on API inputs and outputs.</p>
 
 <h2 class="heading-5">5. What we keep, why, and for how long</h2>
 <div class="table-wrap"><table class="body-6">
 <thead><tr><th scope="col">What we keep</th><th scope="col">Why</th><th scope="col">How long</th></tr></thead>
 <tbody>
-<tr><td>Account: Google account id, name, email, affiliation, position, sign-up time</td><td>To count your free runs, stop abuse and see which labs use the trial (in aggregate)</td><td>While the account is in use. Deleted 24 months after your last use, or when you delete the account.</td></tr>
-<tr><td>Sign-ins: the app's install id, app version, sign-in time, last seen</td><td>To keep you signed in, let you sign out and block misuse</td><td>Same as the account</td></tr>
+<tr><td>Account: Google account id if you use Google, password hash if you set a password, name, email, affiliation, position, sign-up time</td><td>To count your free runs, stop abuse and see which labs use the trial (in aggregate)</td><td>While the account is in use. Deleted 24 months after your last use, or when you delete the account.</td></tr>
+<tr><td>Sign-ins: the app's install id and version, or a random id for a website sign-in, sign-in time, last seen</td><td>To keep you signed in, let you sign out and block misuse</td><td>Same as the account</td></tr>
 <tr><td>Each run: timestamps, model, token counts, estimated cost, stop reason</td><td>To count runs, cap daily spend and stop abuse</td><td>Same as the account</td></tr>
 <tr><td>Run transcripts, only if you tick the box: your prompt, the sequences the agent read, its tool calls and its answer</td><td>To find where the agent fails and improve the tools and walkthroughs</td><td>12 months. Deleted sooner if you withdraw consent or delete the account.</td></tr>
+<tr><td>Password links and failed sign-ins: the email address, the time and the number of failed tries</td><td>To send the link, make it work once and stop password guessing</td><td>2 days for links, 1 day for failed tries</td></tr>
 <tr><td>Site visits, only if you press Allow: random visitor id, pages and sections viewed, download links clicked, referring site name, country, kind of device, time</td><td>To see how the site is used and improve it</td><td>12 months. Deleted sooner if you withdraw from Cookie settings</td></tr>
 </tbody></table></div>
-<p>The first three rows are kept whether or not you tick the box. The relay does not save your IP address. We do not see files you did not give to the agent.</p>
+<p>Everything except transcripts and site visits is kept whether or not you tick the box or press Allow. The relay does not save your IP address; it uses it for a moment to limit sign-in attempts. The operator sees member details and these records on a private admin page. We do not see files you did not give to the agent.</p>
 
 <h2 class="heading-5">6. The transcript box</h2>
 <p>The box is unticked by default and you can use the trial without it. If you tick it, PlasmidLab keeps the transcript of each trial run (your prompt, the sequences the agent read, its tool calls and its answer) for 12 months to improve the product. You can untick it at any time in the app's Settings. We then stop keeping new transcripts and delete the ones already kept.</p>
@@ -136,21 +137,23 @@ footer{padding:32px 0}
 <h2 class="heading-5">8. Who else handles the data</h2>
 <p>These companies process data for us as service providers. We do not sell your data or share it for advertising.</p>
 <ul>
-<li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> runs the relay (Workers, D1, R2). Data is stored in the US or EU regions Cloudflare picks.</li>
+<li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare</a> runs the relay (Workers, D1, R2) and delivers this website. Data is stored in the US or EU regions Cloudflare picks.</li>
 <li><a href="https://www.anthropic.com/legal/privacy">Anthropic</a> answers each trial run (United States).</li>
-<li><a href="https://policies.google.com/privacy">Google</a> handles sign-in (United States).</li>
+<li><a href="https://policies.google.com/privacy">Google</a> handles sign-in with Google (United States).</li>
+<li><a href="https://resend.com/legal/privacy-policy">Resend</a> sends the password emails. It receives your email address and the message (United States).</li>
 <li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a> hosts this website and the downloads (United States).</li>
 </ul>
-<p>Using the trial means your data is sent to these companies outside Korea, over encrypted connections, at the time you sign in or start a run. If you do not want that, use your own provider instead of the trial. Site visits you allow go to Cloudflare the same way, as you view each page; Decline stops that.</p>
+<p>Using the trial means your data is sent to these companies outside Korea, over encrypted connections, at the time you sign in or start a run. If you do not want that, use your own provider instead of the trial. Site visits you allow go to Cloudflare the same way, as you view each page; Decline stops that record, though Cloudflare still delivers the page.</p>
 
 <h2 class="heading-5">9. This website and cookies</h2>
-<p>plasmidlab.com is a static site on GitHub Pages. The fonts are served from this site. GitHub keeps its standard server logs. The download buttons ask api.github.com for the latest release, so GitHub sees your IP address and browser details for that request.</p>
+<p>plasmidlab.com is a static site on GitHub Pages, delivered through Cloudflare. Cloudflare and GitHub therefore handle your IP address and browser details for every page, whatever you choose below, and keep their standard logs. From Cloudflare we receive only totals per day (requests, data sent, page views, unique addresses), not anything about a person. The fonts are served from this site. The download buttons ask api.github.com for the latest release, so GitHub sees your IP address and browser details for that request.</p>
 <p>On your first visit the site asks whether it may record your visit. If you press Allow, it sets two cookies for up to 12 months (some browsers, such as Safari, remove them sooner): plasmidlab_consent, which remembers your choice, and plasmidlab_visitor, a random id. It then records the pages and sections you view, the download links you click, the site you came from (its name only), your country and your kind of device (Mac, Windows, Linux or mobile), with the time. If you press Decline, only plasmidlab_consent is set, so we do not ask again, and nothing is recorded. The site works the same either way.</p>
 <p>To change your mind, use Cookie settings at the bottom of any page. Declining removes plasmidlab_visitor and deletes what was recorded under it. If the deletion cannot finish at that moment, it is retried on your next visit. If that cookie is already gone, or you do not come back, those records are deleted after 12 months. You can also block or clear cookies in your browser settings.</p>
 <p>During sign-in the relay sets one cookie, plasmidlab_flow, on api.plasmidlab.com. It links the browser sign-in to your app, lasts 15 minutes and is cleared when sign-in finishes. Google sets its own cookies on Google's sites when you sign in there.</p>
+<p>When you sign in on the website the relay sets two more, for up to 30 days, which sign-in needs and which do not depend on the choice above: plasmidlab_session on api.plasmidlab.com keeps you signed in, and plasmidlab_signed_in on plasmidlab.com only tells these pages to show Account instead of Log in. Signing out removes both.</p>
 
 <h2 class="heading-5">10. Your rights</h2>
-<p>You can ask to see, correct or delete your data, and you can withdraw consent for transcripts and site visits. To delete your account and everything tied to it, use "Delete my account" in the app's Settings, or email <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a> from your signed-in address. Emailed requests are done within 30 days.</p>
+<p>You can ask to see, correct or delete your data, and you can withdraw consent for transcripts and site visits. To delete your account and everything tied to it, use "Delete my account" in the app's Settings or on <a href="https://api.plasmidlab.com/account">your account page</a>, or email <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a> from your signed-in address. Emailed requests are done within 30 days.</p>
 <p>You can also complain to Korea's Personal Information Protection Commission (<a href="https://www.pipc.go.kr">pipc.go.kr</a>) or to the data protection authority where you live.</p>
 
 <h2 class="heading-5">11. Age</h2>
@@ -158,6 +161,7 @@ footer{padding:32px 0}
 
 <h2 class="heading-5">Changes</h2>
 <ul>
+<li>2026-11-06: you can sign in on this site and with an email address and password; Resend sends the password emails; Cloudflare now delivers this website; added the cookies and records these need. The operator can see member details and these totals on a private admin page.</li>
 <li>2026-11-06: the site now asks for consent to a cookie and a record of site visits; added them to the sections above.</li>
 <li>2026-11-06: the account also keeps your position; you confirm your profile at each sign-in, and a Google Workspace domain can prefill the affiliation.</li>
 <li>2026-11-06: named the operator and privacy officer; added the retention table, legal bases, service providers, transfers abroad, cookies, rights and the age rule; deletion requests now go to support@plasmidlab.com.</li>
