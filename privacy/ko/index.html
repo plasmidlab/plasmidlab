@@ -121,6 +121,7 @@ footer{padding:32px 0}
 <tr><td>로그인 정보: 앱 설치 ID, 앱 버전, 로그인 시각, 마지막 접속 시각</td><td>로그인 유지, 로그아웃, 부정 이용 차단</td><td>계정과 같음</td></tr>
 <tr><td>실행마다: 시각, 모델, 토큰 수, 예상 비용, 종료 사유</td><td>실행 횟수 계산, 일일 비용 한도 관리, 부정 이용 방지</td><td>계정과 같음</td></tr>
 <tr><td>실행 기록(동의한 경우만): 프롬프트, 에이전트가 읽은 서열, 도구 호출, 답변</td><td>에이전트가 실패하는 지점을 찾아 도구와 안내를 개선</td><td>12개월. 동의를 철회하거나 계정을 삭제하면 그때 파기</td></tr>
+<tr><td>사이트 방문 기록(허용한 경우만): 무작위 방문자 ID, 본 페이지와 섹션, 누른 다운로드 링크, 유입 사이트 이름, 국가, 기기 종류, 시각</td><td>사이트 이용 현황 파악과 개선</td><td>12개월. 쿠키 설정에서 철회하면 그때 파기</td></tr>
 </tbody></table></div>
 <p>위 표의 처음 세 항목은 동의 여부와 관계없이 보관합니다. 중계 서버는 IP 주소를 저장하지 않습니다. 에이전트에 주지 않은 파일은 PlasmidLab이 볼 수 없습니다.</p>
 
@@ -133,6 +134,7 @@ footer{padding:32px 0}
 <li>계정과 실행 횟수 관리: 사용자가 신청한 무료 체험 제공(계약 이행)</li>
 <li>부정 이용 방지와 비용 한도: 무료 체험을 계속 운영하기 위한 운영자의 정당한 이익</li>
 <li>실행 기록: 사용자의 동의(언제든 철회 가능)</li>
+<li>사이트 방문 기록: 사용자의 동의(쿠키 설정에서 언제든 철회 가능)</li>
 </ul>
 
 <h2 class="heading-5">8. 처리 위탁과 국외 이전</h2>
@@ -146,20 +148,22 @@ footer{padding:32px 0}
 <tr><td><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub, Inc.</a></td><td>미국</td><td>웹사이트 접속 기록(IP 주소, 브라우저 정보)</td><td>웹사이트와 다운로드 호스팅</td></tr>
 </tbody></table></div>
 <ul>
-<li>이전 시기와 방법: 로그인하거나 실행을 시작할 때, 암호화된 네트워크 연결(HTTPS)로 전송</li>
+<li>이전 시기와 방법: 로그인하거나 실행을 시작할 때, 사이트 방문 기록을 허용했다면 페이지를 볼 때, 암호화된 네트워크 연결(HTTPS)로 전송</li>
 <li>보유 기간: 5항의 보유 기간과 같으며, 각 수탁자는 자사 방침에 따라 처리합니다.</li>
-<li>거부 방법과 결과: 국외 이전을 원하지 않으면 무료 체험 대신 사용자의 AI 제공자를 연결해 사용하면 됩니다. 이 경우 무료 체험은 이용할 수 없습니다.</li>
+<li>거부 방법과 결과: 국외 이전을 원하지 않으면 무료 체험 대신 사용자의 AI 제공자를 연결해 사용하면 됩니다. 이 경우 무료 체험은 이용할 수 없습니다. 사이트 방문 기록은 쿠키 설정에서 거부하면 이전되지 않습니다.</li>
 </ul>
 
 <h2 class="heading-5">9. 웹사이트와 쿠키</h2>
-<p>plasmidlab.com은 GitHub Pages에 올린 정적 웹사이트입니다. 분석 도구와 쿠키를 쓰지 않으며, 글꼴도 이 사이트에서 직접 제공합니다. GitHub는 표준 서버 로그를 남깁니다. 다운로드 버튼은 최신 릴리스를 찾기 위해 api.github.com에 요청하며, 이때 GitHub는 IP 주소와 브라우저 정보를 받습니다.</p>
+<p>plasmidlab.com은 GitHub Pages에 올린 정적 웹사이트입니다. 글꼴은 이 사이트에서 직접 제공합니다. GitHub는 표준 서버 로그를 남깁니다. 다운로드 버튼은 최신 릴리스를 찾기 위해 api.github.com에 요청하며, 이때 GitHub는 IP 주소와 브라우저 정보를 받습니다.</p>
+<p>처음 방문하면 방문 기록을 남겨도 되는지 묻습니다. 허용을 누르면 쿠키 두 개를 최대 12개월 동안 저장합니다(Safari 등 일부 브라우저는 더 일찍 지웁니다). plasmidlab_consent는 선택을 기억하고, plasmidlab_visitor는 무작위 ID입니다. 그 뒤 본 페이지와 섹션, 누른 다운로드 링크, 유입된 사이트(이름만), 국가, 기기 종류(Mac, Windows, Linux, 모바일)를 시각과 함께 기록합니다. 거부를 누르면 다시 묻지 않도록 plasmidlab_consent만 저장하고 아무것도 기록하지 않습니다. 어느 쪽을 골라도 사이트는 똑같이 작동합니다.</p>
+<p>생각이 바뀌면 페이지 맨 아래의 쿠키 설정을 누르세요. 거부하면 plasmidlab_visitor를 지우고 그 ID로 기록된 내용을 삭제합니다. 그 자리에서 삭제를 끝내지 못하면 다음 방문 때 다시 시도합니다. 이 쿠키가 이미 지워졌거나 다시 방문하지 않으면 해당 기록은 12개월 뒤에 삭제됩니다. 브라우저 설정에서 쿠키를 차단하거나 지울 수도 있습니다.</p>
 <p>로그인하는 동안 중계 서버는 api.plasmidlab.com에 plasmidlab_flow라는 쿠키 하나를 설정합니다. 브라우저 로그인과 앱을 연결하는 데 쓰며, 15분 동안 유지되고 로그인이 끝나면 삭제됩니다. Google에서 로그인할 때는 Google이 자체 쿠키를 설정합니다.</p>
 
 <h2 class="heading-5">10. 파기</h2>
 <p>보유 기간이 끝나거나 처리 목적을 이룬 개인정보는 중계 서버의 데이터베이스(D1)와 저장소(R2)에서 복구할 수 없게 삭제합니다. 종이로 된 개인정보는 다루지 않습니다.</p>
 
 <h2 class="heading-5">11. 정보주체의 권리와 행사 방법</h2>
-<p>사용자는 자신의 개인정보를 열람, 정정, 삭제하도록 요청할 수 있고, 실행 기록 저장 동의를 철회할 수 있습니다. 계정과 계정에 연결된 모든 정보를 지우려면 앱의 설정(Settings)에서 "Delete my account"를 누르거나, 로그인한 이메일 주소로 <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a>에 요청하면 됩니다. 이메일 요청은 30일 안에 처리합니다.</p>
+<p>사용자는 자신의 개인정보를 열람, 정정, 삭제하도록 요청할 수 있고, 실행 기록 저장 동의와 사이트 방문 기록 동의를 철회할 수 있습니다. 계정과 계정에 연결된 모든 정보를 지우려면 앱의 설정(Settings)에서 "Delete my account"를 누르거나, 로그인한 이메일 주소로 <a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a>에 요청하면 됩니다. 이메일 요청은 30일 안에 처리합니다.</p>
 <p>개인정보 침해에 대해서는 아래 기관에 신고하거나 상담할 수 있습니다. 거주 국가의 개인정보 감독기관에 민원을 제기할 수도 있습니다.</p>
 <ul>
 <li>개인정보보호위원회: <a href="https://www.pipc.go.kr">www.pipc.go.kr</a></li>
@@ -172,6 +176,7 @@ footer{padding:32px 0}
 
 <h2 class="heading-5">변경 내역</h2>
 <ul>
+<li>2026-11-06: 쿠키와 사이트 방문 기록에 대한 동의 절차를 추가하고 위 항목에 반영했습니다.</li>
 <li>2026-11-06: 계정 항목에 직위를 추가했습니다. 로그인할 때마다 프로필을 확인하며, Google Workspace 도메인으로 소속을 미리 채울 수 있습니다.</li>
 <li>2026-11-06: 운영자와 개인정보 보호책임자, 보유 기간 표, 처리 근거, 처리 위탁과 국외 이전, 쿠키, 파기, 정보주체의 권리, 이용 연령을 추가했습니다. 삭제 요청은 support@plasmidlab.com으로 받습니다.</li>
 <li>2026-11-06: 무료 체험에 Google 로그인이 필요해졌고, 계정 항목을 추가했습니다.</li>
@@ -180,5 +185,5 @@ footer{padding:32px 0}
 <p class="muted">운영자, 개인정보처리자, 개인정보 보호책임자: 박찬영(Chanyoung Park)</p>
 </div></div></main>
 <footer><div class="wrap footer-inner caption-2"><div><p>© 2026 PlasmidLab</p><p class="trademarks" lang="en">Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><div class="footer-links"><a href="../../">Home</a><a href="../" lang="en">Privacy</a><a href="./">개인정보처리방침</a><a href="../../terms/">Terms</a><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a></div></div></footer>
-</body>
+<script src="/assets/consent.js" defer></script></body>
 </html>
