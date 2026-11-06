@@ -6,7 +6,7 @@ This repository holds the plasmidlab.com website and its release files.
 
 The site's code (HTML structure, CSS and JavaScript) is under the MIT License.
 
-Copyright (c) 2026 Chanyoung Park
+Copyright (c) 2026 PlasmidLab
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Text and media
 
-The site's text, screenshots, videos, icons and other media are © 2026 Chanyoung Park, all rights reserved. The MIT License above does not cover them.
+The site's text, screenshots, videos, icons and other media are © 2026 PlasmidLab, all rights reserved. The MIT License above does not cover them.
 
 ## Fonts
 
