@@ -132,6 +132,26 @@ figcaption b{font-weight:500;color:var(--ink);white-space:nowrap}
 .walkthrough-copy h3{margin-bottom:16px}
 .walkthrough-copy p+p{margin-top:24px}
 .agent-foot{margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.bench-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.bench-chips button{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--muted);transition:color 300ms var(--ease),background 300ms var(--ease),border-color 300ms var(--ease)}
+.bench-chips button:hover{color:var(--ink)}
+.bench-chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.bench-chart{display:grid;gap:16px}
+.bench-row{display:grid;grid-template-columns:180px minmax(0,1fr) 56px;align-items:center;gap:20px}
+.bench-model{color:var(--ink)}
+.bench-track{height:14px;border-radius:999px;background:var(--band);overflow:hidden}
+.bench-fill{display:block;height:100%;width:0;border-radius:0 7px 7px 0;background:var(--accent);transition:width 800ms var(--ease)}
+.bench-pct{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.bench-caption{margin-top:32px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:24px;color:var(--muted)}
+.bench-table-wrap{margin-top:24px}
+.bench-table-wrap summary{list-style:none;color:var(--ink);cursor:pointer;padding:8px 0}
+.bench-table-wrap summary::-webkit-details-marker{display:none}
+.bench-table-wrap summary::before{content:"+ "}
+.bench-table-wrap[open] summary::before{content:"− "}
+.bench-scroll{overflow-x:auto;margin-top:16px}
+.bench-table{border-collapse:collapse;min-width:100%;font-variant-numeric:tabular-nums}
+.bench-table th,.bench-table td{text-align:right;padding:12px 16px;border-top:1px solid var(--line);white-space:nowrap}
+.bench-table th[scope="row"],.bench-table thead th:first-child{text-align:left;color:var(--ink);font-weight:500}
 .method-table{width:100%;border-collapse:collapse;margin-top:48px}
 .method-table td,.method-table th{text-align:left;vertical-align:top;padding:24px 0;border-top:1px solid var(--line)}
 .method-table th{width:36%;padding-right:32px;color:var(--ink);font-weight:500}
@@ -177,22 +197,22 @@ footer{padding:32px 0}
 @media(min-width:1500px){:root{--wide:1280px}}
 @media(max-width:1099px){:root{--gutter:32px}.nav{gap:8px}.nav-links a{padding:8px}.editor-main,.agent-design,.walkthrough-row{gap:32px}.section-head{gap:32px}.faq-grid{gap:40px}.install-grid{gap:40px}}
 @media(max-width:899px){.nav{left:16px;right:16px;transform:none;justify-content:space-between;max-width:none;padding:4px}.nav-links,.nav>.btn{display:none}.menu-toggle{display:block}.section-head{display:block}.section-head p{margin-top:24px;max-width:600px}.editor-main,.agent-design{grid-template-columns:1fr}.feature-list{grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}.steps{grid-template-columns:repeat(3,1fr);gap:24px}.steps li{display:block}.steps li::before{display:block;margin-bottom:8px}.walkthrough-row{grid-template-columns:1fr}.walkthrough-copy{max-width:600px}.walkthrough-copy p+p{margin-top:16px}.faq-grid{grid-template-columns:1fr;gap:40px}.contact-inner{gap:40px}.footer-inner{flex-direction:column}.footer-links{justify-content:start}}
-@media(max-width:767px){:root{--gutter:16px}section{padding:64px 0}.heading-1{font-size:36px;line-height:40px;letter-spacing:-.035em}.heading-2{font-size:30px;line-height:36px;letter-spacing:-.03em}.heading-3{font-size:30px;line-height:36px}.heading-5{font-size:20px;line-height:28px}.body-7{font-size:18px;line-height:28px}.eyebrow{margin-bottom:24px}.section-head{margin-bottom:32px}.hero{padding-top:96px;padding-bottom:40px}.hero-copy{padding-top:32px;margin-bottom:40px}.hero .intro{margin-top:24px;margin-bottom:24px}.hero h1 span{display:inline}.hero h1 span+span::before{content:" "}.hero figcaption{display:block}.hero figcaption>span{display:block}.hero figcaption>span:last-child{text-align:left;margin-top:4px}.download-row{gap:16px}.editor-main{gap:32px}.feature-list{grid-template-columns:1fr;gap:24px}.editor-views{grid-template-columns:1fr;gap:32px;margin-top:32px}.editor-formats{display:block}.editor-formats p+p{margin-top:12px}.tagline{padding:64px 0}.tagline-inner{padding:40px 0;gap:32px}.tagline-foot{display:block}.tagline-foot p+p{margin-top:8px}.steps{grid-template-columns:1fr;gap:24px}.steps li{display:grid;grid-template-columns:24px 1fr;gap:16px}.steps li::before{margin:0}.walkthrough-row{gap:32px;margin-top:48px}.method-table{margin-top:32px}.method-table td,.method-table th{padding:24px 0}.method-table td:first-child{width:32px}.method-table th{width:40%;padding-right:16px}.method-table td:last-child{width:auto}.exercise-row{grid-template-columns:24px minmax(0,1fr);gap:16px;padding:24px 0}.exercise-row p{grid-column:2}.exercise-title .level{margin-bottom:8px}.exercises{margin-top:32px}.install-grid{grid-template-columns:1fr;gap:40px;margin-top:32px}.install-bottom{margin-top:32px}.platform-head{gap:16px}.faq-list summary{padding-top:24px;padding-bottom:24px}.contact{padding-top:32px}.contact-inner{grid-template-columns:1fr;gap:24px;padding-top:32px}.footer-links{display:grid;gap:12px}.media-toggle{right:8px;bottom:8px;padding:4px 8px}.final h2{max-width:360px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal{opacity:1;transform:none;transition:none}.tagline .word{opacity:1;transition:none}.sheet li a{transform:none;transition:opacity 300ms var(--ease)}.menu-toggle span{transition:none}a,button{transition:opacity 300ms var(--ease)}}
+@media(max-width:767px){:root{--gutter:16px}section{padding:64px 0}.heading-1{font-size:36px;line-height:40px;letter-spacing:-.035em}.heading-2{font-size:30px;line-height:36px;letter-spacing:-.03em}.heading-3{font-size:30px;line-height:36px}.heading-5{font-size:20px;line-height:28px}.body-7{font-size:18px;line-height:28px}.eyebrow{margin-bottom:24px}.section-head{margin-bottom:32px}.hero{padding-top:96px;padding-bottom:40px}.hero-copy{padding-top:32px;margin-bottom:40px}.hero .intro{margin-top:24px;margin-bottom:24px}.hero h1 span{display:inline}.hero h1 span+span::before{content:" "}.hero figcaption{display:block}.hero figcaption>span{display:block}.hero figcaption>span:last-child{text-align:left;margin-top:4px}.download-row{gap:16px}.editor-main{gap:32px}.feature-list{grid-template-columns:1fr;gap:24px}.editor-views{grid-template-columns:1fr;gap:32px;margin-top:32px}.editor-formats{display:block}.editor-formats p+p{margin-top:12px}.tagline{padding:64px 0}.tagline-inner{padding:40px 0;gap:32px}.tagline-foot{display:block}.tagline-foot p+p{margin-top:8px}.steps{grid-template-columns:1fr;gap:24px}.steps li{display:grid;grid-template-columns:24px 1fr;gap:16px}.steps li::before{margin:0}.walkthrough-row{gap:32px;margin-top:48px}.bench-row{grid-template-columns:minmax(0,1fr) 48px;gap:8px 12px}.bench-model{grid-column:1/3}.bench-caption{display:block}.bench-caption p+p{margin-top:8px}.method-table{margin-top:32px}.method-table td,.method-table th{padding:24px 0}.method-table td:first-child{width:32px}.method-table th{width:40%;padding-right:16px}.method-table td:last-child{width:auto}.exercise-row{grid-template-columns:24px minmax(0,1fr);gap:16px;padding:24px 0}.exercise-row p{grid-column:2}.exercise-title .level{margin-bottom:8px}.exercises{margin-top:32px}.install-grid{grid-template-columns:1fr;gap:40px;margin-top:32px}.install-bottom{margin-top:32px}.platform-head{gap:16px}.faq-list summary{padding-top:24px;padding-bottom:24px}.contact{padding-top:32px}.contact-inner{grid-template-columns:1fr;gap:24px;padding-top:32px}.footer-links{display:grid;gap:12px}.media-toggle{right:8px;bottom:8px;padding:4px 8px}.final h2{max-width:360px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .reveal{opacity:1;transform:none;transition:none}.bench-fill{transition:none}.tagline .word{opacity:1;transition:none}.sheet li a{transform:none;transition:opacity 300ms var(--ease)}.menu-toggle span{transition:none}a,button{transition:opacity 300ms var(--ease)}}
 </style>
 </head>
 <body id="top">
 <a class="skip title-4" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Main navigation">
   <a class="brand title-1" href="#top" aria-label="PlasmidLab home">PlasmidLab</a>
-  <div class="nav-links title-4"><a href="#editor">Editor</a><a href="#agent">Agent</a><a href="#exercises">Exercises</a><a href="#install">Install</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a></div>
+  <div class="nav-links title-4"><a href="#editor">Editor</a><a href="#agent">Agent</a><a href="#benchmark">Benchmark</a><a href="#exercises">Exercises</a><a href="#install">Install</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a></div>
   <a class="btn btn-primary button-sm" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest">Download for Mac</a>
   <button class="menu-toggle" type="button" aria-label="Open navigation" aria-haspopup="dialog" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span></button>
 </nav>
 <dialog class="sheet" id="mobile-menu" aria-label="Navigation">
   <a class="sheet-brand brand title-1" href="#top">PlasmidLab</a>
   <button class="menu-toggle" type="button" aria-label="Close navigation"><span></span><span></span></button>
-  <ul class="heading-3"><li><a href="#editor">The editor</a></li><li><a href="#agent">The agent</a></li><li><a href="#exercises">Six exercises</a></li><li><a href="#install">Install</a></li><li><a href="#contact">Contact</a></li><li><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a></li></ul>
+  <ul class="heading-3"><li><a href="#editor">The editor</a></li><li><a href="#agent">The agent</a></li><li><a href="#benchmark">Model benchmark</a></li><li><a href="#exercises">Six exercises</a></li><li><a href="#install">Install</a></li><li><a href="#contact">Contact</a></li><li><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a></li></ul>
 </dialog>
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
@@ -254,6 +274,25 @@ footer{padding:32px 0}
         <figure class="reveal"><div class="plate walkthrough-plate"><video autoplay muted loop playsinline preload="none" poster="assets/walkthrough-poster.png" data-src="assets/walkthrough.mp4" aria-label="Golden Gate assembly tutorial playing inside PlasmidLab"></video><button class="media-toggle caption-1" type="button" aria-label="Pause cloning walkthrough">Pause</button></div><figcaption class="caption-2"><b>Figure 6.</b><span>Golden Gate walkthrough, playing in the app.</span></figcaption></figure>
       </div>
       <p class="agent-foot body-6">10 free AI runs per account, then connect your own Claude, Codex or Grok subscription or API key. The editor and cloning tools work without an agent.</p>
+    </div>
+  </section>
+  <section id="benchmark" aria-labelledby="benchmark-title">
+    <div class="wrap">
+      <p class="eyebrow caption-1">Model benchmark</p>
+      <div class="section-head reveal"><h2 class="heading-2" id="benchmark-title">How often does each model<br>get the cloning right?</h2><p class="body-3">Thirty cloning jobs, designed by eight models in PlasmidLab. A job passes only when the construct it designed would work: right sequence, right length, circular, in frame, every junction joined.</p></div>
+      <div class="bench-chips caption-1" role="group" aria-label="Choose a kind of cloning job"></div>
+      <ol class="bench-chart" id="bench-chart" aria-label="Jobs passed, by model">
+        <li class="bench-row"><span class="bench-model title-4">Claude Opus 5</span><span class="bench-track"><span class="bench-fill" style="width:100%;transition-delay:0ms"></span></span><span class="bench-pct caption-1">100%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6.1 Sol</span><span class="bench-track"><span class="bench-fill" style="width:100%;transition-delay:50ms"></span></span><span class="bench-pct caption-1">100%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6.1 Terra</span><span class="bench-track"><span class="bench-fill" style="width:97%;transition-delay:100ms"></span></span><span class="bench-pct caption-1">97%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6 Sol</span><span class="bench-track"><span class="bench-fill" style="width:97%;transition-delay:150ms"></span></span><span class="bench-pct caption-1">97%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">Claude Sonnet 5.5</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:200ms"></span></span><span class="bench-pct caption-1">93%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">DeepSeek V4.1 Flash</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:250ms"></span></span><span class="bench-pct caption-1">93%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">Claude Haiku 5.5</span><span class="bench-track"><span class="bench-fill" style="width:80%;transition-delay:300ms"></span></span><span class="bench-pct caption-1">80%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6 Luna</span><span class="bench-track"><span class="bench-fill" style="width:53%;transition-delay:350ms"></span></span><span class="bench-pct caption-1">53%</span></li>
+      </ol>
+      <div class="bench-caption caption-2"><p id="bench-note" role="status">30 jobs in all</p><p>Primer Tm and GC do not make a job fail. A broken frame or a wrong product does.</p></div>
+      <details class="bench-table-wrap body-6"><summary class="title-4">All the numbers</summary><div class="bench-scroll"><table class="bench-table body-6" id="bench-table"><caption class="sr-only">Percentage of cloning jobs passed, by model and kind of job</caption></table></div></details>
     </div>
   </section>
   <section id="methods" aria-labelledby="methods-title">
@@ -440,6 +479,44 @@ footer{padding:32px 0}
     });
     syncVideoButton(video);
   });
+  const benchChart = document.getElementById('bench-chart');
+  const groups = [["All jobs",30],["Cut and paste",6],["Primers and PCR",2],["Gibson, 2-4 fragments",5],["Golden Gate, 4 parts",5],["Gateway BP then LR",2],["In-frame tagging",3],["In-frame deletion",2],["Debug a design",3],["Sanger reads",2]];
+  const benchModels = [["Claude Opus 5",[100,100,100,100,100,100,100,100,100,100]],["GPT-6.1 Sol",[100,100,100,100,100,100,100,100,100,100]],["GPT-6.1 Terra",[97,83,100,100,100,100,100,100,100,100]],["GPT-6 Sol",[97,100,100,100,80,100,100,100,100,100]],["Claude Sonnet 5.5",[93,100,100,100,80,100,100,50,100,100]],["DeepSeek V4.1 Flash",[93,100,100,80,100,100,100,50,100,100]],["Claude Haiku 5.5",[80,83,100,60,100,100,67,50,67,100]],["GPT-6 Luna",[53,67,50,80,0,50,33,100,33,100]]];
+  const benchRows = [...benchChart.children];
+  const benchNote = document.getElementById('bench-note');
+  const chips = document.querySelector('.bench-chips');
+  let group = 0;
+  function paintBench() {
+    benchRows.forEach((row, index) => {
+      const pct = benchModels[index][1][group];
+      row.querySelector('.bench-fill').style.width = pct + '%';
+      row.querySelector('.bench-pct').textContent = pct + '%';
+    });
+  }
+  groups.forEach(([name, count], index) => {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.textContent = name;
+    chip.setAttribute('aria-pressed', String(index === 0));
+    chip.addEventListener('click', () => {
+      group = index;
+      chips.querySelectorAll('button').forEach((other, i) => other.setAttribute('aria-pressed', String(i === index)));
+      benchNote.textContent = index === 0 ? count + ' jobs in all' : name + ' · ' + count + (count === 1 ? ' job' : ' jobs');
+      paintBench();
+    });
+    chips.append(chip);
+  });
+  benchRows.forEach(row => {row.querySelector('.bench-fill').style.width = '0%';});
+  const grow = new IntersectionObserver(entries => entries.forEach(entry => {
+    if(entry.isIntersecting) {paintBench();grow.unobserve(entry.target);}
+  }), {threshold:.2});
+  grow.observe(benchChart);
+  const benchTable = document.getElementById('bench-table');
+  benchTable.insertAdjacentHTML('beforeend',
+    '<thead><tr><th scope="col">Model</th>' + groups.map(([name]) => '<th scope="col">' + name + '</th>').join('') + '</tr></thead>'
+    + '<tbody>' + benchModels.map(([label, pct]) => '<tr><th scope="row">' + label + '</th>'
+      + pct.map(value => '<td>' + value + '%</td>').join('') + '</tr>').join('') + '</tbody>');
+
   motion.addEventListener('change', () => {
     lightWords();
     videos.forEach(video => {
