@@ -111,14 +111,14 @@ footer{padding:32px 0}
 
 <h2 class="heading-5">4. 무료 체험</h2>
 <p>무료 체험은 Google 계정 하나당 Claude Haiku로 AI 실행 3회를 제공합니다. 그 뒤에는 사용자의 AI 제공자를 연결해 사용합니다. 무료 체험은 만 18세 이상만 이용할 수 있으며, 만 14세 미만 아동의 개인정보는 수집하지 않습니다. Anthropic API를 이용할 수 없는 국가에서는 무료 체험을 제공하지 않습니다(<a href="https://www.anthropic.com/supported-countries">Anthropic 지원 지역</a>).</p>
-<p>로그인은 Google 계정으로 합니다. Google은 Google 계정 ID, 이름, 이메일 주소만 전달하며, PlasmidLab은 Google 비밀번호를 알 수 없습니다. 처음 로그인할 때 소속(연구실 또는 기관)을 직접 입력합니다. 소속은 필수 항목이며, 입력하지 않으면 무료 체험을 이용할 수 없습니다.</p>
+<p>로그인은 Google 계정으로 합니다. Google은 Google 계정 ID, 이름, 이메일 주소와, Google Workspace 계정이면 그 도메인을 전달하며, PlasmidLab은 Google 비밀번호를 알 수 없습니다. 로그인할 때마다 이름, 이메일, 소속(연구실 또는 기관), 직위(예: 학생, 연구원, 교수)를 확인하고 고칠 수 있습니다. 네 항목 모두 필수이며, 입력하지 않으면 무료 체험을 이용할 수 없습니다.</p>
 <p>체험 실행은 PlasmidLab 중계 서버(api.plasmidlab.com)를 거쳐 Anthropic으로 전송됩니다. 기록 저장에 동의하지 않아도 모든 실행은 답변을 받기 위해 Anthropic에 전송됩니다. Anthropic의 <a href="https://www.anthropic.com/legal/commercial-terms">상용 서비스 약관(Commercial Terms of Service)</a>은 API 입력과 출력으로 모델을 학습시킬 수 없다고 정하고 있습니다.</p>
 
 <h2 class="heading-5">5. 수집 항목, 목적, 보유 기간</h2>
 <div class="table-wrap"><table class="body-6">
 <thead><tr><th scope="col">수집 항목</th><th scope="col">목적</th><th scope="col">보유 기간</th></tr></thead>
 <tbody>
-<tr><td>계정: Google 계정 ID, 이름, 이메일, 소속, 가입 시각</td><td>무료 실행 횟수 계산, 부정 이용 방지, 체험을 쓰는 연구실 파악(통계 형태)</td><td>계정을 이용하는 동안. 마지막 이용 후 24개월이 지나거나 계정을 삭제하면 파기</td></tr>
+<tr><td>계정: Google 계정 ID, 이름, 이메일, 소속, 직위, 가입 시각</td><td>무료 실행 횟수 계산, 부정 이용 방지, 체험을 쓰는 연구실 파악(통계 형태)</td><td>계정을 이용하는 동안. 마지막 이용 후 24개월이 지나거나 계정을 삭제하면 파기</td></tr>
 <tr><td>로그인 정보: 앱 설치 ID, 앱 버전, 로그인 시각, 마지막 접속 시각</td><td>로그인 유지, 로그아웃, 부정 이용 차단</td><td>계정과 같음</td></tr>
 <tr><td>실행마다: 시각, 모델, 토큰 수, 예상 비용, 종료 사유</td><td>실행 횟수 계산, 일일 비용 한도 관리, 부정 이용 방지</td><td>계정과 같음</td></tr>
 <tr><td>실행 기록(동의한 경우만): 프롬프트, 에이전트가 읽은 서열, 도구 호출, 답변</td><td>에이전트가 실패하는 지점을 찾아 도구와 안내를 개선</td><td>12개월. 동의를 철회하거나 계정을 삭제하면 그때 파기</td></tr>

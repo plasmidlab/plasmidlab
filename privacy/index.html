@@ -106,14 +106,14 @@ footer{padding:32px 0}
 
 <h2 class="heading-5">4. The free trial</h2>
 <p>The trial gives 3 AI runs per Google account on Claude Haiku. After that, you connect your own provider. The trial is for people aged 18 or older. It is not offered in countries where Anthropic's API is not available (<a href="https://www.anthropic.com/supported-countries">Anthropic's supported regions</a>).</p>
-<p>You sign in with Google. Google gives us your Google account id, your name and your email address. We never see your Google password. On first sign-in you type your affiliation (lab or institution). The affiliation is required; without it you cannot use the trial.</p>
+<p>You sign in with Google. Google gives us your Google account id, your name, your email address and, for a Google Workspace account, its domain. We never see your Google password. At each sign-in you check and can edit your name, email, affiliation (lab or institution) and position (for example student, researcher or professor). All four are required; without them you cannot use the trial.</p>
 <p>Trial runs go through PlasmidLab's relay at api.plasmidlab.com to Anthropic. Each run is sent to Anthropic to be answered, even when transcript storage is off. Anthropic's <a href="https://www.anthropic.com/legal/commercial-terms">Commercial Terms of Service</a> say it may not train models on API inputs and outputs.</p>
 
 <h2 class="heading-5">5. What we keep, why, and for how long</h2>
 <div class="table-wrap"><table class="body-6">
 <thead><tr><th scope="col">What we keep</th><th scope="col">Why</th><th scope="col">How long</th></tr></thead>
 <tbody>
-<tr><td>Account: Google account id, name, email, affiliation, sign-up time</td><td>To count your free runs, stop abuse and see which labs use the trial (in aggregate)</td><td>While the account is in use. Deleted 24 months after your last use, or when you delete the account.</td></tr>
+<tr><td>Account: Google account id, name, email, affiliation, position, sign-up time</td><td>To count your free runs, stop abuse and see which labs use the trial (in aggregate)</td><td>While the account is in use. Deleted 24 months after your last use, or when you delete the account.</td></tr>
 <tr><td>Sign-ins: the app's install id, app version, sign-in time, last seen</td><td>To keep you signed in, let you sign out and block misuse</td><td>Same as the account</td></tr>
 <tr><td>Each run: timestamps, model, token counts, estimated cost, stop reason</td><td>To count runs, cap daily spend and stop abuse</td><td>Same as the account</td></tr>
 <tr><td>Run transcripts, only if you tick the box: your prompt, the sequences the agent read, its tool calls and its answer</td><td>To find where the agent fails and improve the tools and walkthroughs</td><td>12 months. Deleted sooner if you withdraw consent or delete the account.</td></tr>
