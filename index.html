@@ -284,12 +284,12 @@ footer{padding:32px 0}
       <ol class="bench-chart" id="bench-chart" aria-label="Jobs passed, by model">
         <li class="bench-row"><span class="bench-model title-4">Claude Opus 5</span><span class="bench-track"><span class="bench-fill" style="width:100%;transition-delay:0ms"></span></span><span class="bench-pct caption-1">100%</span></li>
         <li class="bench-row"><span class="bench-model title-4">GPT-6.1 Sol</span><span class="bench-track"><span class="bench-fill" style="width:100%;transition-delay:50ms"></span></span><span class="bench-pct caption-1">100%</span></li>
-        <li class="bench-row"><span class="bench-model title-4">GPT-6.1 Terra</span><span class="bench-track"><span class="bench-fill" style="width:97%;transition-delay:100ms"></span></span><span class="bench-pct caption-1">97%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">DeepSeek V4.1 Flash</span><span class="bench-track"><span class="bench-fill" style="width:100%;transition-delay:100ms"></span></span><span class="bench-pct caption-1">100%</span></li>
         <li class="bench-row"><span class="bench-model title-4">GPT-6 Sol</span><span class="bench-track"><span class="bench-fill" style="width:97%;transition-delay:150ms"></span></span><span class="bench-pct caption-1">97%</span></li>
-        <li class="bench-row"><span class="bench-model title-4">Claude Sonnet 5.5</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:200ms"></span></span><span class="bench-pct caption-1">93%</span></li>
-        <li class="bench-row"><span class="bench-model title-4">DeepSeek V4.1 Flash</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:250ms"></span></span><span class="bench-pct caption-1">93%</span></li>
-        <li class="bench-row"><span class="bench-model title-4">Claude Haiku 5.5</span><span class="bench-track"><span class="bench-fill" style="width:80%;transition-delay:300ms"></span></span><span class="bench-pct caption-1">80%</span></li>
-        <li class="bench-row"><span class="bench-model title-4">GPT-6 Luna</span><span class="bench-track"><span class="bench-fill" style="width:53%;transition-delay:350ms"></span></span><span class="bench-pct caption-1">53%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6.1 Terra</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:200ms"></span></span><span class="bench-pct caption-1">93%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">Claude Haiku 5.5</span><span class="bench-track"><span class="bench-fill" style="width:93%;transition-delay:250ms"></span></span><span class="bench-pct caption-1">93%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">Claude Sonnet 5.5</span><span class="bench-track"><span class="bench-fill" style="width:90%;transition-delay:300ms"></span></span><span class="bench-pct caption-1">90%</span></li>
+        <li class="bench-row"><span class="bench-model title-4">GPT-6 Luna</span><span class="bench-track"><span class="bench-fill" style="width:67%;transition-delay:350ms"></span></span><span class="bench-pct caption-1">67%</span></li>
       </ol>
       <div class="bench-caption caption-2"><p id="bench-note" role="status">30 jobs in all</p><p>Primer Tm and GC do not make a job fail. A broken frame or a wrong product does.</p></div>
       <details class="bench-table-wrap body-6"><summary class="title-4">All the numbers</summary><div class="bench-scroll"><table class="bench-table body-6" id="bench-table"><caption class="sr-only">Percentage of cloning jobs passed, by model and kind of job</caption></table></div></details>
@@ -453,7 +453,7 @@ footer{padding:32px 0}
   });
   const benchChart = document.getElementById('bench-chart');
   const groups = [["All jobs",30],["Cut and paste",6],["Primers and PCR",2],["Gibson, 2-4 fragments",5],["Golden Gate, 4 parts",5],["Gateway BP then LR",2],["In-frame tagging",3],["In-frame deletion",2],["Debug a design",3],["Sanger reads",2]];
-  const benchModels = [["Claude Opus 5",[100,100,100,100,100,100,100,100,100,100]],["GPT-6.1 Sol",[100,100,100,100,100,100,100,100,100,100]],["GPT-6.1 Terra",[97,83,100,100,100,100,100,100,100,100]],["GPT-6 Sol",[97,100,100,100,80,100,100,100,100,100]],["Claude Sonnet 5.5",[93,100,100,100,80,100,100,50,100,100]],["DeepSeek V4.1 Flash",[93,100,100,80,100,100,100,50,100,100]],["Claude Haiku 5.5",[80,83,100,60,100,100,67,50,67,100]],["GPT-6 Luna",[53,67,50,80,0,50,33,100,33,100]]];
+  const benchModels = [["Claude Opus 5",[100,100,100,100,100,100,100,100,100,100]],["GPT-6.1 Sol",[100,100,100,100,100,100,100,100,100,100]],["DeepSeek V4.1 Flash",[100,100,100,100,100,100,100,100,100,100]],["GPT-6 Sol",[97,100,100,100,80,100,100,100,100,100]],["GPT-6.1 Terra",[93,100,100,100,60,100,100,100,100,100]],["Claude Haiku 5.5",[93,83,100,100,80,100,100,100,100,100]],["Claude Sonnet 5.5",[90,83,100,100,60,100,100,100,100,100]],["GPT-6 Luna",[67,83,100,100,0,100,67,50,67,50]]];
   const benchRows = [...benchChart.children];
   const benchNote = document.getElementById('bench-note');
   const chips = document.querySelector('.bench-chips');
