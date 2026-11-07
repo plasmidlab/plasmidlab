@@ -89,3 +89,6 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .cards.two{grid-template-columns:repeat(2,1fr)}
 @media(max-width:700px){.cards.two{grid-template-columns:1fr}.ko section{margin-top:56px}}
 html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
+/* Guide screenshots read wider than the prose column; the app UI is unreadable at 836px. */
+.plate.wide img{width:min(1160px,calc(100vw - 48px));max-width:none;margin-left:50%;transform:translateX(-50%)}
+.plate.wide figcaption{text-align:center}
