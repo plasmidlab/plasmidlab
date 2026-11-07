@@ -6,7 +6,7 @@
 .mono,textarea,.out pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .field{display:block;font-weight:600;color:var(--ink);margin:0 0 8px}
 textarea{display:block;width:100%;min-height:168px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.55;resize:vertical}
-textarea:focus-visible,select:focus-visible,.seg button:focus-visible,.copy:focus-visible,.options input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+textarea:focus-visible,select:focus-visible,.seg button:focus-visible,.copy:focus-visible,.options input:focus-visible,.grid input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .options{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;margin:14px 0 0;font-size:14px}
 .options label{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
 .options input{accent-color:var(--btn);width:16px;height:16px;margin:0}
@@ -49,6 +49,33 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .sites li.scale-row{padding:8px 0 4px}
 .scale{grid-column:3;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
 .sites-empty{color:var(--muted);padding:18px 0;margin:0}
+/* Numeric and enzyme inputs: the virtual gel, the molarity calculator and the GC page. */
+.tool-h{font-size:22px;margin:40px 0 0}
+.tool>.tool-h:first-child{margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;margin-top:20px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
+.grid input,.grid select{font:inherit;font-size:15px;width:100%;min-height:40px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.grid .hint{display:block;font-size:13px;color:var(--muted);margin-top:5px}
+.grid .hint.warn{color:var(--ink)}
+@media(max-width:760px){.grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.grid,.grid.three,.grid.four{grid-template-columns:1fr}}
+.frags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.frags li{margin:0;padding:6px 12px;max-width:none;border:1px solid var(--line);border-radius:8px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.frags .n{color:var(--ink);font-weight:600}
+/* The gel itself stays dark in both themes, as a gel photograph is. */
+.gel{margin:24px 0 0}
+.gel svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.gel .box{fill:#1b1b1f;stroke:#3b3b45}
+.gel .well{fill:#33333c}
+.gel .band{fill:#fff}
+.gel .blabel{fill:#eaeaf0;font-size:10px;font-variant-numeric:tabular-nums}
+.gel .bnote{fill:#a6a6b2;font-size:9px}
+.gel .lead{fill:none;stroke:#73737f;stroke-width:1}
+.gel .lane{fill:var(--ink);font-size:11px}
+.gel .lnote,.gel .mlabel{fill:var(--muted);font-size:9.5px}
+.gel .mlabel{font-size:10px;font-variant-numeric:tabular-nums}
 .controls{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:20px}
 .controls .label{font-size:14px;color:var(--muted);margin-right:8px}
 .prose h2{font-size:24px;margin:48px 0 12px}
