@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PlasmidLab | Plasmid Editor &amp; AI Cloning Design for Mac and Windows</title>
 <link rel="canonical" href="https://plasmidlab.com/">
+<link rel="alternate" hreflang="en" href="https://plasmidlab.com/">
+<link rel="alternate" hreflang="ko" href="https://plasmidlab.com/ko/">
+<link rel="alternate" hreflang="x-default" href="https://plasmidlab.com/">
+<meta name="naver-site-verification" content="a0340bae1898388931079e0d3f196d06dff038f4">
 <meta name="description" content="Plasmid map and sequence editor for Mac and Windows. An AI agent designs the cloning on your sequences and shows each step.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://plasmidlab.com/">
@@ -15,6 +19,7 @@
 <meta name="twitter:image" content="https://plasmidlab.com/assets/app-agent.png">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"PlasmidLab","operatingSystem":"macOS, Windows","applicationCategory":"DesignApplication","url":"https://plasmidlab.com/","downloadUrl":"https://github.com/plasmidlab/plasmidlab/releases/latest"}</script>
 <script src="/assets/theme.js"></script><link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/fonts/geist.css">
 <style>
@@ -189,6 +194,10 @@ figcaption b{font-weight:500;white-space:nowrap}
 .guide-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;height:100%;padding:24px;border:1px solid var(--line);border-radius:12px;color:var(--ink);text-decoration:none;background:var(--card)}
 .guide-links a:hover{opacity:1;border-color:var(--ink)}
 .guide-links svg{color:var(--muted)}
+.tools-group{margin-top:64px}
+.tools-group .eyebrow{margin-bottom:0}
+.tools-group .guide-links{margin-top:24px}
+.guides-more{margin-top:32px}
 .contact{padding-top:64px}
 .contact-inner{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;padding-top:48px;border-top:1px solid var(--line)}
 .contact-links{display:flex;flex-wrap:wrap;gap:16px 32px}
@@ -375,6 +384,15 @@ footer{padding:32px 0}
         <h3><a href="/guides/plasmid-map/">How to view a plasmid map from a GenBank or .dna file<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></h3>
         <h3><a href="/guides/gibson-assembly/">How to design a Gibson assembly in PlasmidLab<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></h3>
       </div>
+      <div class="tools-group" id="tools">
+        <p class="eyebrow caption-1">Free tools, in your browser</p>
+        <div class="guide-links title-2">
+          <h3><a href="/tools/reverse-complement/">Reverse complement a DNA sequence<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></h3>
+          <h3><a href="/tools/translate/">Translate DNA to protein in six frames<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></h3>
+          <h3><a href="/tools/restriction-sites/">Find restriction sites in a sequence<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></h3>
+        </div>
+      </div>
+      <p class="guides-more body-3">Have .dna files from SnapGene®? <a href="/snapgene-alternative/">See what PlasmidLab opens and does</a>.</p>
     </div>
   </section>
   <section class="contact" id="contact" aria-labelledby="contact-title">
@@ -387,7 +405,7 @@ footer{padding:32px 0}
     <div class="wrap"><p class="eyebrow caption-1">PlasmidLab for Mac and Windows</p><h2 class="heading-1" id="final-title">Your next clone,<br>designed by the agent.</h2><div class="download-row"><a class="btn btn-primary button-md" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest/download/PlasmidLab-Mac.dmg">Download for Mac</a><a class="title-4" data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/latest/download/PlasmidLab-Mac.dmg">Also for Windows</a></div><p class="download-note caption-2">Open your sequences. Describe the construct.<span class="release-tag"></span></p></div>
   </section>
 </main>
-<footer><div class="wrap footer-inner caption-2"><div><p>© 2026 PlasmidLab</p><p class="trademarks">Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><div class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem</a><a href="#guides">Guides</a><a href="privacy/">Privacy</a><a href="privacy/ko/" lang="ko">개인정보처리방침</a><a href="terms/">Terms</a><a href="#top">Back to top</a></div></div></footer>
+<footer><div class="wrap footer-inner caption-2"><div><p>© 2026 PlasmidLab</p><p class="trademarks">PlasmidLab is for research use only. The free AI trial is for people aged 18 or older.</p><p class="trademarks">Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><div class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem</a><a href="#guides">Guides</a><a href="privacy/">Privacy</a><a href="privacy/ko/" lang="ko">개인정보처리방침</a><a href="terms/">Terms</a><a href="/ko/" lang="ko" hreflang="ko">한국어</a><a href="#top">Back to top</a></div></div></footer>
 <script>
 (() => {
   document.documentElement.classList.add('js');
