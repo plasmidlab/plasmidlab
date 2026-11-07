@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://plasmidlab.com/</loc></url>
-  <url><loc>https://plasmidlab.com/privacy/</loc></url>
-  <url><loc>https://plasmidlab.com/privacy/ko/</loc></url>
-  <url><loc>https://plasmidlab.com/terms/</loc></url>
-  <url><loc>https://plasmidlab.com/guides/open-dna-genbank/</loc></url>
-  <url><loc>https://plasmidlab.com/guides/plasmid-map/</loc></url>
-  <url><loc>https://plasmidlab.com/guides/gibson-assembly/</loc></url>
+  <url><loc>https://plasmidlab.com/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/ko/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/snapgene-alternative/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/tools/reverse-complement/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/tools/translate/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/tools/restriction-sites/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/guides/open-dna-genbank/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/guides/plasmid-map/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/guides/gibson-assembly/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/privacy/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/privacy/ko/</loc><lastmod>2026-11-07</lastmod></url>
+  <url><loc>https://plasmidlab.com/terms/</loc><lastmod>2026-11-07</lastmod></url>
 </urlset>
