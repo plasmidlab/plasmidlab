@@ -95,6 +95,7 @@
 #cookie-choice button{font:inherit;font-weight:500;min-height:40px;padding:8px 16px;border-radius:8px;border:1px solid #2b3fb0;background:#fff;color:#2b3fb0;cursor:pointer}
 #cookie-choice button.allow{background:#2b3fb0;color:#fff}
 #cookie-choice button:focus-visible,.cookie-settings:focus-visible{outline:2px solid #2b3fb0;outline-offset:2px}
+@media(prefers-color-scheme:dark){#cookie-choice{background:#1f1f1f;color:#fff;border-color:#313131}#cookie-choice a{color:#9db0ff}#cookie-choice button{border-color:#9db0ff;background:#1f1f1f;color:#9db0ff}#cookie-choice button.allow{background:#3b52d6;color:#fff;border-color:#3b52d6}#cookie-choice button:focus-visible,.cookie-settings:focus-visible{outline-color:#9db0ff}}
 .cookie-settings{align-self:flex-start;font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}`;
   document.head.append(style);
 

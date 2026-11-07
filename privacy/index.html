@@ -8,11 +8,13 @@
 <meta name="description" content="What PlasmidLab keeps, why, for how long, and who else handles it.">
 <link rel="alternate" hreflang="en" href="https://plasmidlab.com/privacy/">
 <link rel="alternate" hreflang="ko" href="https://plasmidlab.com/privacy/ko/">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/fonts/geist.css">
 <style>
-:root{--paper:#fff;--band:#f4f4f5;--line:#dedee2;--ink:#161618;--text:#45454b;--muted:#64646c;--accent:#2b3fb0;--ease:cubic-bezier(.22,1,.36,1);--gutter:48px;--wide:1200px}
+:root{color-scheme:light dark;--paper:#fff;--band:#f4f4f5;--line:#dedee2;--ink:#161618;--text:#45454b;--muted:#64646c;--accent:#2b3fb0;--btn:#2b3fb0;--btn-ink:#fff;--glass:rgba(255,255,255,.9);--ease:cubic-bezier(.22,1,.36,1);--gutter:48px;--wide:1200px}
+@media(prefers-color-scheme:dark){:root{--paper:#181818;--band:#1f1f1f;--line:#313131;--ink:#fff;--text:#b4b4bb;--muted:#8f8f97;--accent:#9db0ff;--btn:#3b52d6;--btn-ink:#fff;--glass:rgba(24,24,24,.9)}}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
 body{margin:0;background:var(--paper);color:var(--text);font-family:"Geist",sans-serif;font-size:16px;line-height:24px;-webkit-font-smoothing:antialiased}
@@ -24,6 +26,7 @@ a:active,button:active{transform:translateY(1px)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 h1,h2,h3,p,figure,ol,ul{margin:0}
 h1,h2,h3{color:var(--ink);text-wrap:balance}
+b,strong{color:var(--ink)}
 p,li,figcaption{text-wrap:pretty}
 ol,ul{list-style:none;padding:0}
 .heading-1{font-size:60px;line-height:60px;font-weight:600;letter-spacing:-.045em}
@@ -49,15 +52,15 @@ section{padding:96px 0}
 .muted{color:var(--muted)}
 .eyebrow{display:flex;align-items:center;gap:16px;color:var(--muted);margin-bottom:32px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip{position:fixed;top:16px;left:16px;z-index:100;background:var(--ink);color:#fff;padding:8px 12px;border-radius:8px;transform:translateY(-96px)}
+.skip{position:fixed;top:16px;left:16px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:8px;transform:translateY(-96px)}
 .skip:focus{transform:none}
-.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:24px;padding:8px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);max-width:calc(100vw - 32px)}
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:24px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);max-width:calc(100vw - 32px)}
 .brand{color:var(--ink);text-decoration:none;letter-spacing:-.04em;padding:4px 12px;white-space:nowrap}
 .nav-links{display:flex;gap:4px}
 .nav-links a{padding:8px 12px;color:var(--muted);text-decoration:none;border-radius:8px;white-space:nowrap}
 .nav-links a:hover,.nav-links a[aria-current="location"]{background:var(--band);color:var(--ink);opacity:1}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border:1px solid transparent;border-radius:8px;text-decoration:none;transition:opacity 300ms var(--ease),transform 500ms var(--ease);white-space:nowrap}
-.btn-primary{background:var(--accent);color:white}
+.btn-primary{background:var(--btn);color:var(--btn-ink)}
 .btn-primary:hover{opacity:.85}
 .nav .btn{font-size:14px;line-height:20px}
 footer{padding:32px 0}
