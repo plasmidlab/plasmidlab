@@ -46,6 +46,11 @@ assert.deepEqual(bsa.map(s => [s.strand, s.pos, s.pos2]), [[1, 7, 11], [-1, 13, 
 // A Type IIS cut past the end of a linear sequence is not a cut; on a circle it wraps.
 assert.equal(T.findSites('AAAAGGTCTCA', false, enzyme('BsaI')).length, 0)
 assert.deepEqual(T.findSites('AAAAGGTCTCA', true, enzyme('BsaI')).map(s => s.pos), [0])
+// A linear cut at either end is no cut: Sau3AI ^GATC at the start, NlaIII CATG^ at the end. On a circle both count.
+assert.equal(T.findSites('GATCAAAA', false, enzyme('Sau3AI')).length, 0)
+assert.equal(T.findSites('AAAACATG', false, enzyme('NlaIII')).length, 0)
+assert.equal(T.findSites('AGATCAAA', false, enzyme('Sau3AI')).length, 1)
+assert.equal(T.findSites('GATCAAAA', true, enzyme('Sau3AI')).length, 1)
 // Degenerate sites match on both strands: AccI GTMKAC.
 assert.equal(T.findSites('GTATAC', false, enzyme('AccI')).length, 1)
 assert.equal(T.findSites('GTCGAC', false, enzyme('AccI')).length, 1)

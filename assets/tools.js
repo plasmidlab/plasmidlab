@@ -75,6 +75,7 @@
   }
 
   // Restriction sites, ported from the app's findCutSites (app/src/core/enzymes.ts) without its methylation check.
+// One difference: on a linear sequence a cut at either end is dropped (see findSites).
   const siteRegex = site => new RegExp(`(?=(${[...site].map(c => IUPAC[c].length > 1 ? `[${IUPAC[c]}]` : c).join('')}))`, 'g');
 
   /** Where one enzyme [name, site, cut, cut2] cuts: pos is the top-strand cut, between base pos and pos + 1. */
@@ -90,7 +91,8 @@
         const i = m.index;
         if (i >= n) break;
         const pos = wrap(i + top), pos2 = wrap(i + bottom);
-        if (!circular && (pos < 0 || pos > n || pos2 < 0 || pos2 > n)) continue;
+        // Unlike the app, a linear cut exactly at an end (before the first base, after the last) is not a cut either.
+        if (!circular && (pos <= 0 || pos >= n || pos2 <= 0 || pos2 >= n)) continue;
         out.push({siteStart: i, pos, pos2, strand});
       }
     }
