@@ -86,6 +86,13 @@
     if (focus) row.firstChild.focus();
   }
 
+  // Dark colours apply to the system preference unless the visitor chose light, and to a chosen dark.
+  const darkRules = at => `
+${at} #cookie-choice{background:#1f1f1f;color:#fff;border-color:#313131}
+${at} #cookie-choice a{color:#9db0ff}
+${at} #cookie-choice button{border-color:#9db0ff;background:#1f1f1f;color:#9db0ff}
+${at} #cookie-choice button.allow{background:#3b52d6;color:#fff;border-color:#3b52d6}
+${at} #cookie-choice button:focus-visible,${at} .cookie-settings:focus-visible{outline-color:#9db0ff}`;
   const style = document.createElement('style');
   style.textContent = `
 #cookie-choice{position:fixed;z-index:90;left:16px;right:16px;bottom:16px;max-width:560px;margin:0 auto;box-sizing:border-box;padding:16px;background:#fff;color:#161618;border:1px solid #dedee2;border-radius:12px;box-shadow:0 8px 32px rgba(22,22,24,.14);font-size:14px;line-height:20px}
@@ -95,7 +102,8 @@
 #cookie-choice button{font:inherit;font-weight:500;min-height:40px;padding:8px 16px;border-radius:8px;border:1px solid #2b3fb0;background:#fff;color:#2b3fb0;cursor:pointer}
 #cookie-choice button.allow{background:#2b3fb0;color:#fff}
 #cookie-choice button:focus-visible,.cookie-settings:focus-visible{outline:2px solid #2b3fb0;outline-offset:2px}
-@media(prefers-color-scheme:dark){#cookie-choice{background:#1f1f1f;color:#fff;border-color:#313131}#cookie-choice a{color:#9db0ff}#cookie-choice button{border-color:#9db0ff;background:#1f1f1f;color:#9db0ff}#cookie-choice button.allow{background:#3b52d6;color:#fff;border-color:#3b52d6}#cookie-choice button:focus-visible,.cookie-settings:focus-visible{outline-color:#9db0ff}}
+@media(prefers-color-scheme:dark){${darkRules(':root:not([data-theme=light])')}}
+${darkRules(':root[data-theme=dark]')}
 .cookie-settings{align-self:flex-start;font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}`;
   document.head.append(style);
 
