@@ -82,3 +82,10 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .link-list span{display:block;font-size:14px;color:var(--muted);margin-top:2px}
 @media(max-width:700px){.sites li{grid-template-columns:minmax(0,1fr) auto}.sites .pos,.sites svg,.scale{grid-column:1/-1}.cards,.link-list{grid-template-columns:1fr}.features tbody th{width:44%}.footer nav{justify-content:flex-start;max-width:none}}
 @media(max-width:600px){.cta{padding:22px 18px;margin-top:48px}.out header{padding-left:12px}.out pre{padding:12px}.features th,.features td{padding-right:10px}}
+.ko section{margin-top:72px}
+.ko section>h2{margin:0 0 12px}
+.ko .actions{margin:0 0 16px}
+.ko-note{font-size:14px;color:var(--muted);margin:0 0 40px;max-width:640px}
+.cards.two{grid-template-columns:repeat(2,1fr)}
+@media(max-width:700px){.cards.two{grid-template-columns:1fr}.ko section{margin-top:56px}}
+html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
