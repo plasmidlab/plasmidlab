@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Virtual Agarose Gel: Predict the Bands from a Digest | PlasmidLab</title><meta name="description" content="Paste a plasmid, pick up to four restriction enzymes and see the fragment sizes and where they land on an agarose gel beside a DNA ladder. Linear or circular, any agarose percentage."><link rel="canonical" href="https://plasmidlab.com/tools/virtual-gel/"><meta property="og:type" content="website"><meta property="og:title" content="Virtual Agarose Gel: Predict the Bands from a Digest | PlasmidLab"><meta property="og:description" content="Paste a plasmid, pick up to four restriction enzymes and see the fragment sizes and where they land on an agarose gel beside a DNA ladder. Linear or circular, any agarose percentage."><meta property="og:url" content="https://plasmidlab.com/tools/virtual-gel/"><meta property="og:image" content="https://plasmidlab.com/assets/gel.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Virtual agarose gel","url":"https://plasmidlab.com/tools/virtual-gel/","description":"Paste a plasmid, pick up to four restriction enzymes and see the fragment sizes and where they land on an agarose gel beside a DNA ladder. Linear or circular, any agarose percentage.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"author":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"},"publisher":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"}}</script><script src="/assets/theme.js"></script><link rel="icon" href="/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/fonts/geist.css"><link rel="stylesheet" href="/guides/guides.css"><link rel="stylesheet" href="/assets/pages.css"></head><body><a class="skip" href="#main">Skip to content</a><nav class="nav" aria-label="Main navigation"><a class="brand" href="/">PlasmidLab</a><div class="nav-links"><a class="home" href="/">Home</a><a class="more" href="/#tools">Tools</a><a href="/#guides">Guides</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">Log in</a><a class="button" data-download="nav" href="https://github.com/plasmidlab/plasmidlab/releases/latest/download/PlasmidLab-Mac.dmg">Download</a></div></nav><main class="wrap wide" id="main"><p class="eyebrow"><a href="/">PlasmidLab</a> / <a href="/#tools">Free tools</a> / Virtual gel</p><h1>Virtual agarose gel: predict the bands from a digest</h1><p class="lead">Paste a plasmid, pick up to four enzymes and see the fragment sizes and where they would run beside a DNA ladder. Choose circular for a plasmid, so sites across the origin count and the uncut lane runs as supercoiled DNA.</p>
+<section class="tool" aria-label="Virtual gel"><label class="field" for="seq">DNA sequence</label><textarea id="seq" spellcheck="false" autocomplete="off" placeholder="Paste DNA or FASTA, e.g. a plasmid of a few thousand bases"></textarea><div class="options"><label><input type="checkbox" id="header" checked> Skip FASTA header lines</label><label><input type="checkbox" id="uncut"> Add an uncut lane</label><button type="button" class="copy" id="example">Use an example</button></div>
+<div class="controls"><div><span class="label" id="topo-label">Sequence</span><span class="seg" role="group" aria-labelledby="topo-label"><button type="button" data-topo="linear" aria-pressed="true">Linear</button><button type="button" data-topo="circular" aria-pressed="false">Circular</button></span></div></div>
+<div class="grid four" role="group" aria-label="Enzymes"><div><label for="e0">Enzyme 1</label><input id="e0" list="enzyme-list" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="EcoRI"><span class="hint" id="h0"></span></div><div><label for="e1">Enzyme 2</label><input id="e1" list="enzyme-list" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="HindIII"><span class="hint" id="h1"></span></div><div><label for="e2">Enzyme 3</label><input id="e2" list="enzyme-list" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Optional"><span class="hint" id="h2"></span></div><div><label for="e3">Enzyme 4</label><input id="e3" list="enzyme-list" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Optional"><span class="hint" id="h3"></span></div></div><datalist id="enzyme-list"></datalist>
+<div class="grid three"><div><label for="agarose">Agarose</label><select id="agarose"></select></div><div><label for="run">How far the gel ran</label><select id="run"><option value="0.5">Short run</option><option value="0.75">Shorter than usual</option><option value="1" selected>A full run</option><option value="1.25">Longer than usual</option><option value="1.5">Long run</option></select></div><div><label for="ladder">Ladder</label><select id="ladder"></select></div></div>
+<p class="status" id="status" role="status" aria-live="polite"></p><ul class="frags" id="frags"></ul><div class="gel" id="gel"></div></section>
+<section class="prose"><h2>How this is calculated</h2><p>The fragment sizes are exact. The cut positions come from the same enzyme list and the same site search as the <a href="/tools/restriction-sites/">restriction site finder</a>, and the fragments are the distances between neighbouring cuts, measured around the circle when the sequence is circular. Cuts from all four enzymes go into one digest, and two enzymes that cut at the same position count once.</p><p>Where a band lands is a prediction, not a measurement. It uses the gel model from the PlasmidLab app: an empirical curve of how far DNA travels against the base-10 logarithm of its length, with the length first multiplied by the agarose percentage raised to the power 1.3, and the whole distance scaled by how far you ran the gel. Read it to tell whether two bands will separate, not to measure a size.</p><p>Uncut circular DNA does not run as a linear fragment of the same length. When the sequence is circular and nothing cuts it, that band is drawn with the supercoiled factor for TAE buffer, 0.7, so a 2,686 bp plasmid runs about where a 1,880 bp linear fragment would. Supercoiling varies with the preparation, so that band is marked approximate. A band that would run past the bottom of the gel, or that has barely left the well, is drawn at the edge and labelled, so it is never silently dropped.</p><p class="note">Recognition sites and cut positions from REBASE, the Restriction Enzyme Database (<a href="http://rebase.neb.com">rebase.neb.com</a>), release 611. Ladder lengths are the 1 kb and 100 bp DNA ladders. Everything runs in your browser; the sequence is not sent anywhere.</p></section>
+<aside class="cta" aria-labelledby="cta-title"><div><p class="kicker">PlasmidLab for Mac and Windows</p><h2 id="cta-title">Do this on your own plasmids</h2><p>PlasmidLab runs the same gel on as many lanes as you like, from your own .dna and GenBank files, with PCR products and methylation taken into account. It is free for Mac and Windows.</p></div><div class="actions"><a class="button" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/latest/download/PlasmidLab-Mac.dmg">Download for Mac</a><a data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/latest/download/PlasmidLab-Mac.dmg">Also for Windows</a></div></aside>
+<aside class="related"><h2>More free tools</h2><ul class="link-list"><li><a href="/tools/restriction-sites/">Restriction site finder<span>Enzymes that cut once, twice or not at all.</span></a></li><li><a href="/tools/dna-molarity/">DNA molarity calculator<span>ng to pmol, and a ligation ratio.</span></a></li><li><a href="/tools/gc-content/">GC content and melting temperature<span>Base counts, GC% and an oligo Tm.</span></a></li><li><a href="/tools/reverse-complement/">Reverse complement<span>Reverse, complement and reverse complement, IUPAC aware.</span></a></li><li><a href="/tools/translate/">Translate DNA to protein<span>Six reading frames with open reading frames marked.</span></a></li></ul><h2 style="margin-top:40px">Guides</h2><ul class="link-list"><li><a href="/guides/restriction-cloning/">Choose two enzymes for restriction cloning<span>Which pair cuts the vector and not the insert.</span></a></li><li><a href="/guides/plasmid-map/">View a plasmid map<span>From a GenBank or .dna file.</span></a></li><li><a href="/guides/open-dna-genbank/">Open .dna and GenBank files<span>On Mac or Windows.</span></a></li></ul></aside></main><footer class="footer"><div><div class="foot-text"><p>© 2026 PlasmidLab</p><p>PlasmidLab is for research use only. The free AI trial is for people aged 18 or older.</p><p>Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google and Apple are trademarks of their owners. PlasmidLab is not affiliated with or endorsed by them.</p></div><nav class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">Report a problem</a><a href="/#guides">Guides</a><a href="/privacy/">Privacy</a><a href="/privacy/ko/" lang="ko">개인정보처리방침</a><a href="/terms/">Terms</a><a href="/ko/" lang="ko" hreflang="ko">한국어</a></nav></div></footer><script src="/assets/download.js" defer></script><script src="/assets/consent.js" defer></script><script src="/assets/enzymes.js"></script><script src="/assets/tools.js"></script><script src="/assets/calc.js"></script><script>
+(() => {
+  const T = PlasmidTools, C = PlasmidCalc, $ = id => document.getElementById(id), fmt = n => n.toLocaleString('en-US');
+  const esc = s => s.replace(/[<&>]/g, c => ({'<': '&lt;', '&': '&amp;', '>': '&gt;'}[c]));
+  const SLOTS = [0, 1, 2, 3], AGAROSE = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.2, 1.4, 1.5, 1.6, 1.8, 2, 2.5, 3];
+  const EXAMPLE = '>pUC19, 2686 bp, circular\nTCGCGCGTTTCGGTGATGACGGTGAAAACCTCTGACACATGCAGCTCCCGGAGACGGTCACAGCTTGTCTGTAAGCGGATGCCGGGAGCAGACAAGCCCGTCAGGGCGCGTCAGCGGGTGTTGGCGGGTGTCGGGGCTGGCTTAACTATGCGGCATCAGAGCAGATTGTACTGAGAGTGCACCATATGCGGTGTGAAATACCGCACAGATGCGTAAGGAGAAAATACCGCATCAGGCGCCATTCGCCATTCAGGCTGCGCAACTGTTGGGAAGGGCGATCGGTGCGGGCCTCTTCGCTATTACGCCAGCTGGCGAAAGGGGGATGTGCTGCAAGGCGATTAAGTTGGGTAACGCCAGGGTTTTCCCAGTCACGACGTTGTAAAACGACGGCCAGTGAATTCGAGCTCGGTACCCGGGGATCCTCTAGAGTCGACCTGCAGGCATGCAAGCTTGGCGTAATCATGGTCATAGCTGTTTCCTGTGTGAAATTGTTATCCGCTCACAATTCCACACAACATACGAGCCGGAAGCATAAAGTGTAAAGCCTGGGGTGCCTAATGAGTGAGCTAACTCACATTAATTGCGTTGCGCTCACTGCCCGCTTTCCAGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCTCTTCCGCTTCCTCGCTCACTGACTCGCTGCGCTCGGTCGTTCGGCTGCGGCGAGCGGTATCAGCTCACTCAAAGGCGGTAATACGGTTATCCACAGAATCAGGGGATAACGCAGGAAAGAACATGTGAGCAAAAGGCCAGCAAAAGGCCAGGAACCGTAAAAAGGCCGCGTTGCTGGCGTTTTTCCATAGGCTCCGCCCCCCTGACGAGCATCACAAAAATCGACGCTCAAGTCAGAGGTGGCGAAACCCGACAGGACTATAAAGATACCAGGCGTTTCCCCCTGGAAGCTCCCTCGTGCGCTCTCCTGTTCCGACCCTGCCGCTTACCGGATACCTGTCCGCCTTTCTCCCTTCGGGAAGCGTGGCGCTTTCTCATAGCTCACGCTGTAGGTATCTCAGTTCGGTGTAGGTCGTTCGCTCCAAGCTGGGCTGTGTGCACGAACCCCCCGTTCAGCCCGACCGCTGCGCCTTATCCGGTAACTATCGTCTTGAGTCCAACCCGGTAAGACACGACTTATCGCCACTGGCAGCAGCCACTGGTAACAGGATTAGCAGAGCGAGGTATGTAGGCGGTGCTACAGAGTTCTTGAAGTGGTGGCCTAACTACGGCTACACTAGAAGAACAGTATTTGGTATCTGCGCTCTGCTGAAGCCAGTTACCTTCGGAAAAAGAGTTGGTAGCTCTTGATCCGGCAAACAAACCACCGCTGGTAGCGGTGGTTTTTTTGTTTGCAAGCAGCAGATTACGCGCAGAAAAAAAGGATCTCAAGAAGATCCTTTGATCTTTTCTACGGGGTCTGACGCTCAGTGGAACGAAAACTCACGTTAAGGGATTTTGGTCATGAGATTATCAAAAAGGATCTTCACCTAGATCCTTTTAAATTAAAAATGAAGTTTTAAATCAATCTAAAGTATATATGAGTAAACTTGGTCTGACAGTTACCAATGCTTAATCAGTGAGGCACCTATCTCAGCGATCTGTCTATTTCGTTCATCCATAGTTGCCTGACTCCCCGTCGTGTAGATAACTACGATACGGGAGGGCTTACCATCTGGCCCCAGTGCTGCAATGATACCGCGAGACCCACGCTCACCGGCTCCAGATTTATCAGCAATAAACCAGCCAGCCGGAAGGGCCGAGCGCAGAAGTGGTCCTGCAACTTTATCCGCCTCCATCCAGTCTATTAATTGTTGCCGGGAAGCTAGAGTAAGTAGTTCGCCAGTTAATAGTTTGCGCAACGTTGTTGCCATTGCTACAGGCATCGTGGTGTCACGCTCGTCGTTTGGTATGGCTTCATTCAGCTCCGGTTCCCAACGATCAAGGCGAGTTACATGATCCCCCATGTTGTGCAAAAAAGCGGTTAGCTCCTTCGGTCCTCCGATCGTTGTCAGAAGTAAGTTGGCCGCAGTGTTATCACTCATGGTTATGGCAGCACTGCATAATTCTCTTACTGTCATGCCATCCGTAAGATGCTTTTCTGTGACTGGTGAGTACTCAACCAAGTCATTCTGAGAATAGTGTATGCGGCGACCGAGTTGCTCTTGCCCGGCGTCAATACGGGATAATACCGCGCCACATAGCAGAACTTTAAAAGTGCTCATCATTGGAAAACGTTCTTCGGGGCGAAAACTCTCAAGGATCTTACCGCTGTTGAGATCCAGTTCGATGTAACCCACTCGTGCACCCAACTGATCTTCAGCATCTTTTACTTTCACCAGCGTTTCTGGGTGAGCAAAAACAGGAAGGCAAAATGCCGCAAAAAAGGGAATAAGGGCGACACGGAAATGTTGAATACTCATACTCTTCCTTTTTCAATATTATTGAAGCATTTATCAGGGTTATTGTCTCATGAGCGGATACATATTTGAATGTATTTAGAAAAATAAACAAATAGGGGTTCCGCGCACATTTCCCCGAAAAGTGCCACCTGACGTCTAAGAAACCATTATTATCATGACATTAACCTATAAAAATAGGCGTATCACGAGGCCCTTTCGTC';
+  const byName = new Map(PLASMIDLAB_ENZYMES.map(e => [e[0].toLowerCase(), e]));
+  $('enzyme-list').innerHTML = PLASMIDLAB_ENZYMES.map(e => e[0]).sort((a, b) => a.localeCompare(b, 'en', {numeric: true})).map(n => `<option value="${n}"></option>`).join('');
+  $('agarose').innerHTML = AGAROSE.map(p => `<option value="${p}"${p === 1 ? ' selected' : ''}>${p.toFixed(1)}%</option>`).join('');
+  $('ladder').innerHTML = C.ladders.map((l, i) => `<option value="${i}">${l.name}</option>`).join('');
+  let topo = 'linear', timer = 0;
+
+  // Gel geometry, in the pixels the SVG is drawn at. The ladder is lane 0, in the left gutter with its labels.
+  const GTOP = 34, GH = 330, LEFT = 42, LADW = 26, GAP = 40;
+  // Cosmetic only, as in the app's gel window: a band holding more of the load is thicker and brighter.
+  const style = mass => ({h: Math.max(1.5, Math.min(8, mass / 62)), o: Math.min(1, 0.3 + mass / 150)});
+  const share = sizes => { const t = sizes.reduce((a, b) => a + b, 0) || 1; return sizes.map(bp => ({bp, mass: 500 * bp / t})); };
+  /** A lane name cut to the room it has; the full name stays in the tooltip. */
+  const fit = (t, px) => t.length * 6 <= px ? t : t.slice(0, Math.max(3, Math.floor(px / 6) - 1)).trimEnd() + '…';
+  /** Label rows pushed apart so two bands close together stay readable, then slid back inside the gel. */
+  function spread(ys, gaps, lo, hi) {
+    const out = ys.slice();
+    for (let i = 1; i < out.length; i++) out[i] = Math.max(out[i], out[i - 1] + gaps[i - 1]);
+    const over = out.length ? out[out.length - 1] - hi : 0;
+    if (over > 0) for (let i = 0; i < out.length; i++) out[i] = Math.max(lo, out[i] - over);
+    return out;
+  }
+
+  const agarose = () => +$('agarose').value, runLen = () => +$('run').value;
+  /** One band: its size, its share of the load and where it ran. Bands off either edge are kept, at the edge. */
+  function band(bp, mass, supercoiled, label) {
+    const f = C.migration(bp, agarose(), runLen(), supercoiled ? 'TAE' : undefined);
+    const note = supercoiled ? 'supercoiled' : f > 0.98 ? 'off the gel' : f < 0.06 ? 'barely moved' : '';
+    return {bp, mass, f, label: label ?? fmt(bp) + ' bp', note};
+  }
+
+  function draw(lanes, units, w) {
+    const x1 = w - 2, sx0 = LEFT + GAP, n = Math.max(1, lanes.length - 1), slot = (x1 - sx0) / n;
+    const bot = GTOP + GH, wellY = GTOP + 7;
+    const yOf = f => GTOP + 12 + Math.min(0.985, Math.max(0.02, f)) * (GH - 12);
+    let s = `<rect class="box" x="${LEFT}" y="${GTOP}" width="${x1 - LEFT}" height="${GH}" rx="3"/><text class="mlabel" x="${LEFT - 10}" y="${GTOP - 6}" text-anchor="end">${units}</text>`;
+    lanes.forEach((lane, i) => {
+      const rx = i === 0 ? LEFT + 6 : sx0 + slot * (i - 1) + 5;
+      const rw = i === 0 ? LADW : Math.min(34, Math.max(16, slot * 0.3));
+      // The lane name sits over the whole slot, the band and its labels together, so two names never collide.
+      const own = i === 0 ? GAP : slot, cx = i === 0 ? LEFT + GAP / 2 : sx0 + slot * (i - 1) + slot / 2;
+      s += `<text class="lane" x="${cx.toFixed(1)}" y="${GTOP - 18}" text-anchor="middle">${esc(fit(lane.name, Math.max(own, 72)))}<title>${esc(lane.name)}</title></text>`;
+      if (lane.note) s += `<text class="lnote" x="${cx.toFixed(1)}" y="${GTOP - 6}" text-anchor="middle">${esc(lane.note)}</text>`;
+      s += `<rect class="well" x="${rx.toFixed(1)}" y="${wellY - 2}" width="${rw.toFixed(1)}" height="4" rx="2"/>`;
+      const ys = lane.bands.map(b => yOf(b.f));
+      const ly = spread(ys, lane.bands.map(b => b.note ? 24 : 13), GTOP + 14, bot - 20);
+      lane.bands.forEach((b, k) => {
+        const st = style(b.mass), y = ys[k], tx = rx + rw + 8;
+        s += `<rect class="band" x="${rx.toFixed(1)}" y="${(y - st.h / 2).toFixed(1)}" width="${rw.toFixed(1)}" height="${st.h.toFixed(1)}" opacity="${st.o.toFixed(2)}"><title>${esc(b.label + (b.note ? ', ' + b.note : ''))}</title></rect>`;
+        if (i === 0) s += `<text class="mlabel" x="${LEFT - 10}" y="${(ly[k] + 3.5).toFixed(1)}" text-anchor="end">${b.label}</text><path class="lead" d="M${LEFT - 8} ${ly[k].toFixed(1)}H${LEFT - 4}L${(rx - 3).toFixed(1)} ${y.toFixed(1)}H${rx.toFixed(1)}"/>`;
+        else s += `<text class="blabel" x="${tx.toFixed(1)}" y="${(ly[k] + 3.5).toFixed(1)}">${b.label}</text>${b.note ? `<text class="bnote" x="${tx.toFixed(1)}" y="${(ly[k] + 14).toFixed(1)}">${esc(b.note)}</text>` : ''}<path class="lead" d="M${(rx + rw).toFixed(1)} ${y.toFixed(1)}H${(tx - 5).toFixed(1)}"/>`;
+      });
+    });
+    return `<svg viewBox="0 0 ${w} ${bot + 12}" width="${w}" height="${bot + 12}" role="img" aria-label="Agarose gel with a ladder lane and the digest">${s}</svg>`;
+  }
+
+  function run() {
+    const s = T.clean($('seq').value, {header: $('header').checked}).replace(/[^A-Za-z]/g, '');
+    const n = s.length, circular = topo === 'circular';
+    const picked = SLOTS.map(i => {
+      const raw = $('e' + i).value.trim();
+      if (!raw) return {hint: ''};
+      const e = byName.get(raw.toLowerCase());
+      if (!e) return {hint: 'Not one of the 162 enzymes.', bad: true};
+      const cuts = n ? T.findSites(s, circular, e).map(x => x.pos) : [], k = cuts.length;
+      return {name: e[0], cuts, hint: `${e[1]} · ${!n ? 'paste a sequence' : k ? k + (k === 1 ? ' cut' : ' cuts') : 'no cuts'}`};
+    });
+    picked.forEach((p, i) => { $('h' + i).textContent = p.hint; $('h' + i).className = 'hint' + (p.bad ? ' warn' : ''); });
+    const cuts = picked.flatMap(p => p.cuts ?? []), used = picked.filter(p => p.name).map(p => p.name);
+    const sizes = n ? C.fragments(n, circular, cuts) : [];
+    const sc = circular && !cuts.length;  // uncut circular plasmid: never drawn as a linear fragment of the same length
+    $('status').textContent = !n ? 'Paste a sequence to see the gel.'
+      : `${fmt(n)} bp, ${circular ? 'circular' : 'linear'} · ${used.length ? used.join(' + ') : 'no enzyme'} · ${cuts.length ? fmt(new Set(cuts).size) + ' cut site' + (new Set(cuts).size === 1 ? '' : 's') : 'not cut'} · ${fmt(sizes.length)} band${sizes.length === 1 ? '' : 's'}`;
+    $('frags').innerHTML = sizes.map(bp => `<li><span class="n">${fmt(bp)}</span> bp${sc ? ' · supercoiled, approximate' : ''}</li>`).join('');
+    const lad = C.ladders[+$('ladder').value] ?? C.ladders[0];
+    const labelFor = bp => lad.units === 'kb' ? (bp / 1000).toFixed(1) : String(bp);
+    const lanes = [{name: lad.name, note: '', bands: share(lad.lengths).map(b => band(b.bp, b.mass, false, labelFor(b.bp)))}];
+    if (n) lanes.push({name: used.length ? used.join(' + ') : 'Uncut', note: sc ? 'supercoiled, approximate' : '', bands: share(sizes).map(b => band(b.bp, b.mass, sc))});
+    if (n && $('uncut').checked) lanes.push({name: 'Uncut', note: circular ? 'supercoiled, approximate' : '', bands: [band(n, 500, circular)]});
+    const box = $('gel'), want = LEFT + GAP + Math.max(1, lanes.length - 1) * 170 + 10;
+    box.innerHTML = draw(lanes, lad.units, Math.max(300, Math.min(want, 640, box.clientWidth || 640)));
+  }
+  const later = () => { clearTimeout(timer); timer = setTimeout(run, 120); };
+  for (const id of ['seq', 'header', 'uncut', 'e0', 'e1', 'e2', 'e3', 'agarose', 'run', 'ladder']) $(id).addEventListener('input', later);
+  addEventListener('resize', later);
+  document.querySelectorAll('[data-topo]').forEach(b => b.addEventListener('click', () => {
+    topo = b.dataset.topo;
+    document.querySelectorAll('[data-topo]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    run();
+  }));
+  $('example').addEventListener('click', () => {
+    $('seq').value = EXAMPLE;
+    $('e0').value = 'EcoRI'; $('e1').value = 'HindIII'; $('e2').value = ''; $('e3').value = '';
+    document.querySelector('[data-topo=circular]').click();
+  });
+  run();
+})();
+</script></body></html>
