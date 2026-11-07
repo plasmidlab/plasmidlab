@@ -92,3 +92,6 @@ html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
 /* Guide screenshots read wider than the prose column; the app UI is unreadable at 836px. */
 .plate.wide img{width:min(1160px,calc(100vw - 48px));max-width:none;margin-left:50%;transform:translateX(-50%)}
 .plate.wide figcaption{text-align:center}
+/* The request to copy, above the screenshot of it being typed. */
+blockquote.ask{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--accent);background:var(--band);border-radius:0 10px 10px 0}
+blockquote.ask p{margin:0;color:var(--ink)}
