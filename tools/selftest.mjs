@@ -90,3 +90,52 @@ assert.equal(C.meltingTemp('GCGTAACGATCCAGCTGTCG'), 59.9)  // the app's own defa
 assert.ok(C.meltingTemp('GCGTAACGATCCAGCTGTCG', {}, 0.2, 0.25e-6) > 59.9, 'more salt, higher Tm')
 
 console.log('selftest: all checks pass')
+
+// The restriction enzyme list page: the groups it prints are derived, so the derivation is checked here.
+const {classify, sameSite, groups, junction, junctionOutcome, siteText} = await import('./enzyme-groups.mjs')
+const eRows = classify(E)
+const row = name => eRows.find(r => r.name === name)
+const eGroups = groups(eRows)
+const groupOf = name => eGroups.find(g => g.members.some(m => m.name === name))
+
+// Ends of the right kind end up together, and never across kinds.
+const gatc = groupOf('BamHI')
+assert.deepEqual(gatc.members.map(m => m.name).sort(), ['BamHI', 'BclI', 'BglII', 'Sau3AI'])
+assert.equal(gatc.end, "5'")
+assert.equal(gatc.overhang, 'GATC')
+// KpnI and Acc65I cut the same site and leave the same four bases on opposite strands: not compatible.
+assert.equal(row('KpnI').end, "3'")
+assert.equal(row('Acc65I').end, "5'")
+assert.equal(row('KpnI').overhang, 'GTAC')
+assert.equal(row('Acc65I').overhang, 'GTAC')
+assert.notEqual(row('KpnI').group, row('Acc65I').group)
+assert.deepEqual(sameSite(eRows).get('KpnI'), [{name: 'Acc65I', kind: 'neoschizomer'}])
+assert.equal(sameSite(eRows).get('PaeR7I').find(s => s.name === 'XhoI').kind, 'isoschizomer')
+// A 3' pair, and a Type IIS enzyme that cannot be in any group at all.
+assert.equal(groupOf('PstI'), groupOf('NsiI'))
+assert.equal(row('PstI').end, "3'")
+assert.equal(row('BsaI').group, null)
+assert.equal(row('BsaI').kind, 'flanking')
+assert.equal(row('BsaI').end, "5'")  // Type IIS still leaves a 5' overhang, just not one the enzyme decides
+assert.equal(row('BsaI').length, 4)
+assert.equal(row('BsmBI').group, null)
+assert.equal(row('AvaI').group, null)  // 5' YCGR: the overhang depends on the site that was cut
+assert.equal(row('BsaWI').overhang, 'CCGG')  // W only in the flanks of the site, so the overhang is fixed
+assert.equal(groupOf('BsaWI'), groupOf('XmaI'))
+
+// Junctions: what survives the join, computed rather than remembered.
+assert.equal(junction(row('BamHI'), row('BglII')), 'GGATCT')
+assert.equal(junctionOutcome(row('BamHI'), row('BglII'), T.findSites).label, 'both sites lost')
+assert.equal(junctionOutcome(row('BamHI'), row('BamHI'), T.findSites).label, 'same site regenerated')
+assert.equal(junctionOutcome(row('PstI'), row('SbfI'), T.findSites).label, 'PstI site kept')
+assert.equal(junctionOutcome(row('PstI'), row('NsiI'), T.findSites).label, 'both sites lost')
+
+// Counts the page prints, and the REBASE-style site text.
+const ends = eRows.reduce((a, r) => (a[r.end] = (a[r.end] ?? 0) + 1, a), {})
+assert.deepEqual(ends, {"5'": 88, "3'": 40, blunt: 34})
+const kinds = eRows.reduce((a, r) => (a[r.kind] = (a[r.kind] ?? 0) + 1, a), {})
+assert.deepEqual(kinds, {fixed: 74, ambiguous: 35, flanking: 19, blunt: 34})
+assert.equal(eGroups.length, 15)
+assert.equal(siteText(enzyme('EcoRI')), 'G^AATTC')
+assert.equal(siteText(enzyme('BsaI')), 'GGTCTC(1/5)')
+assert.equal(siteText(enzyme('SmaI')), 'CCC^GGG')
