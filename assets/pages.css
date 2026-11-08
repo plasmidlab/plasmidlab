@@ -56,7 +56,7 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 .grid label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
-.grid input,.grid select{font:inherit;font-size:15px;width:100%;min-height:40px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.grid input,.grid select,.controls input,.controls select{font:inherit;font-size:15px;width:100%;min-height:40px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
 .grid .hint{display:block;font-size:13px;color:var(--muted);margin-top:5px}
 .grid .hint.warn{color:var(--ink)}
 @media(max-width:760px){.grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -78,6 +78,7 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .gel .mlabel{font-size:10px;font-variant-numeric:tabular-nums}
 .controls{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:20px}
 .controls .label{font-size:14px;color:var(--muted);margin-right:8px}
+.controls label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
 .prose h2{font-size:24px;margin:48px 0 12px}
 .cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;margin:64px 0 0;padding:28px;border-radius:14px;background:var(--band)}
 .cta h2{margin:0 0 6px;font-size:24px}
@@ -87,6 +88,8 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .actions .button{padding:11px 18px}
 .disclaimer{display:inline-block;font-size:14px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin:0 0 32px}
 .table-wrap{overflow-x:auto;margin:16px 0 0}
+.table-wrap.wide table{min-width:980px}
+.table-wrap .nowrap{white-space:nowrap}
 .features{width:100%;border-collapse:collapse;font-size:15px}
 .features th,.features td{text-align:left;vertical-align:top;padding:14px 16px 14px 0;border-top:1px solid var(--line)}
 .features thead th{font-size:13px;font-weight:500;color:var(--muted);border-top:0;padding-top:0}
