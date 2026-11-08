@@ -3,6 +3,8 @@
 // The whole 162-row table goes into the HTML at build time, so a crawler sees it without running anything.
 // The filters and the "cuts my sequence" column are script on top of that same table.
 // One builder for both languages, so a change to what the page claims cannot land in one and miss the other.
+// Both index.html files are generated: edit this script and re-run it, never the HTML. (The six
+// hand-written pages under ko/tools/ are the opposite case and are maintained by hand.)
 // Run: node tools/build-restriction-enzymes.mjs
 import { writeFileSync, mkdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
