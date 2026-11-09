@@ -167,7 +167,7 @@ const KO = {
     ['/ko/guides/gibson-primer/', 'Gibson 프라이머 설계', '상동 구간과 어닐링 온도.'],
     ['/ko/guides/', '한국어 가이드 전체', '목록 보기.'],
   ],
-  footer: '<p>© 2026 PlasmidLab</p><p>PlasmidLab은 연구용 소프트웨어입니다. 무료 AI 체험은 만 18세 이상만 이용할 수 있습니다.</p><p>Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google, Apple은 각 소유자의 상표입니다. PlasmidLab은 이들과 제휴하거나 보증받지 않았습니다.</p>',
+  footer: '<p>© 2026 PlasmidLab</p><p>PlasmidLab은 연구용 소프트웨어입니다. 무료 AI 체험은 만&nbsp;18세 이상만 이용할 수 있습니다.</p><p>Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google, Apple은 각 소유자의 상표입니다. PlasmidLab은 이들과 제휴하거나 보증받지 않았습니다.</p>',
   footerLinks: `<a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">문제 신고</a><a href="/ko/guides/">가이드</a><a href="/privacy/ko/">개인정보처리방침</a><a href="/terms/" lang="en">Terms</a><a href="${EN_URL.replace('https://plasmidlab.com', '')}" lang="en" hreflang="en">English</a>`,
   js: {none: '없음', dash: '—',
     statusAll: (n) => `효소 ${n}종`, statusSome: (s, n) => `${n}종 가운데 ${s}종`,

@@ -125,3 +125,6 @@ html:lang(ko) body{word-break:keep-all;overflow-wrap:break-word}
 /* The request to copy, above the screenshot of it being typed. */
 blockquote.ask{margin:0 0 20px;padding:14px 18px;border-left:3px solid var(--accent);background:var(--band);border-radius:0 10px 10px 0}
 blockquote.ask p{margin:0;color:var(--ink)}
+h1,h2,h3{text-wrap:balance}
+p,li{text-wrap:pretty}
+.lead,.ko-note{text-wrap:balance}
