@@ -23,8 +23,8 @@ const blunt = rows.filter((r) => r.kind === 'blunt')
 const flanking = rows.filter((r) => r.kind === 'flanking')
 const depends = rows.filter((r) => r.kind === 'ambiguous')
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]))
-// shortcut: pinned to v0.2.2 because GitHub's latest/ alias returned 504 on 2026-11-08; move back to latest/ or bump the version at the next release.
-const DL = 'https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.2/PlasmidLab-Mac.dmg'
+// shortcut: pinned to v0.2.4 (bumped from v0.2.2 on 2026-11-09) because GitHub's latest/ alias returned 504 on 2026-11-08; move back to latest/ or bump the version at the next release.
+const DL = 'https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.4/PlasmidLab-Mac.dmg'
 const EN_URL = 'https://plasmidlab.com/tools/restriction-enzymes/'
 const KO_URL = 'https://plasmidlab.com/ko/tools/restriction-enzymes/'
 const N = E.length
