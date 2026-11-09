@@ -3,8 +3,8 @@
 A plasmid map and sequence editor for Mac and Windows, with an agent that plans cloning on your own
 files. Free to download at [plasmidlab.com](https://plasmidlab.com/).
 
-[Download for Mac](https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.5/PlasmidLab-Mac.dmg)
-· [Download for Windows](https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.5/PlasmidLab-Windows.exe)
+[Download for Mac](https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.6/PlasmidLab-Mac.dmg)
+· [Download for Windows](https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.6/PlasmidLab-Windows.exe)
 · [All releases](https://github.com/plasmidlab/plasmidlab/releases)
 
 ![The map view beside the agent panel](assets/app-agent.png)
