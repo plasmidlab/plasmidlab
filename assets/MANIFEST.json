@@ -27,6 +27,30 @@
       "bytes": 506463,
       "what": "Hero shot of the app mid-run: the cut-and-paste exercise's pUC19-GFPmut3b circular map on the left (new label style, isoschizomer +N badges), and on the right the AI panel part way through a real Claude Code run, scrolled past the brief: tool-step cards (Reading one of your tabs, Reading a sequence x4 with base ranges, Finding where enzymes cut with site counts, Reading the method: restriction ligation), one line of the agent's reasoning (\"Both plasmids share a BamHI/HindIII polylinker, so this looks like a straight double-digest subclone...\") and the live \"Working · Reading the method\" spinner line."
     },
+    "app-ai.png": {
+      "w": 940,
+      "h": 1520,
+      "bytes": 161539,
+      "what": "The AI window on its own (470x760 at 2x): the provider row (Claude Code, Default, high), the hint text with an example ask, the empty ask box with Show the bench steps and Send, the \"Answers can be wrong\" line, and the exercise cards (Move an insert between plasmids, Join two pieces with no scar) with their Play the recording and Open buttons."
+    },
+    "app-features.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 335721,
+      "what": "Features view of the same plasmid: the 11 features in a table with Location, Size, Color, Direction and Type, the Find features box and Actions menu, and the Enzymes side panel."
+    },
+    "app-map.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 1177193,
+      "what": "Map view of pPL-T7-His-GFPmut3b (3,618 bp, circular, 53% GC) in the current C2 window: the circular map with its features (T7 promoter, lac operator, RBS, His6 tag, GFPmut3b, T7 terminator, lacI, lacI promoter, KanR, KanR promoter, ori) and the \"6 bp+ enzymes that cut once\" set labelled \"Name position\" with +N isoschizomer badges, the file sidebar, the Map / Sequence / Features / Primers / Enzymes / History tabs and the Enzymes side panel listing all 42 by position."
+    },
+    "app-sequence.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 340132,
+      "what": "Sequence view of the same plasmid from base 1: both strands with the ruler, the enzyme sites above the bases (NsiI, AfeI, NheI, BmtI, BamHI, NdeI), the feature bars (T7 promoter, lac operator, RBS, His6 tag, GFPmut3b) and the amino-acid translation under the codons, with the Enzymes side panel."
+    },
     "app-window.png": {
       "w": 2880,
       "h": 1800,
@@ -81,6 +105,19 @@
       "bytes": 251427,
       "what": "Sequence view of pPL-T7-His-GFPmut3b (the app's sample plasmid) with the GFPmut3b CDS selected (101..820, 720 bp): both strands, numbering, enzyme sites (NsiI, AfeI, NheI, BmtI, BamHI), the amino-acid translation under the codons, and the T7 promoter / lac operator / RBS / His6 tag / GFPmut3b feature bars."
     },
+    "seven-piece-poster.png": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 517080,
+      "what": "Frame from near the end of seven-piece.mp4, used as its poster: the walkthrough window on the PuroR piece (627 bp, with its two 15 bp tails and the PuroR_F / PuroR_R primers) over the product map, and the AI window with the run’s risk note and its last steps."
+    },
+    "seven-piece.mp4": {
+      "w": 1440,
+      "h": 900,
+      "bytes": 1688096,
+      "duration_s": 69,
+      "what": "A real recorded agent run of the hardest exercise, played back in the app: GFP, mCherry, PuroR and HygR joined by three 2A linkers as one reading frame behind a CMV promoter, built as an eight-piece NEBuilder HiFi assembly with seven junctions. The donor plasmids and the 2A-linkers file are open as tabs, the walkthrough window animates each piece and the 30 bp overlaps the pieces line up on, and the AI window beside the map shows the agent’s own notes and its 37 steps. The last tab, demo-product_2, is the 5,670 bp circular product. No audio."
+    },
     "walkthrough-poster.png": {
       "w": 1440,
       "h": 900,
@@ -124,6 +161,8 @@
     "Viewport 1440x900 throughout. PNGs are 2880x1800 (deviceScaleFactor 2) except ai-design-poster.png, walkthrough-poster.png and zoom-poster.png, which are 1440x900 frames of their mp4.",
     "enzymes.png: the dialog does not span the whole window, so a sliver of the map (part of a label) shows at its right edge.",
     "A zoomed circular map leaves part of the canvas empty by design, so frames in the middle of zoom.mp4 show white on one side.",
-    "Checked: no competitor product name (SnapGene, Benchling, Geneious, ApE), no vendor plasmid name and no 'PlasmidStudio' in any captured page text or frame. No Vite overlay or focus rings; scripted focus outlines were suppressed by stylesheet."
-  ]
+    "Checked: no competitor product name (SnapGene, Benchling, Geneious, ApE), no vendor plasmid name and no 'PlasmidStudio' in any captured page text or frame. No Vite overlay or focus rings; scripted focus outlines were suppressed by stylesheet.",
+    "2026-11-10: the home page now shows app-map.png, app-sequence.png, app-features.png, app-ai.png and seven-piece.mp4 only. The older shots and films (app-window, app-agent, ai-panel, map-circular, map-linear, sequence, primers, enzymes, gel, walkthrough, ai-design.mp4, walkthrough.mp4, zoom.mp4 and their posters) are of the pre-C2 UI with the AI panel docked in the window; they are kept in the repo but are no longer on the home page. app-window.png is still used by /snapgene-alternative/ and app-agent.png by /ko/."
+  ],
+  "updated": "2026-11-10"
 }
