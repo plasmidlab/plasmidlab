@@ -147,6 +147,8 @@ figcaption b{font-weight:500;white-space:nowrap}
 .agent-art svg{width:100%;height:100%;display:block}
 .agent-art.shot img{width:340px;left:-6px;top:-3px}
 .agent-tail{display:flex;justify-content:space-between;gap:28px;margin-top:16px;color:var(--muted)}
+.agent-figure{margin:32px 0 0}
+.agent-figure img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
 /* One square per cloning job, grouped by job family (S5). */
 .bench-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .bench-chips button{padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--muted);transition:color 300ms var(--ease),background 300ms var(--ease),border-color 300ms var(--ease)}
@@ -340,6 +342,10 @@ body>#cookie-choice{flex-wrap:wrap;gap:8px}body>#cookie-choice p{min-width:0;fle
         <li class="agent-step"><div class="step-head"><span class="caption-1 num">02</span><h3 class="title-2">Review the plan</h3></div><p class="body-6 muted">Every reaction, step by step.</p><div class="agent-art"><svg viewBox="0 0 340 92" role="img" aria-label="Three planned steps, each ticked: find the BamHI and HindIII sites, digest the insert and the backbone, ligate the circular product"><g fill="none" stroke="currentColor" opacity=".25"><rect x="20" y="12" width="300" height="20" rx="4"/><rect x="20" y="36" width="300" height="20" rx="4"/><rect x="20" y="60" width="300" height="20" rx="4"/></g><g fill="currentColor" font-family="Geist,sans-serif" font-size="10"><text x="32" y="26">01   Find the BamHI + HindIII sites</text><text x="32" y="50">02   Digest the insert and the backbone</text><text x="32" y="74">03   Ligate the circular product</text></g><g fill="none" stroke="#1e7a4c" stroke-width="1.4"><path d="m297 22 3 3 5-6m-8 27 3 3 5-6m-8 27 3 3 5-6"/></g></svg></div></li>
         <li class="agent-step"><div class="step-head"><span class="caption-1 num">03</span><h3 class="title-2">Watch it run</h3></div><p class="body-6 muted">Digest, fragments, assembly, product.</p><div class="agent-art"><svg viewBox="0 0 340 92" role="img" aria-label="A gel sketch: a 2,892 base pair backbone band and a 726 base pair insert band beside a ladder"><rect x="44" y="10" width="150" height="72" rx="3" fill="currentColor" opacity=".08"/><g stroke="currentColor" opacity=".45"><path d="M66 24h16m-16 11h16m-16 11h16m-16 11h16m-16 11h16" stroke-width="2"/></g><g stroke="#2b3fb0" stroke-width="4"><path d="M108 35h24m25 27h24"/></g><g fill="currentColor" font-family="Geist,sans-serif" font-size="10" font-variant-numeric="tabular-nums"><text x="206" y="39">2,892 bp</text><text x="206" y="66">726 bp</text></g><g stroke="currentColor" opacity=".3"><path d="M136 35h66m-20 27h20"/></g></svg></div></li>
       </ol>
+      <figure class="agent-figure">
+        <div class="plate"><img src="assets/app-walkthrough.png" width="2880" height="1800" loading="lazy" decoding="async" alt="The walkthrough window in PlasmidLab, showing the eight pieces of the assembly in a row — backbone, GFP, P2A, mCherry, T2A, PuroR, E2A and HygR — with the 30 base pairs each neighbouring pair shares written between them"></div>
+        <figcaption class="caption-2"><span><b>Figure 2.</b> The walkthrough the agent drew for that run: all eight pieces, and the 30 bp each neighbouring pair shares.</span></figcaption>
+      </figure>
       <div class="agent-tail body-6"><p><strong>Every step, animated.</strong> Enzymes, fragment sizes and overhangs, played back in the app.</p><p>AI can be wrong. Check the sequence before you use it.</p></div>
     </div>
   </section>

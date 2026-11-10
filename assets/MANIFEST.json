@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-05T13:08:49.817Z",
+  "generated": "2026-11-10T14:53:04+09:00",
   "ai_run": "real",
   "files": {
     "ai-design-poster.png": {
@@ -24,38 +24,38 @@
     "app-agent.png": {
       "w": 2880,
       "h": 1800,
-      "bytes": 506463,
-      "what": "Hero shot of the app mid-run: the cut-and-paste exercise's pUC19-GFPmut3b circular map on the left (new label style, isoschizomer +N badges), and on the right the AI panel part way through a real Claude Code run, scrolled past the brief: tool-step cards (Reading one of your tabs, Reading a sequence x4 with base ranges, Finding where enzymes cut with site counts, Reading the method: restriction ligation), one line of the agent's reasoning (\"Both plasmids share a BamHI/HindIII polylinker, so this looks like a straight double-digest subclone...\") and the live \"Working · Reading the method\" spinner line."
+      "bytes": 947395,
+      "what": "The app at the end of a real recorded run: the walkthrough window holds the finished 5,670 bp circular product (CMV promoter, GFPmut3b, P2A, mCherry, T2A, PuroR, E2A, HygR, AmpR, ori), with the AI window beside it on its last two steps. Made by laying the two windows' own screenshots together, as they sit on screen."
     },
     "app-ai.png": {
       "w": 940,
       "h": 1520,
-      "bytes": 161539,
-      "what": "The AI window on its own (470x760 at 2x): the provider row (Claude Code, Default, high), the hint text with an example ask, the empty ask box with Show the bench steps and Send, the \"Answers can be wrong\" line, and the exercise cards (Move an insert between plasmids, Join two pieces with no scar) with their Play the recording and Open buttons."
+      "bytes": 166344,
+      "what": "The AI window on its own, before a run: the provider row (Claude Code, Default model, high effort), the ask box, and the exercise cards of a new chat."
     },
     "app-features.png": {
       "w": 2880,
       "h": 1800,
-      "bytes": 335721,
-      "what": "Features view of the same plasmid: the 11 features in a table with Location, Size, Color, Direction and Type, the Find features box and Actions menu, and the Enzymes side panel."
+      "bytes": 335697,
+      "what": "The Features table: 11 features with location, size, colour, direction and type."
     },
     "app-map.png": {
       "w": 2880,
       "h": 1800,
-      "bytes": 1177193,
-      "what": "Map view of pPL-T7-His-GFPmut3b (3,618 bp, circular, 53% GC) in the current C2 window: the circular map with its features (T7 promoter, lac operator, RBS, His6 tag, GFPmut3b, T7 terminator, lacI, lacI promoter, KanR, KanR promoter, ori) and the \"6 bp+ enzymes that cut once\" set labelled \"Name position\" with +N isoschizomer badges, the file sidebar, the Map / Sequence / Features / Primers / Enzymes / History tabs and the Enzymes side panel listing all 42 by position."
+      "bytes": 1182340,
+      "what": "The circular map of pPL-T7-His-GFPmut3b (3,618 bp, 53% GC): 11 features and all 42 enzyme sites, each with a label of its own."
     },
     "app-sequence.png": {
       "w": 2880,
       "h": 1800,
-      "bytes": 340132,
-      "what": "Sequence view of the same plasmid from base 1: both strands with the ruler, the enzyme sites above the bases (NsiI, AfeI, NheI, BmtI, BamHI, NdeI), the feature bars (T7 promoter, lac operator, RBS, His6 tag, GFPmut3b) and the amino-acid translation under the codons, with the Enzymes side panel."
+      "bytes": 351529,
+      "what": "The sequence view of the same plasmid: both strands, 80 bases a row, features and the GFPmut3b translation under them, enzyme sites above."
     },
     "app-window.png": {
       "w": 2880,
       "h": 1800,
-      "bytes": 498821,
-      "what": "Three Gateway exercise files open as tabs (pUC19-GFPmut3b, pPL-ENTR, pPL-DEST), the window shown as two panes: circular map of pUC19-GFPmut3b above with GFPmut3b selected, the sequence view below (both strands, enzyme sites, translation M R K G E E), and the AI panel on the right with the exercise's brief typed in."
+      "bytes": 789655,
+      "what": "pPL-T7-His-GFPmut3b in two panes: the circular map above with all 42 enzyme sites named in two columns, both strands with their translation below, and the enzyme list on the right."
     },
     "enzymes.png": {
       "w": 2880,
@@ -108,14 +108,14 @@
     "seven-piece-poster.png": {
       "w": 1440,
       "h": 900,
-      "bytes": 517080,
-      "what": "Frame from near the end of seven-piece.mp4, used as its poster: the walkthrough window on the PuroR piece (627 bp, with its two 15 bp tails and the PuroR_F / PuroR_R primers) over the product map, and the AI window with the run’s risk note and its last steps."
+      "bytes": 507304,
+      "what": "The frame of the film where all eight pieces are lined up with their 30 bp overlaps."
     },
     "seven-piece.mp4": {
       "w": 1440,
       "h": 900,
-      "bytes": 1688096,
-      "duration_s": 69,
+      "bytes": 928668,
+      "duration_s": 36,
       "what": "A real recorded agent run of the hardest exercise, played back in the app: GFP, mCherry, PuroR and HygR joined by three 2A linkers as one reading frame behind a CMV promoter, built as an eight-piece NEBuilder HiFi assembly with seven junctions. The donor plasmids and the 2A-linkers file are open as tabs, the walkthrough window animates each piece and the 30 bp overlaps the pieces line up on, and the AI window beside the map shows the agent’s own notes and its 37 steps. The last tab, demo-product_2, is the 5,670 bp circular product. No audio."
     },
     "walkthrough-poster.png": {
@@ -149,6 +149,12 @@
       "bytes": 797623,
       "what": "A circular map zooming in on cmd-scroll from the whole plasmid to about 300% around the CMV promoter, where the feature arrows and enzyme labels are large, panning along the ring and back, then zooming out to fit. pPL-DEST.",
       "duration_s": 8.6
+    },
+    "app-walkthrough.png": {
+      "w": 2880,
+      "h": 1800,
+      "bytes": 802548,
+      "what": "The walkthrough window at the annealing scene of the eight-piece assembly: backbone, GFP, P2A, mCherry, T2A, PuroR, E2A and HygR in a row over two levels, with the 30 bp each neighbouring pair shares written between them."
     }
   },
   "notes": [
