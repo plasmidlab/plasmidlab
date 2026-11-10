@@ -1,7 +1,7 @@
 // Points each download link at the visitor's installer. tools/release.mjs uploads these fixed names with every release.
-// shortcut: pinned to v0.2.7 (v0.2.5 on 2026-11-09, v0.2.6, then v0.2.7 on 2026-11-10) because GitHub's latest/ alias returned 504 on 2026-11-08; move back to latest/ or bump the version at the next release.
+// shortcut: pinned to v0.2.8 (v0.2.5 and v0.2.6 on 2026-11-09, v0.2.7 and v0.2.8 on 2026-11-10) because GitHub's latest/ alias returned 504 on 2026-11-08; move back to latest/ or bump the version at the next release.
 (() => {
-  const latest = 'https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.7/';
+  const latest = 'https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.8/';
   const files = {mac:'PlasmidLab-Mac.dmg', windows:'PlasmidLab-Windows.exe'};
   const labels = {mac:'Mac', windows:'Windows'}, ko = document.documentElement.lang === 'ko';
   const primary = /Win/i.test(navigator.platform + navigator.userAgent) ? 'windows' : 'mac';
