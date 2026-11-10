@@ -108,14 +108,14 @@
     "seven-piece-poster.png": {
       "w": 1440,
       "h": 900,
-      "bytes": 507304,
-      "what": "The frame of the film where all eight pieces are lined up with their 30 bp overlaps."
+      "bytes": 569949,
+      "what": "The frame of the film where all eight pieces sit in one tube with the 30 bp each neighbouring pair shares written under them."
     },
     "seven-piece.mp4": {
       "w": 1440,
       "h": 900,
-      "bytes": 928668,
-      "duration_s": 36,
+      "bytes": 1942175,
+      "duration_s": 35,
       "what": "A real recorded agent run of the hardest exercise, played back in the app: GFP, mCherry, PuroR and HygR joined by three 2A linkers as one reading frame behind a CMV promoter, built as an eight-piece NEBuilder HiFi assembly with seven junctions. The donor plasmids and the 2A-linkers file are open as tabs, the walkthrough window animates each piece and the 30 bp overlaps the pieces line up on, and the AI window beside the map shows the agent’s own notes and its 37 steps. The last tab, demo-product_2, is the 5,670 bp circular product. No audio."
     },
     "walkthrough-poster.png": {
