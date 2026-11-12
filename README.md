@@ -17,7 +17,7 @@ files. Free to download at [plasmidlab.com](https://plasmidlab.com/).
 - Finds restriction sites from the REBASE enzyme list, translates in six frames and designs primers.
 - Takes a request in plain words, such as moving a gene from one plasmid into another, calls its own
   cloning functions on your files, and shows every step, every primer and the product before you order.
-  It runs on a Claude, Codex or Grok plan you already have, or on a free trial of ten runs.
+  It runs on a Claude, ChatGPT or Grok plan you already have, or on a free trial of ten runs.
 
 ![A circular map drawn from a GenBank file](assets/map-circular.png)
 
