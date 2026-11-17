@@ -38,7 +38,8 @@
   const g1 = x => { const r = Math.round(x * 10) / 10 || 0; return (r > 0 ? '+' : r < 0 ? '−' : '') + Math.abs(r).toFixed(1); };
   const rev = s => s.split('').reverse().join('');
   // Thresholds from the PCR primer design guide; the "near" band is the 2 kcal/mol a fuller model often adds.
-  const verdict = (dG, end) => { const lim = end ? -5 : -6; return dG < lim ? L.over(end) : dG < lim + 2 ? L.near(end) : L.fine(end); };
+  // Judged on the rounded ΔG the drawing prints, so a shown −5.0 never reads as past a −5 limit and under it at once.
+  const verdict = (dG, end) => { const g = Math.round(dG * 10) / 10, lim = end ? -5 : -6; return g < lim ? L.over(end) : g < lim + 2 ? L.near(end) : L.fine(end); };
 
   function drawDimer(a, b, d) {
     const r = rev(b), pa = Math.max(0, -d.offset), pb = Math.max(0, d.offset);
@@ -51,8 +52,8 @@
       if (pair && !inRun) other++;
       mid += pair ? (inRun ? '|' : ':') : ' ';
     }
-    // Each end label sits right against its strand; both labels are three columns, so the bars stay in line.
-    return [{draw: `${' '.repeat(pa)}5′ ${a} 3′\n   ${mid.trimEnd()}\n${' '.repeat(pb)}3′ ${r} 5′`}, `${L.pairs(d.bp, g1(d.dG), other)}\n${verdict(d.dG, d.threePrime)}`];
+    // Plain ASCII quotes inside the drawings: a monospace font without ′ would borrow it and shift the columns.
+    return [{draw: `${' '.repeat(pa)}5' ${a} 3'\n   ${mid.trimEnd()}\n${' '.repeat(pb)}3' ${r} 5'`}, `${L.pairs(d.bp, g1(d.dG), other)}\n${verdict(d.dG, d.threePrime)}`];
   }
 
   function dimerText(a, b, title) {
@@ -69,8 +70,8 @@
     if (!h) return [`${L.hairpin}\n${L.noHairpin}`];
     const [[i, i2], [j, j2]] = h.stem, loop = s.slice(i2, j), half = Math.ceil(loop.length / 2);
     const head = s.slice(0, i), tail = s.slice(j2), pad = Math.max(head.length, tail.length);
-    const top = ' '.repeat(pad - head.length) + '5′ ' + head + s.slice(i, i2) + loop.slice(0, half);
-    const bot = ' '.repeat(pad - tail.length) + '3′ ' + rev(tail) + rev(s.slice(j, j2)) + rev(loop.slice(half));
+    const top = ' '.repeat(pad - head.length) + "5' " + head + s.slice(i, i2) + loop.slice(0, half);
+    const bot = ' '.repeat(pad - tail.length) + "3' " + rev(tail) + rev(s.slice(j, j2)) + rev(loop.slice(half));
     const mid = ' '.repeat(pad + 3) + '|'.repeat(h.bp);
     return [L.hairpin, {draw: `${top}\n${mid}\n${bot}`}, `${L.stem(h.bp, h.loop, g1(h.dG))}\n${h.dG >= 0 ? L.hpOpen : h.threePrime ? L.hpEnd : L.hpMid}`];
   }
@@ -83,7 +84,8 @@
   const worst = (pairs, hp) => Math.min(...pairs.map(([a, b]) => C.dimers(a, b).best?.dG ?? Infinity), ...hp.map(s => C.hairpin(s)?.dG ?? Infinity));
 
   function read(id) {
-    const s = $(id).value.replace(/5['′]-?|-?3['′]/g, '').replace(/[\s\d-]+/g, '').toUpperCase().replace(/U/g, 'T');
+    // Curly quotes too: a primer pasted from Word or a paper carries ’ rather than '.
+    const s = $(id).value.replace(/5['′’‘]-?|-?3['′’‘]/g, '').replace(/[\s\d-]+/g, '').toUpperCase().replace(/U/g, 'T');
     if (!s) return {s};
     const bad = s.match(/[^ACGT]/);
     if (bad) return {s, error: L.badChar(bad[0], bad.index + 1)};
