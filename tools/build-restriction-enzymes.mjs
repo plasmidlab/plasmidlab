@@ -47,7 +47,7 @@ for (const g of gs) for (const m of g.members) groupOf.set(m.name, g)
 
 const EN = {
   lang: 'en', url: EN_URL, home: '/', toolsHref: '/tools/', guides: '/guides/',
-  title: 'Restriction Enzyme List: Sites and Compatible Ends | PlasmidLab',
+  title: 'Restriction Enzyme List and Compatible Ends | PlasmidLab',
   desc: `All ${N} restriction enzymes PlasmidLab knows, with the recognition site, where it cuts, the overhang it leaves and which other enzymes leave an end that ligates to it. Paste a sequence to see how often each one cuts.`,
   ldName: 'Restriction enzyme list',
   crumb: 'Restriction enzymes',
