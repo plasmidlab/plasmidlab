@@ -89,6 +89,21 @@ assert.equal(C.meltingTemp('GCGTAACGATCCAGCTGTCG', {}, 0.05, 0.25e-6), 59.9)
 assert.equal(C.meltingTemp('GCGTAACGATCCAGCTGTCG'), 59.9)  // the app's own defaults are the same
 assert.ok(C.meltingTemp('GCGTAACGATCCAGCTGTCG', {}, 0.2, 0.25e-6) > 59.9, 'more salt, higher Tm')
 
+// Primer dimers and hairpins: the sums worked by hand in the app's tests/dimer.test.ts, and the page's example pair.
+assert.equal(C.duplexDeltaG('GAATTC').toFixed(2), '-3.16')  // stacks −5.532, two G·C ends +1.937, symmetry +0.434
+assert.ok('error' in C.duplexDeltaG('GANTC'))
+const pal = C.dimers('TTGAATTCTT', 'TTGAATTCTT')
+assert.deepEqual([pal.best.a, pal.best.bp, pal.best.threePrime], [[2, 8], 6, false])
+const overlap = C.dimers('CCCCCCCCCCGACT', 'CCCCCCCCCCAGTC').threePrime  // the two 3′ ends overlap by four bases
+assert.deepEqual([overlap.a, overlap.b, overlap.bp, overlap.dG.toFixed(2)], [[10, 14], [10, 14], 4, '-2.06'])
+assert.deepEqual(C.dimers('ACACCACA', 'ACACCA'), {best: null, threePrime: null})
+const hp = C.hairpin('CAGTCTTTTGACTG')
+assert.deepEqual([hp.stem, hp.bp, hp.loop, hp.dG.toFixed(2), hp.threePrime], [[[0, 5], [9, 14]], 5, 4, '-2.02', true])
+const ex1 = 'GACTGGATCCATGGTGAGCAAGGGCG', ex2 = 'GATCGAATTCTTACTTGTACAGCTCG'
+assert.equal(C.dimers(ex1, ex1).best.dG.toFixed(1), '-7.6')  // TGGATCCA, the BamHI tail pairing with itself
+assert.equal(C.dimers(ex1, ex2).best.dG.toFixed(9), C.dimers(ex2, ex1).best.dG.toFixed(9))
+assert.equal(C.hairpin(ex1), null)
+
 console.log('selftest: all checks pass')
 
 // The restriction enzyme list page: the groups it prints are derived, so the derivation is checked here.

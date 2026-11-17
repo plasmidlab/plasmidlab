@@ -95,6 +95,7 @@ const EN = {
     ['/tools/dna-molarity/', 'DNA molarity and ligation calculator', 'ng to pmol, and the insert ng for a ratio.'],
     ['/tools/gc-content/', 'GC content and primer Tm', 'Base counts, GC% and the Tm of a primer.'],
     ['/tools/translate/', 'Translate DNA and find ORFs', 'Six reading frames, with the ORFs marked.'],
+    ['/tools/primer-dimer/', 'Primer dimer and hairpin checker', 'Self-dimers, cross-dimers and hairpins, with ΔG.'],
   ],
   guideLinks: [
     ['/guides/restriction-cloning/', 'Restriction cloning', 'Two enzymes, one orientation.'],
@@ -161,6 +162,7 @@ const KO = {
     ['/ko/tools/dna-molarity/', 'DNA 몰 농도·라이게이션 계산', 'ng에서 pmol로, 인서트 양까지.'],
     ['/ko/tools/gc-content/', 'GC 함량과 프라이머 Tm', '염기 개수, GC%, 프라이머 Tm.'],
     ['/ko/tools/translate/', 'DNA 번역과 ORF 찾기', '6개 프레임을 한 화면에, ORF 표시.'],
+    ['/ko/tools/primer-dimer/', '프라이머 다이머·헤어핀 확인', '셀프 다이머, 크로스 다이머, 헤어핀과 ΔG.'],
   ],
   guideLinks: [
     ['/ko/guides/dna-file-open/', 'SnapGene .dna 파일 열기', 'Mac·Windows에서 무료로.'],

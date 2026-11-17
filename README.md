@@ -30,6 +30,7 @@ No account, nothing to install, and the sequence stays in the page.
 - [Virtual agarose gel](https://plasmidlab.com/tools/virtual-gel/)
 - [DNA molarity and ligation calculator](https://plasmidlab.com/tools/dna-molarity/)
 - [GC content and primer Tm](https://plasmidlab.com/tools/gc-content/)
+- [Primer dimer and hairpin checker](https://plasmidlab.com/tools/primer-dimer/)
 - [Translate DNA and find ORFs](https://plasmidlab.com/tools/translate/)
 - [Reverse complement](https://plasmidlab.com/tools/reverse-complement/)
 

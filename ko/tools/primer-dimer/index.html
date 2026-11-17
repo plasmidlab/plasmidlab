@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>프라이머 다이머·헤어핀 확인 (무료 온라인) | PlasmidLab</title><meta name="description" content="프라이머 하나나 한 쌍을 넣으면 셀프 다이머, 크로스 다이머, 헤어핀을 찾아 염기쌍 그림과 ΔG로 보여줍니다. 무료이고 로그인 없이 브라우저에서 바로 계산합니다."><link rel="canonical" href="https://plasmidlab.com/ko/tools/primer-dimer/"><link rel="alternate" hreflang="en" href="https://plasmidlab.com/tools/primer-dimer/"><link rel="alternate" hreflang="ko" href="https://plasmidlab.com/ko/tools/primer-dimer/"><link rel="alternate" hreflang="x-default" href="https://plasmidlab.com/tools/primer-dimer/"><meta property="og:type" content="website"><meta property="og:title" content="프라이머 다이머·헤어핀 확인 (무료 온라인) | PlasmidLab"><meta property="og:description" content="프라이머 하나나 한 쌍을 넣으면 셀프 다이머, 크로스 다이머, 헤어핀을 찾아 염기쌍 그림과 ΔG로 보여줍니다. 무료이고 로그인 없이 브라우저에서 바로 계산합니다."><meta property="og:url" content="https://plasmidlab.com/ko/tools/primer-dimer/"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://plasmidlab.com/assets/sequence.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"프라이머 다이머·헤어핀 확인","url":"https://plasmidlab.com/ko/tools/primer-dimer/","description":"프라이머 하나나 한 쌍의 셀프 다이머, 크로스 다이머, 헤어핀을 찾아 염기쌍 그림과 37 °C 최근접 이웃 ΔG로 보여줍니다.","inLanguage":"ko","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"author":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"},"publisher":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PlasmidLab","item":"https://plasmidlab.com/ko/"},{"@type":"ListItem","position":2,"name":"무료 도구","item":"https://plasmidlab.com/ko/tools/"},{"@type":"ListItem","position":3,"name":"프라이머 다이머","item":"https://plasmidlab.com/ko/tools/primer-dimer/"}]}</script><script src="/assets/theme.js"></script><link rel="icon" href="/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/fonts/geist.css"><link rel="stylesheet" href="/guides/guides.css"><link rel="stylesheet" href="/assets/pages.css"></head><body><a class="skip" href="#main">본문으로 건너뛰기</a><nav class="nav" aria-label="주요 메뉴"><a class="brand" href="/ko/">PlasmidLab</a><div class="nav-links"><a class="home" href="/ko/">홈</a><a class="more" href="/ko/tools/">도구</a><a href="/ko/guides/">가이드</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">로그인</a><a class="button" data-download="nav" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">다운로드</a></div></nav><main class="wrap" id="main"><p class="eyebrow"><a href="/ko/">PlasmidLab</a> / <a href="/ko/tools/">무료 도구</a> / 프라이머 다이머</p><h1>프라이머 다이머·헤어핀 확인</h1><p class="lead">프라이머 하나나 한 쌍을 넣으십시오. 프라이머마다 가장 강한 셀프 다이머, 3′ 말단에 걸린 가장 강한 다이머, 가장 안정한 헤어핀을 찾습니다. 두 개를 넣으면 둘 사이의 크로스 다이머도 찾습니다. 결과는 염기 단위 그림과 ΔG로 보여줍니다.</p>
+<section class="tool" aria-label="프라이머 다이머와 헤어핀"><div class="grid"><div><label for="p1">프라이머 1 (5′→3′)</label><input id="p1" type="text" spellcheck="false" autocomplete="off" autocapitalize="characters" placeholder="예: GACTGGATCCATGGTGAGCAAGGGCG"></div><div><label for="p2">프라이머 2 (5′→3′, 선택)</label><input id="p2" type="text" spellcheck="false" autocomplete="off" autocapitalize="characters" placeholder="짝이 되는 프라이머"></div></div><div class="options"><button type="button" class="copy" id="example">예시 넣기</button></div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<div class="out"><header><h2>프라이머 1 <span class="meta" id="m-1"></span></h2></header><pre class="align" id="o-1" data-empty="60 염기 이하 프라이머를 넣으십시오."></pre></div>
+<div class="out"><header><h2>프라이머 2 <span class="meta" id="m-2"></span></h2></header><pre class="align" id="o-2" data-empty="두 번째 프라이머를 넣으면 그 프라이머와 한 쌍을 함께 확인합니다."></pre></div>
+<div class="out"><header><h2>크로스 다이머 <span class="meta" id="m-x"></span></h2></header><pre class="align" id="o-x" data-empty="프라이머 두 개가 모두 있어야 합니다."></pre></div></section>
+<section class="prose"><h2>계산 방법</h2><p>한 가닥 아래에 다른 가닥을 역평행으로 놓고, 가능한 모든 위치로 밀어 가며 왓슨-크릭 쌍이 연속으로 이어지는 구간을 찾습니다. 쌍으로 치는 것은 A–T와 G–C뿐입니다. 셀프 다이머는 프라이머가 같은 프라이머의 다른 분자와 붙는 경우이고, 크로스 다이머는 프라이머 1과 프라이머 2가 붙는 경우입니다. 헤어핀은 프라이머가 스스로 접힌 구조입니다. 3쌍 이상의 줄기가 3 염기 이상의 고리를 닫아야 헤어핀으로 칩니다. U는 T로 읽습니다. N 같은 IUPAC 코드는 결합 에너지가 없어서, 들어 있으면 계산하지 않습니다.</p><p>ΔG는 그 정렬에서 가장 강한 연속 구간 하나의 37 °C 값입니다. <strong>SantaLucia 1998 통합 최근접 이웃(nearest-neighbour)</strong> 파라미터를 쓰며, PlasmidLab 앱이 프라이머 Tm에 쓰는 표와 같습니다. 구간의 두 염기 단계를 모두 더하고 양 끝 보정을 더합니다. 구간이 자기 자신의 역상보 서열이면 작은 대칭 보정을 더합니다. 기준 상태는 1 M NaCl이고 염 보정은 하지 않습니다. 헤어핀의 ΔG는 줄기의 단계 값에 고리 길이별 벌점(SantaLucia·Hicks 2004)을 더한 값입니다. 그림에서 <code>|</code>는 계산에 들어간 구간이고, <code>:</code>는 같은 정렬에서 상보적이지만 계산에 넣지 않은 염기입니다.</p><p>계산에 넣지 않는 것도 있습니다. 구간 안이나 옆의 미스매치와 벌지, G·T 쌍, 구간 끝에 매달린 짝 없는 염기, 일부 짧은 헤어핀 고리의 추가 안정성입니다. 이런 항까지 계산하는 프로그램은 값이 다르게 나오고, 대개 더 음수입니다. 시험용 다이머 12개를 그런 프로그램과 비교해 보니 이 페이지보다 0~3.5 kcal/mol 낮았고, 헤어핀은 1~1.6 kcal/mol 낮았습니다. 완전히 맞물린 20-mer 이중가닥에서는 차이가 0.1 kcal/mol 안이었습니다. 위 결과의 판정은 이 차이를 감안해서 냅니다.</p><p class="note">모든 계산은 브라우저에서 이루어집니다. 서열은 어디에도 전송되지 않습니다.</p>
+<h2>결과를 보고 할 일</h2><p>흔히 쓰는 기준은 이렇습니다. 3′ 말단에 걸린 다이머가 약 −5 kcal/mol보다 낮거나, 그 밖의 다이머가 약 −6 kcal/mol보다 낮으면 다시 설계합니다. 중합효소가 늘리는 쪽이 3′ 말단이라서 거기가 가장 중요합니다. 고치는 방법은 대개 간단합니다. 프라이머를 템플릿 위에서 몇 염기 옮기거나, 3′ 말단에서 한두 염기를 잘라 냅니다. 자세한 방법과 핫스타트 중합효소가 도움이 되는 경우는 <a href="/guides/pcr-primer-design/" lang="en" hreflang="en">PCR 프라이머 설계 가이드(영문)</a>에 있습니다.</p></section>
+<aside class="cta" aria-labelledby="cta-title"><div><p class="kicker">Mac·Windows용 PlasmidLab</p><h2 id="cta-title">내 플라스미드로 해보기</h2><p>PlasmidLab은 내 파일에 든 프라이머마다 Tm을 계산하고, 각 프라이머가 붙는 자리를 지도 위에 표시합니다. Mac과 Windows에서 무료로 쓸 수 있습니다.</p></div><div class="actions"><a class="button" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">Mac용 다운로드</a><a data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">Windows용도 있습니다</a></div></aside>
+<aside class="related"><h2>다른 무료 도구</h2><ul class="link-list"><li><a href="/ko/tools/gc-content/">GC 함량과 프라이머 Tm<span>염기 개수, GC%, 프라이머 Tm.</span></a></li><li><a href="/ko/tools/reverse-complement/">역상보 서열 변환<span>역순, 상보, 역상보를 한 번에.</span></a></li><li><a href="/ko/tools/restriction-sites/">제한효소 자리 찾기<span>한 번, 두 번, 자르지 않는 효소까지.</span></a></li><li><a href="/ko/tools/virtual-gel/">가상 아가로스 젤<span>절단했을 때 나올 밴드.</span></a></li><li><a href="/ko/tools/dna-molarity/">DNA 몰 농도·라이게이션 계산<span>ng에서 pmol로, 인서트 양까지.</span></a></li><li><a href="/ko/tools/translate/">DNA 번역과 ORF 찾기<span>6개 프레임을 한 화면에, ORF 표시.</span></a></li></ul><h2 style="margin-top:40px">가이드</h2><ul class="link-list"><li><a href="/ko/guides/gibson-primer/">Gibson 프라이머 설계<span>상동 구간과 어닐링 온도.</span></a></li><li><a href="/ko/guides/dna-file-open/">SnapGene .dna 파일 열기<span>Mac·Windows에서 무료로.</span></a></li><li><a href="/ko/guides/">한국어 가이드 전체<span>목록 보기.</span></a></li></ul></aside></main><footer class="footer"><div><div class="foot-text"><p>© 2026 PlasmidLab</p><p>PlasmidLab은 연구용 소프트웨어입니다. 무료 AI 체험은 만&nbsp;18세 이상만 이용할 수 있습니다.</p><p>Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google, Apple은 각 소유자의 상표입니다. PlasmidLab은 이들과 제휴하거나 보증받지 않았습니다.</p></div><nav class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">문제 신고</a><a href="/ko/guides/">가이드</a><a href="/privacy/ko/">개인정보처리방침</a><a href="/terms/" lang="en">Terms</a><a href="https://plasmidlab.com/tools/primer-dimer/" lang="en" hreflang="en">English</a></nav></div></footer><script src="/assets/download.js" defer></script><script src="/assets/consent.js" defer></script><script src="/assets/calc.js"></script><script>
+(() => {
+  const C = PlasmidCalc, $ = id => document.getElementById(id);
+  const MAX = 60;  // a primer, not a template: longer input is a different question
+  const L = {
+    bases: n => `${n} 염기`,
+    status: (n1, n2) => `프라이머 1: ${n1}${n2 ? ` · 프라이머 2: ${n2}` : ''}`,
+    start: '프라이머를 넣으면 계산합니다.',
+    tooLong: n => `${n} 염기입니다. 이 페이지는 60 염기 이하 프라이머만 확인합니다.`,
+    badChar: (ch, n) => `${n}번째 글자 "${ch}"는 A, C, G, T가 아닙니다. N 같은 모호한 염기는 결합 에너지가 없어서 계산하지 않습니다.`,
+    self: '셀프 다이머', cross: '크로스 다이머', strongest: '가장 강한 것', atEnd: '3′ 말단에 걸린 것', alsoEnd: '가장 강한 것이 3′ 말단에도 걸림',
+    crossNote: '위가 프라이머 1, 아래가 프라이머 2입니다.',
+    noneAny: '어느 정렬에서도 이웃한 두 염기가 함께 쌍을 이루지 않습니다.',
+    noneEnd: '3′ 말단을 포함하는 2쌍 이상의 구간이 없습니다.',
+    hairpin: '헤어핀', noHairpin: '3쌍 이상의 줄기가 3 염기 이상의 고리를 닫는 구조가 없습니다.',
+    pairs: (bp, g, more) => `${bp} bp, ΔG ${g} kcal/mol${more ? ` (이 정렬의 상보 염기 ${more}개는 계산에 넣지 않음)` : ''}`,
+    stem: (bp, loop, g) => `줄기 ${bp} bp, 고리 ${loop} 염기, ΔG ${g} kcal/mol`,
+    over: (end) => end ? '3′ 말단 다이머의 흔한 기준(약 −5 kcal/mol)을 넘습니다. 이 말단을 다시 설계하는 편이 좋습니다.' : '3′ 말단 밖 다이머의 흔한 기준(약 −6 kcal/mol)을 넘습니다. 다시 설계하는 편이 좋습니다.',
+    near: (end) => end ? '3′ 말단 기준(약 −5 kcal/mol)보다는 약하지만, 주변 염기까지 치면 넘을 수 있을 만큼 가깝습니다. 한 번 더 살펴보십시오.' : '3′ 말단 밖 기준(약 −6 kcal/mol)보다는 약하지만, 주변 염기까지 치면 넘을 수 있을 만큼 가깝습니다.',
+    fine: (end) => end ? '3′ 말단 기준(약 −5 kcal/mol)보다 충분히 약합니다.' : '3′ 말단 밖 기준(약 −6 kcal/mol)보다 충분히 약합니다.',
+    hpOpen: '37 °C에서도 안정하지 않습니다. 어닐링 온도에서는 풀려 있습니다.',
+    hpEnd: '37 °C에서 접혀 있고 3′ 말단이 줄기 안에 있습니다. 프라이밍을 막거나 스스로 늘어날 수 있으니 3′ 말단을 옮기거나 잘라 내는 편이 좋습니다.',
+    hpMid: '37 °C에서 접혀 있지만 3′ 말단과는 떨어져 있습니다. 어닐링 온도보다 낮은 온도에서 풀린다면 크게 문제 되지 않습니다.',
+    worst: g => `가장 강한 ΔG ${g} kcal/mol`,
+  };
+
+  const PAIR = {A: 'T', T: 'A', G: 'C', C: 'G'};
+  const g1 = x => { const r = Math.round(x * 10) / 10 || 0; return (r > 0 ? '+' : r < 0 ? '−' : '') + Math.abs(r).toFixed(1); };
+  const rev = s => s.split('').reverse().join('');
+  // Thresholds from the PCR primer design guide; the "near" band is the 2 kcal/mol a fuller model often adds.
+  const verdict = (dG, end) => { const lim = end ? -5 : -6; return dG < lim ? L.over(end) : dG < lim + 2 ? L.near(end) : L.fine(end); };
+
+  function drawDimer(a, b, d) {
+    const r = rev(b), pa = Math.max(0, -d.offset), pb = Math.max(0, d.offset);
+    const w = Math.max(pa + a.length, pb + r.length);
+    let mid = '', other = 0;
+    for (let c = 0; c < w; c++) {
+      const i = c - pa, m = i - d.offset;
+      const pair = i >= 0 && i < a.length && m >= 0 && m < r.length && PAIR[a[i]] === r[m];
+      const inRun = i >= d.a[0] && i < d.a[1];
+      if (pair && !inRun) other++;
+      mid += pair ? (inRun ? '|' : ':') : ' ';
+    }
+    // Each end label sits right against its strand; both labels are three columns, so the bars stay in line.
+    return [{draw: `${' '.repeat(pa)}5′ ${a} 3′\n   ${mid.trimEnd()}\n${' '.repeat(pb)}3′ ${r} 5′`}, `${L.pairs(d.bp, g1(d.dG), other)}\n${verdict(d.dG, d.threePrime)}`];
+  }
+
+  function dimerText(a, b, title) {
+    const r = C.dimers(a, b);
+    if (!r.best) return [`${title}\n${L.noneAny}`];
+    const same = r.threePrime && r.threePrime.offset === r.best.offset && r.threePrime.a[0] === r.best.a[0];
+    const t = [`${title}, ${same ? L.alsoEnd : L.strongest}`, ...drawDimer(a, b, r.best)];
+    if (!same) t.push(`\n\n${title}, ${L.atEnd}`, ...(r.threePrime ? drawDimer(a, b, r.threePrime) : [`\n${L.noneEnd}`]));
+    return t;
+  }
+
+  function hairpinText(s) {
+    const h = C.hairpin(s);
+    if (!h) return [`${L.hairpin}\n${L.noHairpin}`];
+    const [[i, i2], [j, j2]] = h.stem, loop = s.slice(i2, j), half = Math.ceil(loop.length / 2);
+    const head = s.slice(0, i), tail = s.slice(j2), pad = Math.max(head.length, tail.length);
+    const top = ' '.repeat(pad - head.length) + '5′ ' + head + s.slice(i, i2) + loop.slice(0, half);
+    const bot = ' '.repeat(pad - tail.length) + '3′ ' + rev(tail) + rev(s.slice(j, j2)) + rev(loop.slice(half));
+    const mid = ' '.repeat(pad + 3) + '|'.repeat(h.bp);
+    return [L.hairpin, {draw: `${top}\n${mid}\n${bot}`}, `${L.stem(h.bp, h.loop, g1(h.dG))}\n${h.dG >= 0 ? L.hpOpen : h.threePrime ? L.hpEnd : L.hpMid}`];
+  }
+
+  // Text wraps; each drawing is its own block that keeps its columns and scrolls sideways when it is too wide.
+  const show = (el, parts) => el.replaceChildren(...parts.map(x => typeof x === 'string' ? document.createTextNode(x)
+    : Object.assign(document.createElement('span'), {className: 'draw', textContent: x.draw})));
+
+  // Strongest ΔG over everything shown for a primer or pair, for the header line.
+  const worst = (pairs, hp) => Math.min(...pairs.map(([a, b]) => C.dimers(a, b).best?.dG ?? Infinity), ...hp.map(s => C.hairpin(s)?.dG ?? Infinity));
+
+  function read(id) {
+    const s = $(id).value.replace(/5['′]-?|-?3['′]/g, '').replace(/[\s\d-]+/g, '').toUpperCase().replace(/U/g, 'T');
+    if (!s) return {s};
+    const bad = s.match(/[^ACGT]/);
+    if (bad) return {s, error: L.badChar(bad[0], bad.index + 1)};
+    if (s.length > MAX) return {s, error: L.tooLong(s.length)};
+    return {s};
+  }
+
+  function run() {
+    const p = [read('p1'), read('p2')];
+    const ok = p.map(x => x.s && !x.error);
+    p.forEach((x, k) => {
+      const o = $('o-' + (k + 1)), m = $('m-' + (k + 1));
+      m.textContent = x.s ? L.bases(x.s.length) + (ok[k] && isFinite(worst([[x.s, x.s]], [x.s])) ? ' · ' + L.worst(g1(worst([[x.s, x.s]], [x.s]))) : '') : '';
+      show(o, !x.s ? [] : x.error ? [x.error] : [...dimerText(x.s, x.s, L.self), '\n\n', ...hairpinText(x.s)]);
+    });
+    const both = ok[0] && ok[1];
+    show($('o-x'), both ? [`${L.crossNote}\n\n`, ...dimerText(p[0].s, p[1].s, L.cross)] : []);
+    $('m-x').textContent = both && isFinite(worst([[p[0].s, p[1].s]], [])) ? L.worst(g1(worst([[p[0].s, p[1].s]], []))) : '';
+    $('status').textContent = !p[0].s && !p[1].s ? L.start : L.status(p[0].s ? L.bases(p[0].s.length) : '—', p[1].s ? L.bases(p[1].s.length) : '');
+  }
+  for (const id of ['p1', 'p2']) $(id).addEventListener('input', run);
+  $('example').addEventListener('click', () => { $('p1').value = 'GACTGGATCCATGGTGAGCAAGGGCG'; $('p2').value = 'GATCGAATTCTTACTTGTACAGCTCG'; run(); });
+  run();
+})();
+</script></body></html>

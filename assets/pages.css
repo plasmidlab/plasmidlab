@@ -23,6 +23,9 @@ select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid va
 .out .meta{display:block;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:0}
 .out pre{margin:0;padding:14px 16px;max-height:340px;overflow:auto;white-space:pre-wrap;word-break:break-all;color:var(--ink);font-size:14px;line-height:1.6}
 .out pre:empty::before{content:attr(data-empty);color:var(--muted);font-family:Geist,system-ui,sans-serif}
+/* Primer dimer page: the text wraps; each base-pair drawing keeps its columns and scrolls sideways on its own. */
+.out pre.align{word-break:keep-all;overflow-wrap:break-word;max-height:none}
+.out pre.align .draw{display:block;white-space:pre;overflow-x:auto}
 .copy{flex:none;font:inherit;font-size:14px;font-weight:600;min-height:36px;padding:6px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
 .copy:hover{border-color:var(--ink)}
 mark{background:transparent;color:inherit}
