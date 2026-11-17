@@ -47,7 +47,7 @@ for (const g of gs) for (const m of g.members) groupOf.set(m.name, g)
 
 const EN = {
   lang: 'en', url: EN_URL, home: '/', toolsHref: '/tools/', guides: '/guides/',
-  title: 'Restriction Enzyme List: Sites, Overhangs and Compatible Ends | PlasmidLab',
+  title: 'Restriction Enzyme List: Sites and Compatible Ends | PlasmidLab',
   desc: `All ${N} restriction enzymes PlasmidLab knows, with the recognition site, where it cuts, the overhang it leaves and which other enzymes leave an end that ligates to it. Paste a sequence to see how often each one cuts.`,
   ldName: 'Restriction enzyme list',
   crumb: 'Restriction enzymes',
@@ -114,7 +114,7 @@ const EN = {
 const KO = {
   ...EN, lang: 'ko', url: KO_URL, home: '/ko/', toolsHref: '/ko/tools/', guides: '/ko/guides/',
   title: '제한효소 목록: 인식 부위, 돌출, 호환되는 말단 | PlasmidLab',
-  desc: `PlasmidLab이 쓰는 제한효소 ${N}종을 한 표에 모았습니다. 인식 부위와 절단 위치, 남는 돌출, 그리고 어떤 효소끼리 말단이 붙는지까지 보여줍니다. 서열을 붙여 넣으면 효소별로 몇 번 자르는지도 나옵니다.`,
+  desc: `PlasmidLab이 쓰는 제한효소 ${N}종의 인식 부위와 절단 위치, 남는 돌출, 붙는 말단을 한 표에 모았습니다.`,  // Naver warns past 80 characters
   ldName: '제한효소 목록',
   crumb: '제한효소 목록',
   h1: '제한효소 목록: 인식 부위, 돌출, 호환되는 말단',
