@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>.dna·GenBank 파일 열기 (무료) | PlasmidLab</title><meta name="description" content=".dna, GenBank, FASTA, EMBL 파일을 브라우저에서 열어 특징과 플라스미드 지도를 봅니다. 파일은 전송되지 않습니다."><link rel="canonical" href="https://plasmidlab.com/ko/tools/open-dna-file/"><link rel="alternate" hreflang="en" href="https://plasmidlab.com/tools/open-dna-file/"><link rel="alternate" hreflang="ko" href="https://plasmidlab.com/ko/tools/open-dna-file/"><link rel="alternate" hreflang="x-default" href="https://plasmidlab.com/tools/open-dna-file/"><meta property="og:type" content="website"><meta property="og:title" content=".dna·GenBank 파일 열기 (무료) | PlasmidLab"><meta property="og:description" content=".dna, GenBank, FASTA, EMBL 파일을 브라우저에서 열어 특징과 플라스미드 지도를 봅니다. 파일은 전송되지 않습니다."><meta property="og:url" content="https://plasmidlab.com/ko/tools/open-dna-file/"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://plasmidlab.com/assets/map-circular.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":".dna·GenBank 파일 열기","url":"https://plasmidlab.com/ko/tools/open-dna-file/","description":".dna, GenBank, FASTA, EMBL 파일을 브라우저에서 읽어 길이, 원형·선형, 특징 목록과 플라스미드 지도를 보여줍니다. 파일은 페이지 안에서만 읽고 업로드하지 않습니다.","inLanguage":"ko","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"author":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"},"publisher":{"@type":"Organization","name":"PlasmidLab","url":"https://plasmidlab.com/"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"PlasmidLab","item":"https://plasmidlab.com/ko/"},{"@type":"ListItem","position":2,"name":"무료 도구","item":"https://plasmidlab.com/ko/tools/"},{"@type":"ListItem","position":3,"name":".dna 파일 열기","item":"https://plasmidlab.com/ko/tools/open-dna-file/"}]}</script><script src="/assets/theme.js"></script><link rel="icon" href="/assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/fonts/geist.css"><link rel="stylesheet" href="/guides/guides.css"><link rel="stylesheet" href="/assets/pages.css"></head><body><a class="skip" href="#main">본문으로 건너뛰기</a><nav class="nav" aria-label="주요 메뉴"><a class="brand" href="/ko/">PlasmidLab</a><div class="nav-links"><a class="home" href="/ko/">홈</a><a class="more" href="/ko/tools/">도구</a><a href="/ko/guides/">가이드</a><a data-login rel="nofollow" href="https://api.plasmidlab.com/login">로그인</a><a class="button" data-download="nav" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">다운로드</a></div></nav><main class="wrap" id="main"><p class="eyebrow"><a href="/ko/">PlasmidLab</a> / <a href="/ko/tools/">무료 도구</a> / .dna 파일 열기</p><h1>.dna·GenBank 파일 열기</h1><p class="lead">서열 파일을 여기에 놓으면 안에 든 내용을 보여줍니다. 파일에 적힌 이름, 길이, 원형인지 선형인지, 특징마다의 좌표, 그리고 그 좌표로 그린 플라스미드 지도입니다. 파일은 브라우저에서 읽고 어디로도 보내지 않습니다.</p>
+<section class="tool" aria-label="서열 파일 열기"><label class="drop" id="drop"><span class="pick">파일을 여기에 놓거나, 눌러서 고르십시오</span><span class="kinds">.dna, .gb, .gbk, .genbank, .fa, .fasta, .embl, .seq, .txt &middot; 10 MB까지 &middot; 브라우저에서 읽고 전송하지 않습니다</span><input id="file" type="file" accept=".dna,.gb,.gbk,.genbank,.fa,.fasta,.embl,.seq,.txt"></label>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<ul class="facts" id="facts" hidden></ul>
+<div class="out" id="mapbox" hidden><header><h2>지도 <span class="meta" id="m-map"></span></h2><span class="actions"><button type="button" class="copy" id="dl-gb">GenBank로 저장</button><button type="button" class="copy" id="dl-fa">FASTA로 저장</button></span></header><figure class="map" id="map"></figure></div>
+<div class="out" id="featbox" hidden><header><h2>특징 <span class="meta" id="m-feat"></span></h2></header><div class="table-wrap tall"><table class="features"><thead><tr><th scope="col">이름</th><th scope="col">종류</th><th scope="col" class="nowrap">시작</th><th scope="col" class="nowrap">끝</th><th scope="col">방향</th></tr></thead><tbody id="rows"></tbody></table></div></div></section>
+<section class="prose"><h2>이 페이지로 되는 일과 안 되는 일</h2><p>읽어서 보여 주기만 합니다. 고치지는 못합니다. 염기를 바꾸거나 특징을 추가하거나 파일을 다시 저장하는 기능은 없습니다. 지도 위의 두 버튼은 같은 서열을 GenBank나 FASTA로 다시 써 주고, 파일에 있던 특징을 그대로 담습니다.</p><p>파일의 첫 번째 서열만 보여줍니다. GenBank나 FASTA 파일에는 서열이 여러 개 들어갈 수 있고, 그런 파일이면 몇 개가 있는지 알려 줍니다.</p><p>시퀀싱 트레이스는 여기서 열지 못합니다. <code>.ab1</code>과 <code>.scf</code> 파일은 염기마다 형광 4채널을 담고 있어서 지도가 아니라 크로마토그램이 필요합니다. 이 페이지는 그런 파일을 받지 않고, PlasmidLab 앱이 엽니다.</p><p class="note">파일은 브라우저에 있는 파일 리더로 읽고 페이지 안에만 둡니다. 어디에도 올리지 않고, 만들 계정도 없습니다. 직접 확인해 볼 수 있습니다. 페이지를 열어 둔 뒤 네트워크를 끊어도 그대로 동작합니다.</p>
+<h2>열 수 있는 파일</h2><p>읽는 코드는 PlasmidLab 앱이 쓰는 것과 같습니다. 여기서 열리는 파일은 앱에서도 열리고, 특징도 같은 좌표로 나옵니다.</p><ul><li><strong>.dna</strong>, SnapGene® 형식입니다. 바이너리 패킷, 특징·프라이머 XML, 노트까지 읽습니다.</li><li><strong>GenBank</strong>(.gb, .gbk, .genbank)입니다. 여러 조각으로 나뉜 특징에 쓰는 <code>join()</code>과 <code>complement()</code> 표기도 읽습니다.</li><li><strong>EMBL</strong>(.embl)입니다. 같은 GenBank 파서로 읽습니다.</li><li><strong>FASTA</strong>(.fa, .fasta)입니다. 서열과 이름만 있고 특징은 없습니다.</li><li>헤더가 있든 없든 염기만 적힌 <strong>.seq</strong>, <strong>.txt</strong> 파일입니다.</li></ul>
+<h2>지도를 그리는 방식</h2><p>원형 서열은 원으로, 선형 서열은 막대로 그립니다. 1번 위치는 원의 맨 위, 막대의 맨 왼쪽입니다. 특징은 좌표가 가리키는 자리에 그리고, 겹치는 특징은 안쪽 고리나 아래 줄로 내려서 서로 가리지 않게 합니다. 전체 길이의 0.5%보다 짧은 특징은 선보다 얇아지기 때문에 그 최소 너비로 그립니다. 이름은 해당 특징 옆에 붙이고, 다른 이름 위에 겹칠 자리밖에 없으면 생략합니다. 아래 표에는 모든 이름이 있습니다.</p></section>
+<aside class="cta" aria-labelledby="cta-title"><div><p class="kicker">Mac·Windows용 PlasmidLab</p><h2 id="cta-title">파일을 고치려면</h2><p>앱은 같은 파일을 열어 서열을 고치고, 특징을 달고, 프라이머를 설계하고, 클로닝을 계획합니다. Mac과 Windows에서 무료로 쓸 수 있습니다.</p></div><div class="actions"><a class="button" data-download="primary" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">Mac용 다운로드</a><a data-download="other" href="https://github.com/plasmidlab/plasmidlab/releases/download/v0.2.10/PlasmidLab-Mac.dmg">Windows용도 있습니다</a></div></aside>
+<aside class="related"><h2>다른 무료 도구</h2><ul class="link-list"><li><a href="/ko/tools/restriction-sites/">제한효소 자리 찾기<span>한 번, 두 번, 자르지 않는 효소까지.</span></a></li><li><a href="/ko/tools/virtual-gel/">가상 아가로스 젤<span>절단했을 때 나올 밴드.</span></a></li><li><a href="/ko/tools/translate/">DNA 번역과 ORF 찾기<span>6개 프레임을 한 화면에, ORF 표시.</span></a></li><li><a href="/ko/tools/gc-content/">GC 함량과 프라이머 Tm<span>염기 개수, GC%, 프라이머 Tm.</span></a></li><li><a href="/ko/tools/primer-dimer/">프라이머 다이머·헤어핀 확인<span>셀프 다이머, 크로스 다이머, 헤어핀과 ΔG.</span></a></li><li><a href="/ko/tools/reverse-complement/">역상보 서열 변환<span>역순, 상보, 역상보를 한 번에.</span></a></li></ul><h2 style="margin-top:40px">가이드</h2><ul class="link-list"><li><a href="/ko/guides/dna-file-open/">SnapGene .dna 파일 열기<span>Mac·Windows에서 무료로.</span></a></li><li><a href="/ko/guides/plasmid-map/">플라스미드 지도 읽기<span>고리와 화살표가 뜻하는 것.</span></a></li><li><a href="/ko/snapgene-alternative/">SnapGene® 대체 무료 에디터<span>.dna 파일을 열고 고칩니다.</span></a></li><li><a href="/tools/open-dna-file/" lang="en" hreflang="en">Open a .dna or GenBank file online<span>이 페이지의 영문판.</span></a></li></ul></aside></main><footer class="footer"><div><div class="foot-text"><p>© 2026 PlasmidLab</p><p>PlasmidLab은 연구용 소프트웨어입니다. 무료 AI 체험은 만&nbsp;18세 이상만 이용할 수 있습니다.</p><p>Gibson Assembly, Gateway, TOPO, In-Fusion, NEBuilder, Q5, SnapGene, Benchling, Claude, Codex, ChatGPT, Grok, Google, Apple은 각 소유자의 상표입니다. PlasmidLab은 이들과 제휴하거나 보증받지 않았습니다.</p></div><nav class="footer-links"><a href="mailto:support@plasmidlab.com">support@plasmidlab.com</a><a href="https://github.com/plasmidlab/plasmidlab/issues">문제 신고</a><a href="/ko/tools/">도구</a><a href="/ko/guides/">가이드</a><a href="/privacy/ko/">개인정보처리방침</a><a href="/terms/" lang="en">Terms</a><a href="https://plasmidlab.com/tools/open-dna-file/" lang="en" hreflang="en">English</a></nav></div></footer><script src="/assets/download.js" defer></script><script src="/assets/consent.js" defer></script><script src="/assets/parse.js"></script><script>
+(() => {
+  const P = PlasmidParse, $ = id => document.getElementById(id);
+  const MAX_BYTES = 10 * 1024 * 1024;
+  const LOCALE = 'ko-KR';
+  const L = {
+    start: '아직 파일을 열지 않았습니다.',
+    reading: name => `${name} 읽는 중…`,
+    open: (name, extra) => `${name} 파일을 열었습니다.${extra}`,
+    more: n => ` 이 파일에는 서열이 ${n}개 있고, 그중 첫 번째입니다.`,
+    tooBig: mb => `${mb} MB 파일입니다. 이 페이지는 브라우저 안에서 파일을 읽기 때문에 10 MB까지만 받습니다. PlasmidLab 앱에는 이 제한이 없습니다.`,
+    unreadable: '브라우저가 이 파일을 읽지 못했습니다. 연결이 끊긴 드라이브에 있는 파일이면 바탕화면으로 복사한 뒤 다시 시도하십시오.',
+    notSeq: '.dna, GenBank, FASTA, EMBL 파일로 보이지 않습니다.',
+    trace: '시퀀싱 트레이스(.ab1, .scf) 파일입니다. 이 페이지는 크로마토그램을 그리지 않습니다. PlasmidLab 앱에서 열 수 있습니다.',
+    fName: '파일에 적힌 이름', fLength: '길이', fTopology: '형태', fFeatures: '특징',
+    bp: n => `${n} bp`,
+    circular: '원형', linear: '선형',
+    none: '없음',
+    strand: ['—', '정방향', '역방향', '양방향'],
+    noFeatures: '이 파일에는 특징이 없습니다.',
+    mapNote: (len, circ) => `${circ ? '원형' : '선형'}, ${len} bp`,
+    mapAlt: (name, circ, n) => `${name}의 ${circ ? '원형' : '선형'} 지도, 특징 ${n}개.`,
+    mapScale: '위치 단위는 bp입니다.',
+  };
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const n0 = n => n.toLocaleString(LOCALE);
+  const fit = (s, chars) => s.length > chars ? s.slice(0, Math.max(1, chars - 1)) + '…' : s;
+  let doc = null, info = null;
+
+  /** The ring or row a feature is drawn on: the first one where nothing it covers is already drawn. */
+  function lanes(features, len, max) {
+    const taken = [], lane = new Map();
+    const spans = f => f.segments.flatMap(s => s.end >= s.start ? [[s.start, s.end]] : [[s.start, len - 1], [0, s.end]]);
+    for (const f of [...features].sort((a, b) => b.bp - a.bp)) {
+      const mine = spans(f);
+      let k = 0;
+      while (k < max - 1 && (taken[k] || (taken[k] = [])).some(([a, b]) => mine.some(([c, d]) => c <= b && a <= d))) k++;
+      (taken[k] || (taken[k] = [])).push(...mine);
+      lane.set(f, k);
+    }
+    return lane;
+  }
+
+  /** A round tick step (1, 2 or 5 times a power of ten) that leaves at most `want` ticks. */
+  function tickStep(len, want) {
+    const p = Math.pow(10, Math.floor(Math.log10(Math.max(1, len / want))));
+    return [1, 2, 5, 10].map(m => m * p).find(s => len / s <= want) || p * 10;
+  }
+
+  const first = f => f.segments[0].start;
+  // The end of the last segment, carried past the origin when the feature wraps it, so a mid-point stays honest.
+  const last = (f, len) => { const e = f.segments[f.segments.length - 1].end; return (e >= first(f) ? e : e + len) + 1; };
+  const paint = s => esc(s.color || 'currentColor');
+
+  function circularMap(W) {
+    const len = info.length, font = W < 460 ? 10 : 11, room = W < 460 ? 76 : 96;
+    const c = W / 2, r = Math.max(56, c - room), gap = 10;
+    const at = (bp, rad) => { const a = (bp / len) * 2 * Math.PI - Math.PI / 2; return [c + rad * Math.cos(a), c + rad * Math.sin(a)]; };
+    const pt = (bp, rad) => at(bp, rad).map(v => v.toFixed(1)).join(' ');
+    const arc = (from, to, rad) => to - from >= len
+      ? `M${pt(0, rad)}A${rad} ${rad} 0 1 1 ${pt(len / 2, rad)}A${rad} ${rad} 0 1 1 ${pt(len - 0.001, rad)}`
+      : `M${pt(from, rad)}A${rad.toFixed(1)} ${rad.toFixed(1)} 0 ${to - from > len / 2 ? 1 : 0} 1 ${pt(to, rad)}`;
+
+    const lane = lanes(info.features, len, 4), minArc = len * 0.004;
+    const rings = info.features.length ? Math.max(...[...lane.values()]) + 1 : 1;
+    const out = [`<circle class="bb" cx="${c}" cy="${c}" r="${r.toFixed(1)}"/>`];
+
+    // The scale numbers sit inside the innermost ring of features, where no arc can strike through them.
+    const step = tickStep(len, W < 460 ? 5 : 9), rNum = Math.max(16, r - (rings - 1) * gap - 13);
+    for (let bp = 0; bp < len; bp += step) {
+      const [tx, ty] = at(bp, rNum);
+      out.push(`<path class="tick" d="M${pt(bp, r)}L${pt(bp, r + 5)}"/>`,
+        `<text class="num" x="${tx.toFixed(1)}" y="${(ty + 3.4).toFixed(1)}" text-anchor="middle">${n0(bp || 1)}</text>`);
+    }
+    out.push(`<text class="ctr" x="${c}" y="${c + 4}" text-anchor="middle" font-size="${font + 1}">${esc(L.bp(n0(len)))}</text>`);
+
+    for (const f of info.features) {
+      const rad = r - lane.get(f) * gap;
+      for (const s of f.segments) {
+        const from = s.start, to = (s.end >= s.start ? s.end : s.end + len) + 1;
+        out.push(`<path d="${arc(from, from + Math.min(Math.max(to - from, minArc), len), rad)}" fill="none" stroke="${paint(s)}" stroke-width="7"/>`);
+      }
+    }
+
+    // Labels sit outside the ring at the feature's own angle. One that would land on another is left out.
+    const kept = [[], []];
+    for (const f of info.features) {
+      const [lx, ly] = at((first(f) + last(f, len)) / 2, r + 9), right = lx >= c, side = kept[right ? 0 : 1];
+      if (side.some(y => Math.abs(y - ly) < font + 3)) continue;
+      side.push(ly);
+      // However long the name, it is cut to what fits between this point and the edge of the drawing.
+      const chars = Math.max(3, Math.floor(((right ? W - lx : lx) - 2) / (font * 0.56)));
+      out.push(`<text class="lab" x="${lx.toFixed(1)}" y="${(ly + font * 0.35).toFixed(1)}" text-anchor="${right ? 'start' : 'end'}" font-size="${font}">${esc(fit(f.name, chars))}</text>`);
+    }
+    // The drawing is only as tall as the ring and its labels; the rest of the square would be blank.
+    const pad = font + 12, vh = 2 * (r + pad);
+    return [out.join(''), `0 ${(c - r - pad).toFixed(1)} ${W} ${vh.toFixed(1)}`, W, Math.round(vh)];
+  }
+
+  function linearMap(W) {
+    const len = info.length, font = W < 460 ? 10 : 11, laneH = font + 16, bar = 8;
+    const lane = lanes(info.features, len, 8);
+    const rows = info.features.length ? Math.max(...[...lane.values()]) + 1 : 1;
+    const x0 = 2, x1 = W - 2, x = bp => x0 + (bp / len) * (x1 - x0);
+    const top = 4, axis = top + rows * laneH + 10, H = axis + 20;
+
+    const out = [`<path class="bb" d="M${x0} ${axis}H${x1}"/>`];
+    const step = tickStep(len, W < 460 ? 5 : 9);
+    for (let bp = 0; bp <= len; bp += step) {
+      const tx = x(bp), anchor = bp === 0 ? 'start' : tx > x1 - 24 ? 'end' : 'middle';
+      out.push(`<path class="tick" d="M${tx.toFixed(1)} ${axis}V${axis + 5}"/>`,
+        `<text class="num" x="${tx.toFixed(1)}" y="${axis + 16}" text-anchor="${anchor}">${n0(bp || 1)}</text>`);
+    }
+
+    const used = [];
+    for (const f of info.features) {
+      const k = lane.get(f), y = top + (rows - 1 - k) * laneH;
+      for (const s of f.segments) {
+        const a = Math.min(x(s.start), x1 - 2), b = Math.min(Math.max(x(s.end + 1), a + 2), x1);
+        out.push(`<rect x="${a.toFixed(1)}" y="${y}" width="${(b - a).toFixed(1)}" height="${bar}" rx="1.5" fill="${paint(s)}"/>`);
+      }
+      const lx = Math.min(x(first(f)), x1 - font * 2.5);
+      if (lx < (used[k] || 0)) continue;
+      const text = fit(f.name, Math.max(3, Math.floor((x1 - lx) / (font * 0.56))));
+      used[k] = lx + text.length * font * 0.56 + 8;
+      out.push(`<text class="lab" x="${lx.toFixed(1)}" y="${y + bar + font + 1}" font-size="${font}">${esc(text)}</text>`);
+    }
+    return [out.join(''), `0 0 ${W} ${H}`, W, H];
+  }
+
+  function drawMap() {
+    if (!info) return;
+    const box = $('map');
+    const W = Math.round(Math.max(260, Math.min(620, box.clientWidth || 620)));
+    const [body, view, w, h] = info.circular ? circularMap(W) : linearMap(W);
+    box.innerHTML = `<svg viewBox="${view}" width="${w}" height="${h}" role="img" aria-label="${esc(L.mapAlt(info.name, info.circular, info.features.length))}">${body}</svg><figcaption class="num">${esc(L.mapScale)}</figcaption>`;
+  }
+
+  function clear(msg) {
+    doc = info = null;
+    for (const id of ['facts', 'mapbox', 'featbox']) $(id).hidden = true;
+    $('map').innerHTML = '';
+    $('rows').replaceChildren();
+    $('status').textContent = msg;
+  }
+
+  function show(records) {
+    const facts = [[L.fName, info.name], [L.fLength, L.bp(n0(info.length))],
+      [L.fTopology, info.circular ? L.circular : L.linear], [L.fFeatures, info.features.length || L.none]];
+    $('facts').innerHTML = facts.map(([k, v]) => `<li>${esc(k)}: <b>${esc(v)}</b></li>`).join('');
+    $('m-map').textContent = L.mapNote(n0(info.length), info.circular);
+    $('m-feat').textContent = info.features.length ? '' : L.noFeatures;
+    $('rows').innerHTML = info.features.map(f => `<tr><th scope="row">${esc(f.name)}</th><td>${esc(f.type)}</td>` +
+      `<td class="nowrap">${n0(f.start)}</td><td class="nowrap">${n0(f.end)}</td><td>${esc(L.strand[f.strand] || L.strand[0])}</td></tr>`).join('');
+    for (const id of ['facts', 'mapbox', 'featbox']) $(id).hidden = false;
+    $('status').textContent = L.open(info.name, records > 1 ? L.more(records) : '');
+    drawMap();
+  }
+
+  function load(file) {
+    clear(file ? L.reading(file.name) : L.start);
+    if (!file) return;
+    if (file.size > MAX_BYTES) return clear(L.tooBig(Math.round(file.size / 1048576)));
+    const reader = new FileReader();
+    reader.onerror = () => clear(L.unreadable);
+    reader.onload = () => {
+      const bytes = new Uint8Array(reader.result);
+      if (P.isAbif(bytes) || P.isScf(bytes)) return clear(L.trace);
+      let docs;
+      try { docs = P.openFiles(file.name, bytes); } catch { return clear(L.notSeq); }
+      if (!docs.length) return clear(L.notSeq);
+      doc = docs[0];
+      info = P.summary(doc);
+      show(docs.length);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function save(text, ext, mime) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([text], {type: mime}));
+    a.download = (info.name.replace(/[\\/:*?"<>|]/g, '_') || 'sequence') + ext;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+
+  $('file').addEventListener('change', e => load(e.target.files[0]));
+  $('dl-gb').addEventListener('click', () => doc && save(P.toGenBank(doc), '.gb', 'text/plain'));
+  $('dl-fa').addEventListener('click', () => doc && save(P.toFasta(doc), '.fa', 'text/plain'));
+  // The file input covers the zone, so the browser handles the drop itself; this is only the highlight.
+  const drop = $('drop');
+  for (const ev of ['dragenter', 'dragover']) drop.addEventListener(ev, () => drop.classList.add('over'));
+  for (const ev of ['dragleave', 'drop']) drop.addEventListener(ev, () => drop.classList.remove('over'));
+  addEventListener('resize', drawMap);
+  clear(L.start);
+})();
+</script></body></html>

@@ -90,6 +90,7 @@ const EN = {
   ctaMac: 'Download for Mac', ctaWin: 'Also for Windows',
   relatedTools: 'More free tools', relatedGuides: 'Guides',
   tools: [
+    ['/tools/open-dna-file/', 'Open a .dna or GenBank file', 'The features and the map, in the browser.'],
     ['/tools/restriction-sites/', 'Restriction site finder', 'Enzymes that cut once, twice or not at all.'],
     ['/tools/virtual-gel/', 'Virtual agarose gel', 'The bands your digest will give.'],
     ['/tools/dna-molarity/', 'DNA molarity and ligation calculator', 'ng to pmol, and the insert ng for a ratio.'],
@@ -157,6 +158,7 @@ const KO = {
   ctaMac: 'Mac용 다운로드', ctaWin: 'Windows용도 있습니다',
   relatedTools: '다른 무료 도구', relatedGuides: '가이드',
   tools: [
+    ['/ko/tools/open-dna-file/', '.dna·GenBank 파일 열기', '특징과 지도를 브라우저에서.'],
     ['/ko/tools/restriction-sites/', '제한효소 자리 찾기', '한 번, 두 번, 자르지 않는 효소까지.'],
     ['/ko/tools/virtual-gel/', '가상 아가로스 젤', '절단했을 때 나올 밴드.'],
     ['/ko/tools/dna-molarity/', 'DNA 몰 농도·라이게이션 계산', 'ng에서 pmol로, 인서트 양까지.'],

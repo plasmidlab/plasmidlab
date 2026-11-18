@@ -8,7 +8,8 @@ const assets = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets')
 await import(join(assets, 'enzymes.js'))
 await import(join(assets, 'tools.js'))
 await import(join(assets, 'calc.js'))
-const T = globalThis.PlasmidTools, E = globalThis.PLASMIDLAB_ENZYMES, C = globalThis.PlasmidCalc
+await import(join(assets, 'parse.js'))
+const T = globalThis.PlasmidTools, E = globalThis.PLASMIDLAB_ENZYMES, C = globalThis.PlasmidCalc, V = globalThis.PlasmidParse
 const enzyme = name => E.find(e => e[0] === name)
 
 // Reverse complement: IUPAC, case and order.
@@ -103,6 +104,56 @@ const ex1 = 'GACTGGATCCATGGTGAGCAAGGGCG', ex2 = 'GATCGAATTCTTACTTGTACAGCTCG'
 assert.equal(C.dimers(ex1, ex1).best.dG.toFixed(1), '-7.6')  // TGGATCCA, the BamHI tail pairing with itself
 assert.equal(C.dimers(ex1, ex2).best.dG.toFixed(9), C.dimers(ex2, ex1).best.dG.toFixed(9))
 assert.equal(C.hairpin(ex1), null)
+
+// The file viewer's bundle (assets/parse.js): the app's own readers, on files written here.
+const bytes = (s) => new TextEncoder().encode(s)
+const read = (name, text) => { const docs = V.openFiles(name, bytes(text)); return [docs[0], V.summary(docs[0]), docs.length] }
+const GB = `LOCUS       pSelfTest                120 bp ds-DNA     circular SYN 18-NOV-2026
+DEFINITION  a plasmid written in tools/selftest.mjs.
+FEATURES             Location/Qualifiers
+     CDS             join(100..120,1..20)
+                     /label=wrapGene
+     promoter        complement(30..50)
+                     /label=pTest
+ORIGIN
+        1 atgcatgcat gcatgcatgc atgcatgcat gcatgcatgc atgcatgcat gcatgcatgc
+       61 atgcatgcat gcatgcatgc atgcatgcat gcatgcatgc atgcatgcat gcatgcatgc
+//
+`
+const [gbDoc, gb] = read('pSelfTest.gb', GB)
+assert.equal(gb.name, 'pSelfTest')
+assert.equal(gb.length, 120)
+assert.equal(gb.circular, true)
+assert.equal(gb.features.length, 2)
+// Coordinates are 1-based and inclusive, and the list is in the order the table prints them.
+assert.deepEqual(gb.features.map((f) => [f.name, f.type, f.start, f.end, f.bp, f.strand]),
+  [['pTest', 'promoter', 30, 50, 21, 2], ['wrapGene', 'CDS', 100, 20, 41, 1]])
+// The CDS runs across the origin, which the map has to draw as a segment whose end is before its start.
+assert.deepEqual(gb.features[1].segments.map((s) => [s.start, s.end]), [[99, 19]])
+
+// FASTA: a sequence and a name, no features, and linear because nothing says otherwise.
+const [, fa] = read('demo.fa', '>pFastaTest a sequence for the selftest\nACGTACGTAA CCGGTTAACC\nggttaaccgg\n')
+assert.deepEqual([fa.name, fa.length, fa.circular, fa.features.length], ['pFastaTest', 30, false, 0])
+// Two records in one file: the page shows the first and says how many there were.
+assert.equal(read('two.fa', '>one\nACGTACGT\n>two\nTTTTTTTT\n')[2], 2)
+
+// Garbage takes the error path rather than crashing or reading as bases.
+assert.throws(() => V.openFiles('notes.txt', bytes('Lab notebook, Tuesday. Nothing in here is a sequence, just prose.')), /Unrecognized file format/)
+assert.throws(() => V.openFiles('junk.bin', new Uint8Array([0, 1, 2, 3, 0, 255, 7, 0])), /Unrecognized file format/)
+assert.throws(() => V.openFiles('empty.gb', bytes('')), /Unrecognized file format/)
+// Bytes named .dna go to the .dna reader, which throws its own message; the page shows its error text for any throw.
+assert.throws(() => V.openFiles('broken.dna', new Uint8Array([0, 1, 2, 3, 0, 255, 7, 0])), Error)
+// A sequencing trace is turned away by the page, which asks these two before parsing.
+assert.equal(V.isAbif(bytes('ABIF' + 'x'.repeat(200))), true)
+assert.equal(V.isScf(bytes('.scf' + 'x'.repeat(200))), true)
+assert.equal(V.isAbif(bytes(GB)), false)
+
+// The two download buttons write with the app's own writers, and what they write reads back the same.
+assert.ok(V.toGenBank(gbDoc).startsWith('LOCUS'))
+assert.ok(V.toFasta(gbDoc).startsWith('>pSelfTest'))
+const reread = V.summary(V.openFiles('again.gb', bytes(V.toGenBank(gbDoc)))[0])
+assert.deepEqual([reread.length, reread.circular, reread.features.length], [120, true, 2])
+assert.deepEqual(reread.features.map((f) => [f.start, f.end]), [[30, 50], [100, 20]])
 
 console.log('selftest: all checks pass')
 

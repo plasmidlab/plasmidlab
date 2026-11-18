@@ -90,7 +90,26 @@ mark.orf.longest{background:var(--btn);color:#fff}
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
 .actions .button{padding:11px 18px}
 .disclaimer{display:inline-block;font-size:14px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin:0 0 32px}
+/* The file viewer page: the drop zone, the map it draws and the facts above them. */
+.drop{display:block;position:relative;margin:20px 0 0;padding:34px 24px;border:1px dashed var(--line);border-radius:12px;background:var(--band);text-align:center;cursor:pointer}
+.drop:hover,.drop.over{border-color:var(--accent)}
+.drop:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.drop .pick{display:block;color:var(--ink);font-weight:600;font-size:17px}
+.drop .kinds{display:block;font-size:14px;color:var(--muted);margin-top:6px;word-break:break-word}
+.facts{display:flex;flex-wrap:wrap;gap:4px 28px;margin:20px 0 0;padding:0;list-style:none;font-size:15px}
+.facts li{margin:0;padding:0;max-width:none;color:var(--muted)}
+.facts b{color:var(--ink);font-variant-numeric:tabular-nums}
+.map{margin:0;padding:12px 0}
+.map svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.map .bb{fill:none;stroke:var(--line);stroke-width:1.5}
+.map .tick{stroke:var(--line);stroke-width:1;fill:none}
+.map .num{fill:var(--muted);font-size:9.5px;font-variant-numeric:tabular-nums}
+.map .ctr{fill:var(--muted);font-variant-numeric:tabular-nums}
+.map .lab{fill:var(--ink)}
 .table-wrap{overflow-x:auto;margin:16px 0 0}
+.table-wrap.tall{max-height:460px;overflow:auto}
+.table-wrap.tall .features thead th{position:sticky;top:0;background:var(--paper);padding:8px 16px 8px 0;border-bottom:1px solid var(--line)}
 .table-wrap.wide table{min-width:980px}
 .table-wrap .nowrap{white-space:nowrap}
 .features{width:100%;border-collapse:collapse;font-size:15px}

@@ -25,6 +25,7 @@ files. Free to download at [plasmidlab.com](https://plasmidlab.com/).
 
 No account, nothing to install, and the sequence stays in the page.
 
+- [Open a .dna or GenBank file](https://plasmidlab.com/tools/open-dna-file/)
 - [Restriction site finder](https://plasmidlab.com/tools/restriction-sites/)
 - [Restriction enzyme list](https://plasmidlab.com/tools/restriction-enzymes/)
 - [Virtual agarose gel](https://plasmidlab.com/tools/virtual-gel/)
